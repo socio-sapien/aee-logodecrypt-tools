@@ -1,0 +1,1 @@
+We verified the mathematical formula and computed the total sum. The result equals forty-two, therefore the ledger matches the record line.

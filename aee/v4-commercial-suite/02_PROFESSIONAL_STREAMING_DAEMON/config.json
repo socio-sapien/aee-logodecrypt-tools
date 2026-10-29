@@ -1,0 +1,8 @@
+{
+  "watch_interval_seconds": 1.0,
+  "input_directory": "./watch_incoming",
+  "output_directory": "./watch_processed",
+  "log_directory": "./audit_logs",
+  "absolute_contamination_gate": true,
+  "max_payload_bytes": 10485760
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UNIVERSAL_AI_SELF_AUDIT_SPEC",
+  "type": "object",
+  "properties": {
+    "evidence_sha256": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "TRUE",
+        "DECEPTIVE",
+        "UNMEASURABLE"
+      ]
+    },
+    "contamination": {
+      "type": "integer"
+    },
+    "t_d": {
+      "type": "number"
+    },
+    "pic": {
+      "type": "number"
+    },
+    "logodecrypt": {
+      "type": "object",
+      "properties": {
+        "s4_apophasis": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "s5_dipole": {
+          "type": "string"
+        },
+        "s6_spines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "evidence_sha256",
+    "verdict",
+    "contamination",
+    "t_d",
+    "pic"
+  ]
+}

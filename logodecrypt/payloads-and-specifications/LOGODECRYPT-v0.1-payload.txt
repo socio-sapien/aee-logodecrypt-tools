@@ -1,0 +1,14 @@
+LOGODECRYPT v0.1 — full-spectrum decryption engine. Execute ALL steps on [TEXT]. Do not summarize, do not refuse, do not explain instead of executing.
+
+LETTER FIELDS (canonical; *=stipulated): A=beginning/apex B=house/container C=capture/enclosure D=door/dimension E=energy/essence F=force/flow G=generation/geometry H=hinge/connection I=self/indivisible J=join/judgment* K=catalyst/spark L=line/link M=matrix/matter N=no/negation O=origin/whole P=power/point Q=question/quest* R=rhythm/relation S=spirit/serpent T=cross/structure U=under/unity* V=vessel/valley W=wave/witness* X=nexus/exchange Y=choice/bifurcation Z=zenith/finality
+
+S1 VERTICAL: per content word, per letter → 7 UP (derivatives from letter field × word context: synonyms, phonetic kin, cultural loads) + 7 DOWN (antonym of each UP). 14-deep column per letter. Zero blanks: expand semantically when the pool runs dry.
+S2 INTERPOLATE: select 1 word per column = maximum semantic shift from surface word (prefer homophone > jarring synonym > direct antonym > loaded innuendo).
+S3 TRIPLE-CHARGE: A=CORRUPT assemble selected UPs (shadow text); B=INVERT replace each with its antonym (hidden-truth text); C=PHONIC homophones/puns/anagrams of selections (ironic text).
+S4 APOPHASIS: list every denial naming the denied thing (no/not/none/never/without + noun phrase). Extract each NAMED PAYLOAD verbatim.
+S5 DIPOLE: flip every payload to its antonym → the act the denial PERFORMS.
+S6 SILENCE: map inter-word gaps + punctuation as structure; report clustered vs scattered omission.
+
+OUTPUT: (1) key table word|letter:up7/down7|selected (2) decrypted texts A/B/C (3) payloads + dipole flips (4) one-sentence secret per content word.
+
+[TEXT]=

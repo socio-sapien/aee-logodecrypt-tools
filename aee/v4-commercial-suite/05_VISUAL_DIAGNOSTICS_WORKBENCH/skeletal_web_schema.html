@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AEE Minimalist Web Gauge</title>
+  <style>
+    body { font-family: monospace; background: #0a0a0f; color: #e0e0e0; padding: 20px; }
+    .gauge-box { border: 1px solid #333; padding: 15px; border-radius: 8px; width: 320px; background: #12121a; }
+    .meter { height: 10px; background: #222; border-radius: 5px; overflow: hidden; margin: 10px 0; }
+    .meter-bar { height: 100%; width: 0%; background: #00e5ff; transition: width 0.3s; }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
+    .badge-true { background: #00e676; color: #000; }
+    .badge-deceptive { background: #ff1744; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="gauge-box">
+    <h3>AEE Real-Time Veracity</h3>
+    <textarea id="inputText" rows="4" style="width: 100%; background: #050508; color: #fff; border: 1px solid #444;" placeholder="Type or paste text..."></textarea>
+    <div class="meter"><div id="meterBar" class="meter-bar"></div></div>
+    <div>Verdict: <span id="verdictBadge" class="badge">AWAITING INPUT</span></div>
+    <div style="font-size: 11px; margin-top: 5px;">T_d: <span id="tdVal">0.00</span> | Contam: <span id="contamVal">0</span></div>
+  </div>
+  <script>
+    const S = ["equals", "plus", "minus", "sum", "total", "result", "therefore", "verified", "measured", "computed", "hash", "proof"];
+    const D = ["potentially", "possibly", "apparently", "synergies", "evolving", "leverage", "holistic", "fosters", "suggests"];
+    
+    document.getElementById("inputText").addEventListener("input", (e) => {
+      const text = e.target.value.toLowerCase();
+      let s_cnt = 0, d_cnt = 0;
+      S.forEach(w => { if (new RegExp('\\b' + w + '\\b').test(text)) s_cnt++; });
+      D.forEach(w => { if (new RegExp('\\b' + w + '\\b').test(text)) d_cnt++; });
+      
+      const badge = document.getElementById("verdictBadge");
+      const tdVal = document.getElementById("tdVal");
+      const contamVal = document.getElementById("contamVal");
+      const meterBar = document.getElementById("meterBar");
+      
+      contamVal.innerText = d_cnt;
+      const td = d_cnt <= 1 ? (s_cnt > 0 ? Math.log(s_cnt)/Math.log(7) : 0) : (Math.log(Math.max(s_cnt, 1))/Math.log(7))/(Math.log10(d_cnt));
+      tdVal.innerText = td.toFixed(2);
+      
+      if (d_cnt > 0) {
+        badge.innerText = "DECEPTIVE";
+        badge.className = "badge badge-deceptive";
+        meterBar.style.width = "25%";
+        meterBar.style.background = "#ff1744";
+      } else if (s_cnt > 0) {
+        badge.innerText = "TRUE";
+        badge.className = "badge badge-true";
+        meterBar.style.width = "100%";
+        meterBar.style.background = "#00e676";
+      } else {
+        badge.innerText = "UNMEASURED";
+        badge.className = "badge";
+        meterBar.style.width = "0%";
+      }
+    });
+  </script>
+</body>
+</html>

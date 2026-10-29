@@ -1,0 +1,14 @@
+[Unit]
+Description=AEE v4.0 Pro Daemon Streaming Audit Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/aee-pro-daemon
+ExecStart=/usr/bin/python3 /opt/aee-pro-daemon/aee_daemon.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
