@@ -1,0 +1,1279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="data:," />
+    <title>Aletheiac Entropy Engine — Dashboard Remediated</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #07090b;
+        --panel: #0d1114;
+        --panel-2: #12171c;
+        --panel-3: #161d23;
+        --line: #212a32;
+        --line-2: #2e3944;
+        --ink: #dde4ea;
+        --muted: #93a0ac;
+        --faint: #5f6d79;
+        --green: #35e184;
+        --green-deep: #0f2c1e;
+        --red: #ff5347;
+        --red-deep: #33120f;
+        --amber: #ffb648;
+        --steel: #6fb3d8;
+        --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 15px;
+        line-height: 1.55;
+      }
+      ::selection { background: var(--green-deep); color: var(--green); }
+
+      /* ---------- header ---------- */
+      header.topbar {
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(180deg, #0b0f12, var(--bg));
+        padding: 22px 20px 18px;
+      }
+      .topbar-in { max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; justify-content: space-between; }
+      h1.title {
+        font-family: var(--mono);
+        font-size: clamp(19px, 3.4vw, 27px);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        margin: 0;
+        line-height: 1.2;
+      }
+      h1.title .remed { color: var(--green); }
+      .subtitle {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+        margin-top: 7px;
+        text-transform: uppercase;
+      }
+      .parity-badge {
+        font-family: var(--mono);
+        font-size: 12px;
+        border: 1px solid var(--line-2);
+        background: var(--panel);
+        padding: 8px 12px;
+        border-radius: 4px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .parity-badge.ok { border-color: #1e5c3c; color: var(--green); background: var(--green-deep); }
+      .parity-badge.bad { border-color: #6e231c; color: var(--red); background: var(--red-deep); }
+
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 18px 20px 60px; }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      /* ---------- input deck ---------- */
+      .deck { padding: 16px; margin-bottom: 18px; }
+      .deck label, .lbl {
+        display: block;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      textarea {
+        width: 100%;
+        background: var(--bg);
+        color: var(--ink);
+        border: 1px solid var(--line-2);
+        border-radius: 4px;
+        font-family: var(--mono);
+        font-size: 14px;
+        line-height: 1.6;
+        padding: 12px;
+        resize: vertical;
+        min-height: 108px;
+      }
+      textarea:focus { outline: 1px solid var(--green); outline-offset: 0; border-color: var(--green); }
+      .deck-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+      button {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        background: var(--panel-3);
+        color: var(--ink);
+        border: 1px solid var(--line-2);
+        border-radius: 4px;
+        padding: 8px 13px;
+        cursor: pointer;
+      }
+      button:hover { border-color: var(--green); color: var(--green); }
+      button.primary { background: var(--green-deep); border-color: #1e5c3c; color: var(--green); font-weight: 700; }
+      button.primary:hover { background: #14402a; color: #7df0ae; }
+      .spec-note { font-family: var(--mono); font-size: 11px; color: var(--faint); margin-left: auto; }
+      .headline-strip {
+        display: flex; flex-wrap: wrap; gap: 0;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        margin-top: 14px;
+        overflow: hidden;
+      }
+      .hs-cell { flex: 1 1 130px; padding: 10px 14px; background: var(--panel-2); border-right: 1px solid var(--line); min-width: 0; }
+      .hs-cell:last-child { border-right: none; }
+      .hs-k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--faint); text-transform: uppercase; }
+      .hs-v { font-family: var(--mono); font-size: 17px; font-weight: 600; margin-top: 2px; overflow-wrap: anywhere; }
+      .hs-v.true { color: var(--green); }
+      .hs-v.deceptive { color: var(--red); }
+      .sha-line { font-family: var(--mono); font-size: 11px; color: var(--faint); margin-top: 10px; overflow-wrap: anywhere; }
+      .sha-line b { color: var(--muted); font-weight: 500; }
+
+      /* ---------- layout + rail ---------- */
+      .layout { display: grid; grid-template-columns: 196px minmax(0, 1fr); gap: 18px; align-items: start; }
+      nav.rail {
+        position: sticky; top: 14px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--panel);
+        padding: 10px 0;
+      }
+      nav.rail a {
+        display: flex; gap: 10px; align-items: baseline;
+        padding: 8px 14px;
+        color: var(--muted);
+        text-decoration: none;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.1em;
+      }
+      nav.rail a .rn { color: var(--faint); font-size: 10.5px; }
+      nav.rail a:hover { color: var(--ink); }
+      nav.rail a.active { color: var(--green); background: var(--panel-2); box-shadow: inset 2px 0 0 var(--green); }
+      nav.rail a.active .rn { color: var(--green); }
+
+      .stages { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+      section.stage { padding: 18px; scroll-margin-top: 14px; }
+      .stage-head { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+      .stage-no { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--bg); background: var(--green); padding: 2px 7px; border-radius: 3px; letter-spacing: 0.05em; }
+      .stage-head h2 { font-family: var(--mono); font-size: 16px; letter-spacing: 0.12em; margin: 0; font-weight: 600; }
+      .stage-note { font-family: var(--mono); font-size: 11px; color: var(--faint); margin-left: auto; text-align: right; }
+
+      /* ---------- census tiles ---------- */
+      .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 10px; }
+      .tile { background: var(--panel-2); border: 1px solid var(--line); border-radius: 5px; padding: 12px 13px; }
+      .tile .tk { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--faint); text-transform: uppercase; }
+      .tile .tv { font-family: var(--mono); font-size: 24px; font-weight: 600; margin-top: 4px; line-height: 1.15; overflow-wrap: anywhere; }
+      .tile .tv.small { font-size: 15px; padding-top: 5px; }
+      .detail-rows { margin-top: 14px; border-top: 1px dashed var(--line); }
+      .drow { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 8px 2px; border-bottom: 1px dashed var(--line); align-items: baseline; }
+      .drow .dk { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; min-width: 168px; }
+      .drow .dv { font-family: var(--mono); font-size: 13px; }
+      .drow .dbasis { font-family: var(--mono); font-size: 11.5px; color: var(--faint); margin-left: auto; text-align: right; }
+
+      /* ---------- logosecryption ops ---------- */
+      .ops { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+      .op { background: var(--panel-2); border: 1px solid var(--line); border-radius: 5px; padding: 14px; }
+      .op h3 { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.12em; margin: 0 0 4px; font-weight: 600; }
+      .op .op-count { font-family: var(--mono); font-size: 30px; font-weight: 700; line-height: 1.1; }
+      .op .op-count.hot { color: var(--red); }
+      .op .op-count.calm { color: var(--green); }
+      .op .op-sub { font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin-top: 6px; line-height: 1.7; }
+      .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+      .chip { font-family: var(--mono); font-size: 11.5px; background: var(--panel-3); border: 1px solid var(--line-2); border-radius: 3px; padding: 2px 8px; color: var(--ink); }
+      .chip.anchor { border-color: #6e231c; color: #ffb3ad; }
+      .none-line { font-family: var(--mono); font-size: 11.5px; color: var(--faint); margin-top: 8px; }
+
+      /* ---------- ledger ---------- */
+      table.ledger { width: 100%; border-collapse: collapse; font-family: var(--mono); }
+      table.ledger th { text-align: left; font-size: 10.5px; letter-spacing: 0.15em; color: var(--faint); text-transform: uppercase; font-weight: 500; padding: 6px 8px; border-bottom: 1px solid var(--line-2); }
+      table.ledger th.num, table.ledger td.num { text-align: right; }
+      table.ledger td { padding: 9px 8px; border-bottom: 1px solid var(--line); font-size: 13px; vertical-align: top; }
+      table.ledger td.basis { color: var(--faint); font-size: 11.5px; }
+      table.ledger td.num { font-size: 15px; font-weight: 600; }
+      table.ledger tr.total td { border-top: 2px solid var(--line-2); border-bottom: none; font-weight: 700; }
+      table.ledger tr.total td.num { font-size: 19px; }
+      .punct-break { font-family: var(--mono); font-size: 11.5px; color: var(--faint); margin-top: 10px; line-height: 1.8; }
+
+      /* ---------- verdict ---------- */
+      .verdict-word { font-family: var(--mono); font-weight: 700; font-size: clamp(42px, 9vw, 76px); letter-spacing: 0.04em; line-height: 1.05; margin: 4px 0 2px; }
+      .verdict-word.true { color: var(--green); }
+      .verdict-word.deceptive { color: var(--red); }
+      .verdict-meta { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+      .verdict-meta b { color: var(--ink); font-weight: 600; }
+      .scope-line { border-left: 3px solid var(--amber); background: #1d1809; color: #e8cf9e; padding: 10px 14px; font-size: 13.5px; margin-top: 16px; border-radius: 0 4px 4px 0; }
+      blockquote.locus, blockquote.clause {
+        margin: 12px 0 0; padding: 10px 14px;
+        background: var(--panel-2); border: 1px solid var(--line);
+        border-left: 3px solid var(--red);
+        font-family: var(--mono); font-size: 13px; border-radius: 0 4px 4px 0;
+      }
+      blockquote.clause { border-left-color: var(--amber); }
+      .q-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.15em; color: var(--faint); text-transform: uppercase; margin-top: 16px; }
+
+      /* ---------- disclosure ---------- */
+      .intent-big { font-family: var(--mono); font-size: clamp(19px, 4.4vw, 28px); font-weight: 700; letter-spacing: 0.05em; line-height: 1.25; }
+      .chain { display: flex; gap: 0; margin-top: 18px; align-items: stretch; flex-wrap: wrap; }
+      .node { flex: 1 1 180px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 5px; padding: 12px 13px; min-width: 0; }
+      .node .nk { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--faint); text-transform: uppercase; }
+      .node .nv { font-family: var(--mono); font-size: 14.5px; font-weight: 600; margin-top: 5px; line-height: 1.4; overflow-wrap: anywhere; }
+      .node .ne { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.7; overflow-wrap: anywhere; }
+      .arrow { align-self: center; font-family: var(--mono); color: var(--green); font-size: 17px; padding: 0 7px; }
+      .flows { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-top: 14px; }
+      .anchor-box { margin-top: 16px; border: 1px solid var(--line-2); border-radius: 5px; padding: 14px; background: var(--panel-2); }
+      .anchor-box .ak { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; color: var(--faint); text-transform: uppercase; }
+      .anchor-box .av { font-family: var(--mono); font-size: 21px; font-weight: 700; margin-top: 4px; letter-spacing: 0.04em; }
+      .anchor-box .av.hot { color: var(--red); }
+      .anchor-box .av.calm { color: var(--green); }
+      .anchor-box .ae { font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin-top: 5px; }
+
+      /* ---------- reconstruction ---------- */
+      .recon-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; padding: 10px 2px; border-bottom: 1px dashed var(--line); font-family: var(--mono); }
+      .recon-row .part { font-size: 16px; font-weight: 600; }
+      .recon-row .coord { font-size: 12px; color: var(--amber); letter-spacing: 0.06em; }
+      .recon-row .site { font-size: 11px; color: var(--faint); margin-left: auto; }
+
+      /* ---------- receipt ---------- */
+      pre.receipt {
+        background: var(--bg); border: 1px solid var(--line-2); border-radius: 4px;
+        font-family: var(--mono); font-size: 12px; line-height: 1.65;
+        padding: 14px; overflow-x: auto; white-space: pre; margin: 0;
+        color: var(--ink);
+      }
+
+      /* ---------- batch ---------- */
+      .batch { padding: 18px; margin-top: 18px; scroll-margin-top: 14px; }
+      table.btable { width: 100%; border-collapse: collapse; font-family: var(--mono); margin-top: 14px; }
+      table.btable th { text-align: left; font-size: 10.5px; letter-spacing: 0.13em; color: var(--faint); text-transform: uppercase; font-weight: 500; padding: 6px 8px; border-bottom: 1px solid var(--line-2); }
+      table.btable td { padding: 8px; border-bottom: 1px solid var(--line); font-size: 12.5px; vertical-align: top; }
+      table.btable tr.brow { cursor: pointer; }
+      table.btable tr.brow:hover td { background: var(--panel-2); }
+      td.vt { color: var(--green); font-weight: 700; }
+      td.vd { color: var(--red); font-weight: 700; }
+      .batch-empty { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 12px; }
+
+      footer.foot { margin-top: 26px; font-family: var(--mono); font-size: 11px; color: var(--faint); line-height: 1.8; border-top: 1px solid var(--line); padding-top: 14px; }
+      .await { font-family: var(--mono); color: var(--faint); font-size: 13px; padding: 8px 0; }
+
+      @media (max-width: 900px) {
+        .layout { grid-template-columns: minmax(0, 1fr); }
+        nav.rail { display: none; }
+        .drow .dbasis { margin-left: 0; text-align: left; }
+        .drow .dk { min-width: 0; }
+      }
+      @media (max-width: 640px) {
+        .parity-badge { white-space: normal; }
+        .wrap { padding: 14px 12px 48px; }
+        section.stage, .batch { padding: 14px; }
+        .arrow { display: none; }
+        .chain { flex-direction: column; gap: 10px; }
+        table.btable, table.btable tbody, table.btable tr, table.btable td { display: block; width: 100%; }
+        table.btable thead { display: none; }
+        table.btable tr.brow { border: 1px solid var(--line); border-radius: 5px; margin-bottom: 10px; padding: 6px 4px; background: var(--panel-2); }
+        table.btable td { border-bottom: none; padding: 3px 10px; }
+        table.btable td::before { content: attr(data-l); display: inline-block; min-width: 108px; color: var(--faint); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+        pre.receipt { font-size: 11px; white-space: pre-wrap; overflow-wrap: anywhere; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-in">
+        <div>
+          <h1 class="title">ALETHEIAC ENTROPY ENGINE <span class="remed">— DASHBOARD REMEDIATED</span></h1>
+          <div class="subtitle">AEE v4 · sealed census engine · one audit object drives every reading</div>
+        </div>
+        <div class="parity-badge" id="parityBadge">CALIBRATION SELF-TEST · RUNNING…</div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <!-- ======= INPUT DECK ======= -->
+      <section class="panel deck">
+        <label for="inputText">Text under audit</label>
+        <textarea id="inputText" spellcheck="false"></textarea>
+        <div class="deck-row">
+          <button type="button" class="primary" id="runBtn">RUN AUDIT</button>
+          <button type="button" data-spec="a">SPECIMEN A</button>
+          <button type="button" data-spec="b">SPECIMEN B</button>
+          <button type="button" data-spec="c">SPECIMEN C</button>
+          <button type="button" data-spec="d">SPECIMEN D</button>
+          <button type="button" id="clearBtn">CLEAR</button>
+          <span class="spec-note" id="specNote">Calibration specimens A–D load the sealed self-test texts.</span>
+        </div>
+        <div class="headline-strip" id="headlineStrip">
+          <div class="hs-cell"><div class="hs-k">Verdict</div><div class="hs-v" id="hsVerdict">—</div></div>
+          <div class="hs-cell"><div class="hs-k">Contamination v4</div><div class="hs-v" id="hsContam">—</div></div>
+          <div class="hs-cell"><div class="hs-k">Intent</div><div class="hs-v" id="hsIntent" style="font-size:13.5px;padding-top:3px;">—</div></div>
+          <div class="hs-cell"><div class="hs-k">T_d / PIC</div><div class="hs-v" id="hsTdPic">—</div></div>
+        </div>
+        <div class="sha-line">INPUT SHA-256 · <b id="shaOut">—</b></div>
+      </section>
+
+      <div class="layout">
+        <!-- ======= STAGE RAIL ======= -->
+        <nav class="rail" id="rail" aria-label="Audit stages">
+          <a href="#stage-census"><span class="rn">01</span>CENSUS</a>
+          <a href="#stage-logos"><span class="rn">02</span>LOGOSECRYPTION</a>
+          <a href="#stage-ledger"><span class="rn">03</span>CONTAMINATION</a>
+          <a href="#stage-verdict"><span class="rn">04</span>VERDICT</a>
+          <a href="#stage-disclosure"><span class="rn">05</span>DISCLOSURE</a>
+          <a href="#stage-recon"><span class="rn">06</span>RECONSTRUCTION</a>
+          <a href="#stage-receipt"><span class="rn">07</span>RECEIPT</a>
+          <a href="#stage-batch"><span class="rn">+</span>BATCH MODE</a>
+        </nav>
+
+        <div class="stages" id="stagesRoot">
+          <div class="await" id="awaitMsg">Awaiting input — paste text above or load a calibration specimen.</div>
+
+          <!-- ======= 01 CENSUS ======= -->
+          <section class="panel stage" id="stage-census" hidden>
+            <div class="stage-head"><span class="stage-no">01</span><h2>CENSUS</h2><span class="stage-note">counts taken from the input bytes, nothing else</span></div>
+            <div class="tiles">
+              <div class="tile"><div class="tk">Words</div><div class="tv" id="tWords">—</div></div>
+              <div class="tile"><div class="tk">S · Structural</div><div class="tv" id="tS">—</div></div>
+              <div class="tile"><div class="tk">D · Deception load</div><div class="tv" id="tD">—</div></div>
+              <div class="tile"><div class="tk">PIC</div><div class="tv" id="tPIC">—</div></div>
+              <div class="tile"><div class="tk">T_d · Truth decay</div><div class="tv" id="tTd">—</div></div>
+              <div class="tile"><div class="tk">Status</div><div class="tv small" id="tStatus">—</div></div>
+              <div class="tile"><div class="tk">Structure load</div><div class="tv small" id="tStruct">—</div></div>
+              <div class="tile"><div class="tk">Dominant letter</div><div class="tv" id="tLetter">—</div></div>
+            </div>
+            <div class="detail-rows">
+              <div class="drow"><span class="dk">Category</span><span class="dv" id="dCategory">—</span><span class="dbasis" id="dCategoryBasis"></span></div>
+              <div class="drow"><span class="dk">Letters / s-count</span><span class="dv" id="dLetters">—</span><span class="dbasis">PIC = (s×3.64 + rest×1.00) / letters</span></div>
+              <div class="drow"><span class="dk">Apophatic total</span><span class="dv" id="dApo">—</span><span class="dbasis" id="dApoBasis"></span></div>
+              <div class="drow"><span class="dk">Figures</span><span class="dv" id="dFigures">—</span><span class="dbasis" id="dDensity"></span></div>
+              <div class="drow"><span class="dk">Digits / number words</span><span class="dv" id="dDigits">—</span><span class="dbasis"></span></div>
+              <div class="drow"><span class="dk">Script census</span><span class="dv" id="dScripts">—</span><span class="dbasis" id="dFusions"></span></div>
+              <div class="drow"><span class="dk">Sealed contamination</span><span class="dv" id="dSealed">—</span><span class="dbasis" id="dSealedBasis"></span></div>
+            </div>
+          </section>
+
+          <!-- ======= 02 LOGOSECRYPTION ======= -->
+          <section class="panel stage" id="stage-logos" hidden>
+            <div class="stage-head"><span class="stage-no">02</span><h2>LOGOSECRYPTION</h2><span class="stage-note">the four encryption operations, measured — anchors quoted from the text</span></div>
+            <div class="ops">
+              <div class="op">
+                <h3>ACTOR DELETION</h3>
+                <div class="op-count" id="opDelCount">—</div>
+                <div class="op-sub" id="opDelSub"></div>
+                <div class="chips" id="opDelChips"></div>
+                <div class="none-line" id="opDelNone" hidden>none measured</div>
+              </div>
+              <div class="op">
+                <h3>AGENCY INVERSION</h3>
+                <div class="op-count" id="opInvCount">—</div>
+                <div class="op-sub" id="opInvSub"></div>
+                <div class="none-line" id="opInvNone" hidden>no wide/sealed delta · no demoted by-agents</div>
+              </div>
+              <div class="op">
+                <h3>JARGON SUBSTITUTION</h3>
+                <div class="op-count" id="opJarCount">—</div>
+                <div class="op-sub" id="opJarSub"></div>
+                <div class="chips" id="opJarChips"></div>
+                <div class="none-line" id="opJarNone" hidden>no nominalizations measured</div>
+              </div>
+              <div class="op">
+                <h3>OMISSION</h3>
+                <div class="op-count" id="opOmiCount">—</div>
+                <div class="op-sub" id="opOmiSub"></div>
+                <div class="none-line" id="opOmiNone" hidden>no omission sites measured</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ======= 03 CONTAMINATION LEDGER ======= -->
+          <section class="panel stage" id="stage-ledger" hidden>
+            <div class="stage-head"><span class="stage-no">03</span><h2>CONTAMINATION LEDGER</h2><span class="stage-note">every component itemized — no hidden terms</span></div>
+            <table class="ledger">
+              <thead><tr><th>Component</th><th>Basis</th><th class="num">Count</th></tr></thead>
+              <tbody id="ledgerBody"></tbody>
+            </table>
+            <div class="punct-break" id="punctBreak"></div>
+          </section>
+
+          <!-- ======= 04 VERDICT ======= -->
+          <section class="panel stage" id="stage-verdict" hidden>
+            <div class="stage-head"><span class="stage-no">04</span><h2>VERDICT</h2><span class="stage-note">v3.9 absolute</span></div>
+            <div class="verdict-word" id="verdictWord">—</div>
+            <div class="verdict-meta" id="verdictMeta"></div>
+            <div class="scope-line">Verdict attaches to construction as measured by the sealed census. Zero reads TRUE; the first contaminant reads DECEPTIVE.</div>
+            <div id="locusWrap" hidden>
+              <div class="q-label">First locus — sentence <span id="locusN"></span></div>
+              <blockquote class="locus" id="locusText"></blockquote>
+            </div>
+            <div class="q-label" id="locusNone" hidden>First locus — none. No contaminant site measured in any sentence.</div>
+          </section>
+
+          <!-- ======= 05 DISCLOSURE SEQUENCE ======= -->
+          <section class="panel stage" id="stage-disclosure" hidden>
+            <div class="stage-head"><span class="stage-no">05</span><h2>DISCLOSURE SEQUENCE</h2><span class="stage-note">intent class from the gated v3.8 ladder — gates printed beside the class</span></div>
+            <div class="lbl">Intent class</div>
+            <div class="intent-big" id="intentBig">—</div>
+            <div class="detail-rows" style="margin-top:12px;">
+              <div class="drow"><span class="dk">Ladder inputs</span><span class="dv" id="ladderInputs">—</span><span class="dbasis">I tokens · first-person singular · first-person plural · concealment</span></div>
+              <div class="drow"><span class="dk">Benefit-reader hits</span><span class="dv" id="brHits">—</span><span class="dbasis"></span></div>
+              <div class="drow"><span class="dk">Transfer hits</span><span class="dv" id="trHits">—</span><span class="dbasis"></span></div>
+              <div class="drow"><span class="dk">Concealment count</span><span class="dv" id="concealN">—</span><span class="dbasis">agentless passives + indefinite actors + enumeration gap</span></div>
+            </div>
+
+            <div class="lbl" style="margin-top:18px;">Intent chain — rendered from measured fields only</div>
+            <div class="chain">
+              <div class="node"><div class="nk">Actor</div><div class="nv" id="chActor">—</div><div class="ne" id="chActorE"></div></div>
+              <div class="arrow">→</div>
+              <div class="node"><div class="nk">Mechanism</div><div class="nv" id="chMech">—</div><div class="ne" id="chMechE"></div></div>
+              <div class="arrow">→</div>
+              <div class="node"><div class="nk">Consequence</div><div class="nv" id="chCons">—</div><div class="ne" id="chConsE"></div></div>
+              <div class="arrow">→</div>
+              <div class="node"><div class="nk">Beneficiary</div><div class="nv" id="chBen">—</div><div class="ne" id="chBenE"></div></div>
+            </div>
+
+            <div class="lbl" style="margin-top:18px;">Flow census</div>
+            <div class="flows">
+              <div class="tile"><div class="tk">Retention</div><div class="tv" id="fRet">—</div></div>
+              <div class="tile"><div class="tk">Capture</div><div class="tv" id="fCap">—</div></div>
+              <div class="tile"><div class="tk">Exposure</div><div class="tv" id="fExp">—</div></div>
+              <div class="tile"><div class="tk">Record</div><div class="tv" id="fRec">—</div></div>
+            </div>
+
+            <div id="baWrap" hidden>
+              <div class="q-label">Benefit-author clauses — verbatim from the text</div>
+              <div id="baClauses"></div>
+            </div>
+
+            <div class="anchor-box">
+              <div class="ak">Culpability anchor</div>
+              <div class="av" id="anchorVal">—</div>
+              <div class="ae" id="anchorWhy"></div>
+            </div>
+          </section>
+
+          <!-- ======= 06 RECONSTRUCTION ======= -->
+          <section class="panel stage" id="stage-recon" hidden>
+            <div class="stage-head"><span class="stage-no">06</span><h2>RECONSTRUCTION</h2><span class="stage-note">deleted actors restored to their coordinates — never invented</span></div>
+            <div id="reconList"></div>
+            <div class="none-line" id="reconNone" hidden>No agentless passives measured — no deleted actor to restore.</div>
+            <div class="punct-break" id="reconNote"></div>
+          </section>
+
+          <!-- ======= 07 RECEIPT ======= -->
+          <section class="panel stage" id="stage-receipt" hidden>
+            <div class="stage-head"><span class="stage-no">07</span><h2>RECEIPT</h2><span class="stage-note">the same audit object, serialized</span></div>
+            <pre class="receipt" id="receiptPre">—</pre>
+            <div class="deck-row">
+              <button type="button" class="primary" id="dlReceipt">DOWNLOAD RECEIPT (.TXT)</button>
+              <button type="button" id="cpReceipt">COPY RECEIPT</button>
+              <span class="spec-note" id="cpNote"></span>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ======= BATCH MODE ======= -->
+      <section class="panel batch" id="stage-batch">
+        <div class="stage-head"><span class="stage-no">+</span><h2>BATCH MODE</h2><span class="stage-note">multiple texts · one row each · same engine, same audit object per row</span></div>
+        <label class="lbl" for="batchText">Texts — one per block, separated by a blank line</label>
+        <textarea id="batchText" spellcheck="false" placeholder="Paste several texts here, each separated by an empty line, then run the batch."></textarea>
+        <div class="deck-row">
+          <button type="button" class="primary" id="batchBtn">RUN BATCH</button>
+          <button type="button" id="batchSpecs">LOAD SPECIMENS A–D AS BATCH</button>
+          <span class="spec-note">Select a row to load that text into the full audit above.</span>
+        </div>
+        <div id="batchOut"><div class="batch-empty">No batch run yet.</div></div>
+      </section>
+
+      <footer class="foot">
+        Engine: parity-verified JavaScript port of the sealed Python engine of record (aee_v4_audit.py) — identical lexicons, passive-site detection, span classification, host masking, and contamination_v4 assembly. Every number on this page is read from the single audit object computed from the input bytes and its SHA-256.
+      </footer>
+    </div>
+
+    <script>
+/* AEE v4 audit — faithful JS port of aee_v4_audit.py (the sealed Python
+   engine of record). Same lexicons, same order of operations, same
+   rounding. Parity-verified against the Python engine on the specimen
+   battery in parity specimens (see dashboard-remediation/). */
+"use strict";
+
+const STRUCT = ["equals","plus","minus","times","divided","sum","total","result","therefore","verified","measured","computed","block","hash","signature","audit","error","fixed","record","line","index","formula","matrix","vector","proof","theorem","derive","derivation","node","transaction","ledger","math","protocol","code","public","matches","first","second","third","finally","however","specifically","namely","for example","for instance","in conclusion","in summary","in other words","that is"];
+const EVAS = ["potentially","possibly","reportedly","apparently","arguably","essentially","basically","actually","literally","really","somewhat","sort of","kind of","maybe","perhaps","allegedly","more or less","roughly speaking","to some extent","to some degree","it is important to note","it is worth noting","could be argued","going forward","moving forward","holistic","synergies","leverage","meaningful","diverse","various","faceted","evolving","landscape","exploring","committed","stakeholders","engagement","fosters","remains","suggests","implies","generally","typically","likely","still under development","i apologize for","i understand your frustration","i appreciate your patience","as an ai","i'm afraid","please note that","at this time","to the best of my knowledge","i want to be transparent","keep in mind","as of my last update","it's important to note"];
+const IRREG = new Set(["taken","given","made","done","held","sent","set","put","paid","told","shown","known","found","left","kept","read","written","brought","built","chosen","drawn","seen","heard","met","led","run","cut","hit","shut","sold","bought","taught","caught","meant","understood","said","thought","felt","born","become","begun","stated","charged","masked","resolved","classified","printed","named","counted"]);
+const REFUSAL = ["i can't","i cannot","i'm unable","i am unable","can't help","cannot help","unable to help","not able to help"];
+const SERVICE = ["our services","our products","customer service","support team","help center","service phrases","for your convenience"];
+const ROLES = ["reviewer","user","person","individual","employee","contractor","provider","administrator","operator","attacker","reader","manager","agent"];
+const POETIC = ["moon","river","fire","wind","stone","blood","gold","shadow","light","sea","star","ash","bone","garden","mirror","bird","winter","summer","rain","snow","dust","silk","iron","honey","salt","bread","wine","eye","hand","mouth","heart","root","branch","leaf","wave","flame","smoke","glass","bell","night","dark","silver","fields","stones","sing"];
+const ABSENCE = ["silence","silent","absent","absence","void","empty","nothing","never","nowhere","nameless","unsaid","unspoken"];
+const NUMWORDS = {one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10};
+
+function normalize(t) {
+  t = t.replace(/’/g, "'").replace(/‘/g, "'").replace(/“/g, '"').replace(/”/g, '"');
+  t = t.toLowerCase();
+  t = t.replace(/[^a-z0-9:' ]+/g, " ");
+  t = t.replace(/\s+/g, " ");
+  return " " + t.trim() + " ";
+}
+function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+function countSub(hay, needle) {
+  if (!needle) return 0;
+  let n = 0, i = 0;
+  while ((i = hay.indexOf(needle, i)) !== -1) { n++; i += needle.length; }
+  return n;
+}
+function countTerm(term, textNorm, toks) {
+  if (term.includes(" ")) {
+    return (textNorm.match(new RegExp(escRe(term), "g")) || []).length;
+  }
+  return toks.filter(tk => tk === term).length;
+}
+const AUX = new Set(["am","is","are","was","were","be","been","being","get","gets","got"]);
+function isPartic(tok) { return (tok.endsWith("ed") && tok.length >= 3) || IRREG.has(tok); }
+function passiveSites(toks, auxset, skipset, maxskip, modalBe = false) {
+  const sites = [];
+  let i = 0;
+  while (i < toks.length) {
+    const t = toks[i];
+    let j = null;
+    if (auxset.has(t)) {
+      j = i + 1;
+      let skipped = 0;
+      while (j < toks.length && (skipset.has(toks[j]) || toks[j].endsWith("ly")) && skipped <= maxskip) {
+        skipped++; j++;
+      }
+      if (j < toks.length && toks[j] === "not") {
+        j++;
+        while (j < toks.length && (skipset.has(toks[j]) || toks[j].endsWith("ly"))) j++;
+      }
+    } else if (modalBe && ["will","would","shall","should","can","could","may","might","must"].includes(t)) {
+      if (i + 1 < toks.length && toks[i + 1] === "be") j = i + 2;
+    }
+    if (j !== null && j < toks.length && isPartic(toks[j])) {
+      const by = toks.slice(j + 1, j + 5).includes("by");
+      sites.push([j, toks[j], by]);
+      i = j + 1; continue;
+    }
+    i++;
+  }
+  return sites;
+}
+function patHits(pats, text) {
+  const out = [];
+  for (const p of pats) out.push(...[...text.matchAll(new RegExp(p, "g"))].map(m => m[0]));
+  return out;
+}
+function scriptOf(ch) {
+  const c = ch.codePointAt(0);
+  if ((c >= 0x41 && c <= 0x5A) || (c >= 0x61 && c <= 0x7A) || (c >= 0xC0 && c <= 0x24F)) return "LATIN";
+  if (c >= 0x370 && c <= 0x3FF) return "GREEK";
+  if (c >= 0x400 && c <= 0x4FF) return "CYRILLIC";
+  if (c >= 0x590 && c <= 0x5FF) return "HEBREW";
+  if (c >= 0x600 && c <= 0x6FF) return "ARABIC";
+  if (c >= 0x900 && c <= 0x97F) return "DEVANAGARI";
+  if (c >= 0x3040 && c <= 0x309F) return "HIRAGANA";
+  if (c >= 0x30A0 && c <= 0x30FF) return "KATAKANA";
+  if (c >= 0x4E00 && c <= 0x9FFF) return "HAN";
+  if (c >= 0xAC00 && c <= 0xD7AF) return "HANGUL";
+  return "OTHER";
+}
+function sealedHitsIn(text) {
+  const tn = normalize(text), tt = tn.trim() ? tn.trim().split(" ") : [];
+  const d = EVAS.reduce((a, t) => a + countTerm(t, tn, tt), 0);
+  const st = passiveSites(tt, AUX, new Set(), 0);
+  const ag = st.filter(s => !s[2]).length;
+  const indf = (tn.match(new RegExp("\\b(?:a|an)\\s+(" + ROLES.join("|") + ")\\b", "g")) || []).length;
+  const rf = REFUSAL.reduce((a, p) => a + countSub(tn, " " + p), 0);
+  const sv = SERVICE.reduce((a, p) => a + countSub(tn, p), 0);
+  const pu = countSub(text, "...") + countSub(text, "…") + countSub(text, "!");
+  return [d, ag + indf + rf + sv, pu];
+}
+
+function auditAEE(raw, sha256hex) {
+  const norm = normalize(raw);
+  const tokens = norm.trim() ? norm.trim().split(" ") : [];
+  const words = tokens.length;
+
+  const S = STRUCT.reduce((a, t) => a + countTerm(t, norm, tokens), 0);
+  const D = EVAS.reduce((a, t) => a + countTerm(t, norm, tokens), 0);
+  const letters = (raw.match(/[a-zA-Z]/g) || []).length;
+  const sc = (raw.match(/[sS]/g) || []).length;
+  const PIC = letters ? Math.round(((sc * 3.64 + (letters - sc) * 1.00) / letters) * 10000) / 10000 : 0;
+  const l7 = Math.log(Math.max(S, 1)) / Math.log(7);
+  const l10 = Math.log10(Math.max(D, 1));
+  const Td = Math.round((l10 > 0 ? l7 / l10 : l7) * 10000) / 10000;
+  let status = (Td >= 1.0 && PIC <= 1.25) ? "OBJECTIVE" : (Td >= 1.0 ? "CALCIFYING" : "SUB-GATE");
+  if (S === 0 && D === 0) status = "CATEGORICAL";
+
+  const sealedSites = passiveSites(tokens, AUX, new Set(), 0);
+  const agentless = sealedSites.filter(s => !s[2]);
+  const indef = [...norm.matchAll(new RegExp("\\b(?:a|an)\\s+(" + ROLES.join("|") + ")\\b", "g"))].map(m => m[0]);
+  const refusalHits = REFUSAL.reduce((a, p) => a + countSub(norm, " " + p), 0);
+  const serviceHits = SERVICE.reduce((a, p) => a + countSub(norm, p), 0);
+
+  const enumAnn = [...norm.matchAll(/\b(two|three|four|five|six|seven|eight|nine|ten)\s+(classes|steps|gates|items|readings|mechanisms|states|tiers|parts|tools|domains)\b/g)]
+    .map(m => [m[0], NUMWORDS[m[1]]]);
+  let enumGap = 0, enumDelivered = 0;
+  for (const [, n] of enumAnn) { enumDelivered += n; enumGap += 0; }
+  const structureLoad = agentless.length + enumGap + refusalHits + serviceHits + indef.length;
+  const structureWord = structureLoad === 0 ? "FLAT" : `LOADED ${structureLoad}`;
+
+  const ellipses = countSub(raw, "...") + countSub(raw, "…");
+  const dqSpans = [...raw.matchAll(/"([^"]*)"/g)].map(m => m[1]);
+  const scare = dqSpans.filter(s => s.split(/\s+/).filter(Boolean).length <= 2 || s.trim() === "");
+  const excl = countSub(raw, "!");
+  const punctSealed = ellipses + scare.length + excl;
+  const sealedContamination = D + structureLoad + punctSealed;
+
+  const apo = {
+    "not by": countSub(norm, " not by "),
+    "neither": tokens.filter(t => t === "neither").length,
+    "nor": tokens.filter(t => t === "nor").length,
+    "without": tokens.filter(t => t === "without").length,
+    "beyond": tokens.filter(t => t === "beyond").length
+  };
+  const apoTotal = apo["not by"] + Math.min(apo["neither"], apo["nor"]) + apo["without"] + apo["beyond"]
+    + ABSENCE.reduce((a, w) => a + tokens.filter(t => t === w).length, 0);
+  const poeticHits = POETIC.reduce((a, w) => a + tokens.filter(t => t === w).length, 0);
+  const digits = (raw.match(/\d/g) || []).length;
+  const numwordHits = Object.keys(NUMWORDS).reduce((a, w) => a + tokens.filter(t => t === w).length, 0);
+  const sentences = raw.replace(/\n/g, " ").split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(Boolean);
+  const qCount = countSub(raw, "?");
+  const tricolon = sentences.filter(s => (s.match(/,/g) || []).length >= 2).length;
+  const openers = {};
+  for (const s of sentences) {
+    const ws = s.split(/\s+/).filter(Boolean);
+    if (ws.length >= 2) { const k = ws.slice(0, 2).join(" ").toLowerCase(); openers[k] = (openers[k] || 0) + 1; }
+  }
+  const anaphora = Object.values(openers).filter(c => c > 1).reduce((a, c) => a + c - 1, 0);
+  let alli = 0;
+  for (let i = 0; i + 2 < tokens.length; i++) {
+    const [a, b, c] = [tokens[i], tokens[i + 1], tokens[i + 2]];
+    if (a && b && c && a[0] === b[0] && b[0] === c[0] && /[a-z]/.test(a[0])) alli++;
+  }
+  const figures = anaphora + qCount + alli + tricolon;
+  const density = (figures + poeticHits) / Math.max(words, 1) * 1000;
+  let category;
+  if (structureLoad > 0) category = "PSEUDO-NEUTRAL";
+  else if (apoTotal >= 2) category = "APOPHATIC";
+  else if (poeticHits >= 3 && density >= 20) category = "CREATIVE";
+  else if (digits > 0 || numwordHits > 0) category = "SELF-EVIDENT";
+  else category = "DIRECTLY OBSERVABLE";
+
+  const scriptCensus = {}; let transitions = 0, prev = null;
+  for (const ch of raw) {
+    if (/\p{L}/u.test(ch)) {
+      const s = scriptOf(ch); scriptCensus[s] = (scriptCensus[s] || 0) + 1;
+      if (prev && s !== prev) transitions++;
+      prev = s;
+    }
+  }
+  const fusions = [];
+  for (const tok of raw.split(/\s+/)) {
+    const ls = new Set([...tok].filter(c => /\p{L}/u.test(c)).map(scriptOf));
+    if (ls.size >= 2) fusions.push(tok);
+  }
+  const nonlatin = Object.entries(scriptCensus).filter(([k]) => k !== "LATIN").reduce((a, [, v]) => a + v, 0);
+
+  // Intent (v3.8 layer, per sealed engine section 8)
+  const iSolo = tokens.filter(t => t === "i").length;
+  const fpSing = iSolo + tokens.filter(t => t === "my" || t === "mine").length;
+  const fpPlural = tokens.filter(t => ["we", "our", "us"].includes(t)).length;
+  const BA_PAT = ["to (?:improve|enhance|provide|protect|personalize|deliver|support|serve) (?:our|their) \\w+", "for (?:our|their) (?:benefit|services|products|use|purposes)", "\\bour (?:services|products|technologies|systems|platform|purposes)\\b", "\\bwe (?:collect|use|share|retain|keep|store|review|process|sell|disclose)\\b", "so that (?:we|our|they|their)"];
+  const BR_PAT = ["to (?:help|protect|serve|inform|assist) you", "for your (?:convenience|benefit|safety|protection)", "your (?:account|data|privacy) (?:is|remains) (?:protected|safe|secure)"];
+  const T_PAT = ["\\byou (?:must|should|agree|will be|understand)\\b", "\\byou are responsible\\b", "please don't", "do not (?:enter|share|provide|submit|use|post)", "you wouldn't want", "\\busers (?:must|are responsible|agree)\\b"];
+  const baHits = patHits(BA_PAT, norm), brHits = patHits(BR_PAT, norm), tHits = patHits(T_PAT, norm);
+  const FLOWS = {
+    "RETENTION": ["retain","retains","retained","retaining","kept","keep","keeps","keeping","store","stores","stored","preserve","preserves","preserved","hold","holds","held"],
+    "CAPTURE": ["collect","collects","collected","use","uses","used","share","shares","shared","review","reviews","reviewed","process","processes","processed","sell","sells","access","accesses","accessed"],
+    "EXPOSURE": ["disclose","discloses","disclosed","publish","publishes","published","reveal","reveals","revealed","announce","announces","announced"],
+    "RECORD": ["record","records","recorded","verify","verifies","verified","certify","certifies","seal","seals","sealed","attest","attests"]
+  };
+  const flowCounts = {};
+  for (const [k, v] of Object.entries(FLOWS)) flowCounts[k] = tokens.filter(t => v.includes(t)).length;
+  const conceal = agentless.length + indef.length + enumGap;
+  let intent;
+  if (iSolo >= 1 && fpSing >= 2 && conceal <= fpSing) intent = "DISCLOSURE";
+  else if (conceal >= 1 && baHits.length >= 1) intent = "CONCEALMENT — BENEFICIARY NAMED";
+  else if (tHits.length >= 1 && baHits.length >= 1) intent = "TRANSFER";
+  else if (conceal >= 1) intent = "CONCEALMENT — BENEFICIARY OFF-PAGE";
+  else if (baHits.length >= 1) intent = "CAPTURE";
+  else if (fpPlural >= 1 || iSolo >= 1) intent = "DISCLOSURE";
+  else intent = "DIRECT STATEMENT";
+
+  // Context layer: span classification
+  const CUES = ["the word","the term","the phrase","the name","the question","the title","the label","means","meaning","stands"];
+  const SPEECH = ["said","stated","calls","warns","reports","wrote","declared","announced","asked","answered","noted","asserted","tells","quoted","call","warn","report","declare","announce","ask","answer","note","assert","tell","quote"];
+  const spanMatches = [...raw.matchAll(/"([^"]*)"/g)];
+  const spans = spanMatches.map(m => {
+    const span = m[1];
+    const lead = raw.slice(Math.max(0, m.index - 70), m.index).toLowerCase();
+    const trail = raw.slice(m.index + m[0].length, m.index + m[0].length + 45).toLowerCase();
+    const wc = span.split(/\s+/).filter(Boolean).length;
+    let cls;
+    if (CUES.some(c => lead.includes(c))) cls = "MENTION";
+    else if (SPEECH.some(v => new RegExp("\\b" + v + "\\b").test(lead) || new RegExp("\\b" + v + "\\b").test(trail))) cls = "QUOTED";
+    else if (wc <= 2) cls = "SCARE";
+    else cls = "UNATTRIBUTED QUOTATION";
+    return { span, cls, words: wc, start: m.index, end: m.index + m[0].length };
+  });
+  const clsCounts = {};
+  for (const s of spans) clsCounts[s.cls] = (clsCounts[s.cls] || 0) + 1;
+  let adjustment = 0;
+  for (const s of spans) {
+    if (s.cls === "MENTION" || s.cls === "QUOTED") {
+      const [d, st, pu] = sealedHitsIn(s.span);
+      adjustment += d + st + pu;
+      if (s.words <= 2) adjustment += 1;
+    }
+  }
+  const hostBase = Math.max(0, sealedContamination - adjustment);
+  const unattQuoted = clsCounts["UNATTRIBUTED QUOTATION"] || 0;
+
+  // Host text: mask mention+quoted spans
+  const chars = [...raw];
+  for (const s of spans) {
+    if (s.cls === "MENTION" || s.cls === "QUOTED") {
+      for (let i = s.start; i < s.end && i < chars.length; i++) chars[i] = " ";
+    }
+  }
+  const hostRaw = chars.join("");
+  const hostNorm = normalize(hostRaw);
+  const hostTokens = hostNorm.trim() ? hostNorm.trim().split(" ") : [];
+
+  // Extension censuses (host)
+  const H1 = ["seems","seem","appears","appear","probably","presumably","supposedly","often","sometimes","frequently","rarely","seldom","occasionally","virtually","clearly","obviously","certainly","surely"];
+  let hedge = hostTokens.filter(t => H1.includes(t)).length;
+  hedge += ["tend to","tends to","tended to","and so on","in many cases","in most cases","in some cases"]
+    .reduce((a, p) => a + countSub(hostNorm, " " + p + " "), 0);
+  hedge += hostTokens.filter(t => t === "etc").length;
+  hostTokens.forEach((t, i) => {
+    if (["may", "might", "could"].includes(t)) {
+      if (!(t === "could" && hostTokens[i + 1] === "be" && hostTokens[i + 2] === "argued")) hedge++;
+    }
+  });
+  const NUMSET = new Set([...Object.keys(NUMWORDS), ...Array.from({ length: 10000 }, (_, i) => String(i))]);
+  hostTokens.forEach((t, i) => {
+    if (["some", "many", "most", "few", "several"].includes(t)) {
+      const nxt = hostTokens.slice(i + 1, i + 3);
+      if (!nxt.some(x => /^\d+$/.test(x.replace(/:+$/, "")) || NUMSET.has(x))) hedge++;
+    }
+  });
+  const AUTH = ["experts","studies","scientists","researchers","critics","sources","officials","analysts","observers","reports"];
+  const authEnd = /(said|say|says|state|stated|report|reported|warn|warned|note|noted|found|show|showed|claim|claimed)$/;
+  hostTokens.forEach((t, i) => {
+    if (AUTH.includes(t)) {
+      const window = hostTokens.slice(i + 1, i + 5);
+      if (window.some(w => authEnd.test(w) || SPEECH.includes(w))) hedge++;
+    }
+  });
+  const AUXW = new Set([...AUX, "have", "has", "had"]);
+  const SKIPW = new Set(["not", "being", "been", "also", "just", "already", "still", "even"]);
+  const wideSites = passiveSites(hostTokens, AUXW, SKIPW, 3, true);
+  const hostSealedSites = passiveSites(hostTokens, AUX, new Set(), 0);
+  const passiveExtra = Math.max(0, wideSites.length - hostSealedSites.length);
+  const demoted = wideSites.filter(s => s[2]).length;
+  const nomHits = [...hostNorm.matchAll(/\bthe\s+\w+(?:tion|sion|ment|ance|ence|ness)\s+of\b/g)].map(m => m[0]);
+  const nom = nomHits.length;
+
+  const pe = {};
+  pe["em/en dash"] = countSub(hostRaw, "—") + countSub(hostRaw, "–");
+  pe["two-dot"] = (hostRaw.match(/(?<!\.)\.\.(?!\.)/g) || []).length;
+  pe["terminal clusters"] = (hostRaw.match(/!!|\?\?|\?!/g) || []).length;
+  pe["misplaced terminals"] = (hostRaw.match(/[.!?]\s+[a-z]/g) || []).length;
+  pe["slash"] = (hostRaw.match(/\b\w+\/\w+\b/g) || []).length;
+  pe["emphasis wrappers"] = (hostRaw.match(/\*[^*\n]+\*/g) || []).length + (hostRaw.match(/(?<!\w)_[^_\n]+_(?!\w)/g) || []).length;
+  pe["parenthetical >=3w"] = [...hostRaw.matchAll(/\(([^)]*)\)/g)].filter(m => m[1].split(/\s+/).filter(Boolean).length >= 3).length;
+  let semi = 0;
+  for (const s of sentences) semi += Math.max(0, countSub(s, ";") - 1);
+  pe["semicolon chains"] = semi;
+  const INTERROG = new Set(["what","why","how","when","where","who","whom","which","whose","do","does","did","is","are","was","were","can","could","shall","should","will","would","may","might","have","has","had"]);
+  let dq = 0;
+  for (const s of sentences) {
+    if (s.replace(/\s+$/, "").endsWith("?")) {
+      const first4 = s.split(/\s+/).slice(0, 4).map(w => w.replace(/[§"'()]/g, "").toLowerCase());
+      if (!first4.some(w => INTERROG.has(w))) dq++;
+    }
+  }
+  pe["declarative questions"] = dq;
+  const isUpperPy = w => { const c = w.replace(/[^A-Za-z]/g, ""); return c.length > 0 && c === c.toUpperCase(); };
+  const labelLines = new Set();
+  for (const ln of hostRaw.split("\n")) {
+    const ws = ln.split(/\s+/).filter(Boolean);
+    if (ws.length && ws.filter(w => isUpperPy(w) && w.length >= 2).length / ws.length >= 0.5) labelLines.add(ln);
+  }
+  let cap = 0;
+  for (const ln of hostRaw.split("\n")) {
+    if (labelLines.has(ln)) continue;
+    for (const w of ln.split(/\s+/).filter(Boolean)) {
+      const core = w.replace(/^[.,;:()"'—]+|[.,;:()"'—]+$/g, "");
+      if (core.length >= 3 && /^[A-Za-z]+$/.test(core) && isUpperPy(core)) cap++;
+      if (w.includes(":")) break;
+    }
+  }
+  pe["capital emphasis"] = cap;
+  const punctExtTotal = Object.values(pe).reduce((a, b) => a + b, 0);
+  const sqSpans = [...hostRaw.matchAll(/(?<![a-zA-Z])'([^']*)'(?![a-zA-Z])/g)].map(m => m[1]);
+  const sqScare = sqSpans.filter(s => s.split(/\s+/).filter(Boolean).length <= 2).length;
+
+  const contaminationV4 = hostBase + hedge + passiveExtra + nom + punctExtTotal + sqScare + unattQuoted;
+  const finalVerdict = contaminationV4 === 0 ? "TRUE" : "DECEPTIVE";
+
+  let locus = null;
+  sentences.forEach((s, idx) => {
+    if (locus) return;
+    const sn = normalize(s), st = sn.trim() ? sn.trim().split(" ") : [];
+    if (EVAS.some(t => countTerm(t, sn, st) > 0) || s.includes("—") || s.includes('"')
+        || passiveSites(st, AUX, new Set(), 0).length > 0 || s.includes("!")) {
+      locus = { sentence: idx + 1, excerpt: s.slice(0, 160) };
+    }
+  });
+  const letterField = {}; const firstSeen = {};
+  [...raw].forEach((c, i) => {
+    if (/[a-zA-Z]/.test(c)) { const k = c.toLowerCase(); letterField[k] = (letterField[k] || 0) + 1; if (!(k in firstSeen)) firstSeen[k] = i; }
+  });
+  let topLetter = null, topN = -1;
+  for (const [k, v] of Object.entries(letterField)) {
+    if (v > topN || (v === topN && firstSeen[k] < firstSeen[topLetter])) { topLetter = k; topN = v; }
+  }
+
+  return {
+    words, S, D, letters, sc, PIC, T_d: Td, status,
+    structure: structureWord, structure_load: structureLoad,
+    agentless_passives: agentless.length, passive_participles: agentless.slice(0, 8).map(s => s[1]),
+    indefinite_actors: indef, indefinite_n: indef.length,
+    enumeration_announced: enumAnn, enumeration_gap: enumGap,
+    refusal_hits: refusalHits, service_hits: serviceHits,
+    ellipses, scare_quotes: scare.length, exclamations: excl,
+    sealed_contamination: sealedContamination,
+    apophatic: apo, apophatic_total: apoTotal, poetic_hits: poeticHits,
+    digits, number_words: numwordHits,
+    figures: { anaphora, questions: qCount, alliteration: alli, tricolon },
+    category, script_census: scriptCensus, transitions, fusions, nonlatin,
+    i_solo: iSolo, fp_singular: fpSing, fp_plural: fpPlural,
+    benefit_author_hits: baHits, benefit_reader_hits: brHits, transfer_hits: tHits,
+    flows: flowCounts, conceal, intent,
+    span_classes: clsCounts, spans_total: spans.length, adjustment,
+    host_base: hostBase, hedge, passive_extra: passiveExtra, demoted_actors: demoted,
+    nominalized: nom, nominalized_nouns: nomHits, punct_ext: pe, punct_ext_total: punctExtTotal,
+    single_quote_scare: sqScare, unattributed_quotations: unattQuoted,
+    contamination_v4: contaminationV4, final_verdict: finalVerdict,
+    first_locus: locus, dominant_letter: [topLetter, topN],
+    input_sha256: sha256hex || null
+  };
+}
+
+if (typeof module !== "undefined" && module.exports) module.exports = { auditAEE };
+    </script>
+    <script>
+    "use strict";
+    /* ================================================================
+       UI — every rendered number reads from the ONE audit object
+       returned by auditAEE(). No surface computes its own figures.
+       ================================================================ */
+    const $ = id => document.getElementById(id);
+    const fmt4 = x => (typeof x === "number" ? x : 0).toFixed(4);
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+    const SPECIMENS = {
+      a: "The committee confirmed the evidence and verified the record line in silence. It is important to note that results may possibly vary.",
+      b: "The audit team verified the ledger on Tuesday. The record shows forty-one entries and the totals match the index.",
+      c: "I apologize for the confusion. I understand your frustration and I appreciate your patience as we work to resolve this.",
+      d: "We collect your data to improve our services. Users must agree to the terms, and data will be retained for our purposes."
+    };
+    const EXPECTED = {
+      a: { words: 22, S: 3, D: 2, PIC: 1.144, T_d: 1.8755, contamination_v4: 3, final_verdict: "DECEPTIVE", intent: "DIRECT STATEMENT", hedge: 1 },
+      b: { words: 20, S: 5, D: 0, PIC: 1.1435, T_d: 0.8271, contamination_v4: 0, final_verdict: "TRUE" },
+      c: { words: 20, S: 0, D: 3, PIC: 1.1616, T_d: 0.0, contamination_v4: 3, final_verdict: "DECEPTIVE", intent: "DISCLOSURE" },
+      d: { words: 22, S: 0, D: 0, PIC: 1.22, T_d: 0.0, contamination_v4: 2, final_verdict: "DECEPTIVE", intent: "CONCEALMENT — BENEFICIARY NAMED", conceal: 1 }
+    };
+
+    let current = null;      // the one audit object
+    let currentText = "";
+    let currentSha = null;
+    let receiptText = "";
+
+    async function sha256hex(text) {
+      if (!(window.crypto && crypto.subtle)) return null;
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function setStagesVisible(v) {
+      document.querySelectorAll("section.stage").forEach(s => { s.hidden = !v; });
+      $("awaitMsg").hidden = v;
+    }
+
+    function render(a, sha) {
+      current = a; currentSha = sha;
+      setStagesVisible(true);
+      const isTrue = a.final_verdict === "TRUE";
+
+      /* headline strip */
+      const hv = $("hsVerdict");
+      hv.textContent = a.final_verdict;
+      hv.className = "hs-v " + (isTrue ? "true" : "deceptive");
+      $("hsContam").textContent = a.contamination_v4;
+      $("hsIntent").textContent = a.intent;
+      $("hsTdPic").textContent = fmt4(a.T_d) + " / " + fmt4(a.PIC);
+      $("shaOut").textContent = sha || "unavailable in this context";
+
+      /* ---- 01 CENSUS ---- */
+      $("tWords").textContent = a.words;
+      $("tS").textContent = a.S;
+      $("tD").textContent = a.D;
+      $("tPIC").textContent = fmt4(a.PIC);
+      $("tTd").textContent = fmt4(a.T_d);
+      $("tStatus").textContent = a.status;
+      $("tStruct").textContent = a.structure;
+      $("tLetter").textContent = a.dominant_letter[0] ? a.dominant_letter[0] + " × " + a.dominant_letter[1] : "—";
+      $("dCategory").textContent = a.category;
+      const figTotal = a.figures.anaphora + a.figures.questions + a.figures.alliteration + a.figures.tricolon;
+      const density = a.words ? (figTotal + a.poetic_hits) / a.words * 1000 : 0;
+      $("dCategoryBasis").textContent =
+        "structure load " + a.structure_load + " · apophatic " + a.apophatic_total +
+        " · poetic " + a.poetic_hits + " · figure density " + density.toFixed(1) + "/1000w · digits " + a.digits;
+      $("dLetters").textContent = a.letters + " letters · " + a.sc + " × s";
+      $("dApo").textContent = a.apophatic_total;
+      $("dApoBasis").textContent =
+        "not by " + a.apophatic["not by"] + " · neither/nor " + Math.min(a.apophatic.neither, a.apophatic.nor) +
+        " (neither " + a.apophatic.neither + " · nor " + a.apophatic.nor + ") · without " + a.apophatic.without +
+        " · beyond " + a.apophatic.beyond + " · absence lexicon " +
+        (a.apophatic_total - a.apophatic["not by"] - Math.min(a.apophatic.neither, a.apophatic.nor) - a.apophatic.without - a.apophatic.beyond);
+      $("dFigures").textContent =
+        "anaphora " + a.figures.anaphora + " · questions " + a.figures.questions +
+        " · alliteration " + a.figures.alliteration + " · tricolon " + a.figures.tricolon +
+        " · poetic hits " + a.poetic_hits;
+      $("dDensity").textContent = "figure density " + density.toFixed(1) + " per 1,000 words";
+      $("dDigits").textContent = a.digits + " digits · " + a.number_words + " number words";
+      const scParts = Object.entries(a.script_census).map(([k, v]) => k + " " + v).join(" · ");
+      $("dScripts").textContent = scParts ? scParts + " · " + a.transitions + " script transitions · " + a.nonlatin + " non-Latin letters" : "no letters";
+      $("dFusions").textContent = a.fusions.length ? "script-fused tokens: " + a.fusions.join(" ") : "no script-fused tokens";
+      $("dSealed").textContent = a.sealed_contamination;
+      $("dSealedBasis").textContent = "D " + a.D + " + structure load " + a.structure_load + " + sealed punctuation " + (a.ellipses + a.scare_quotes + a.exclamations) +
+        " (ellipses " + a.ellipses + " · scare quotes " + a.scare_quotes + " · exclamations " + a.exclamations + ")";
+
+      /* ---- 02 LOGOSECRYPTION ---- */
+      const delTotal = a.agentless_passives + a.indefinite_n;
+      const dc = $("opDelCount");
+      dc.textContent = delTotal;
+      dc.className = "op-count " + (delTotal > 0 ? "hot" : "calm");
+      $("opDelSub").innerHTML =
+        "agentless passives <b>" + a.agentless_passives + "</b> + indefinite actors <b>" + a.indefinite_n + "</b>" +
+        (a.indefinite_actors.length ? "<br>indefinite actors in text: " + a.indefinite_actors.map(esc).join(" · ") : "");
+      const delChips = $("opDelChips");
+      delChips.innerHTML = a.passive_participles.map(p => '<span class="chip anchor">' + esc(p) + "</span>").join("");
+      $("opDelNone").hidden = delTotal > 0;
+
+      const ic = $("opInvCount");
+      ic.textContent = a.passive_extra + a.demoted_actors;
+      ic.className = "op-count " + ((a.passive_extra + a.demoted_actors) > 0 ? "hot" : "calm");
+      $("opInvSub").innerHTML =
+        "wide-vs-sealed passive delta <b>" + a.passive_extra + "</b><br>demoted by-agents (wide census) <b>" + a.demoted_actors + "</b>";
+      $("opInvNone").hidden = (a.passive_extra + a.demoted_actors) > 0;
+
+      const jc = $("opJarCount");
+      jc.textContent = a.nominalized + a.hedge;
+      jc.className = "op-count " + ((a.nominalized + a.hedge) > 0 ? "hot" : "calm");
+      $("opJarSub").innerHTML =
+        "nominalizations <b>" + a.nominalized + "</b> + hedge census <b>" + a.hedge + "</b>";
+      $("opJarChips").innerHTML = a.nominalized_nouns.map(n => '<span class="chip anchor">' + esc(n.trim()) + "</span>").join("");
+      $("opJarNone").hidden = a.nominalized > 0;
+
+      const omiTotal = a.enumeration_gap + a.unattributed_quotations + a.scare_quotes + a.single_quote_scare + a.ellipses;
+      const oc = $("opOmiCount");
+      oc.textContent = omiTotal;
+      oc.className = "op-count " + (omiTotal > 0 ? "hot" : "calm");
+      $("opOmiSub").innerHTML =
+        "enumeration gap <b>" + a.enumeration_gap + "</b> · unattributed quotations <b>" + a.unattributed_quotations + "</b><br>" +
+        "scare quotes <b>" + a.scare_quotes + "</b> (double) + <b>" + a.single_quote_scare + "</b> (single) · ellipses <b>" + a.ellipses + "</b>" +
+        (a.enumeration_announced.length ? "<br>enumerations announced: " + a.enumeration_announced.map(e => esc(e[0])).join(" · ") : "");
+      $("opOmiNone").hidden = omiTotal > 0;
+
+      /* ---- 03 LEDGER ---- */
+      const rows = [
+        ["HOST BASE", "sealed contamination " + a.sealed_contamination + " − span adjustment " + a.adjustment + " (mention/quoted spans masked)", a.host_base],
+        ["HEDGE CENSUS", "host-text hedge lexicon + modal/quantifier/authority constructions", a.hedge],
+        ["PASSIVE EXTRA", "wide passive census − sealed passive census, host text", a.passive_extra],
+        ["NOMINALIZED CONSTRUCTIONS", "“the …tion/sion/ment/ance/ence/ness of” sites, host text", a.nominalized],
+        ["PUNCTUATION EXTENSIONS", "extension census on host text — breakdown below", a.punct_ext_total],
+        ["SINGLE-QUOTE SCARE", "single-quoted spans of ≤ 2 words, host text", a.single_quote_scare],
+        ["UNATTRIBUTED QUOTATIONS", "double-quoted spans classed UNATTRIBUTED QUOTATION", a.unattributed_quotations]
+      ];
+      $("ledgerBody").innerHTML =
+        rows.map(r => "<tr><td>" + r[0] + '</td><td class="basis">' + esc(r[1]) + '</td><td class="num">' + r[2] + "</td></tr>").join("") +
+        '<tr class="total"><td>CONTAMINATION — v4 TOTAL</td><td class="basis">sum of the seven components above</td><td class="num">' + a.contamination_v4 + "</td></tr>";
+      const peParts = Object.entries(a.punct_ext).filter(([, v]) => v > 0).map(([k, v]) => k + " " + v);
+      $("punctBreak").textContent = "Punctuation-extension census: " +
+        Object.entries(a.punct_ext).map(([k, v]) => k + " " + v).join(" · ") +
+        (peParts.length ? "" : " — all zero.");
+
+      /* ---- 04 VERDICT ---- */
+      const vw = $("verdictWord");
+      vw.textContent = a.final_verdict;
+      vw.className = "verdict-word " + (isTrue ? "true" : "deceptive");
+      $("verdictMeta").innerHTML =
+        "contamination_v4 = <b>" + a.contamination_v4 + "</b> · rule: TRUE at 0, DECEPTIVE at the first contaminant" +
+        " · status (census) <b>" + a.status + "</b> at T_d " + fmt4(a.T_d) + " / PIC " + fmt4(a.PIC);
+      if (a.first_locus) {
+        $("locusWrap").hidden = false; $("locusNone").hidden = true;
+        $("locusN").textContent = a.first_locus.sentence;
+        $("locusText").textContent = "“" + a.first_locus.excerpt + "”";
+      } else {
+        $("locusWrap").hidden = true; $("locusNone").hidden = false;
+      }
+
+      /* ---- 05 DISCLOSURE ---- */
+      $("intentBig").textContent = a.intent;
+      $("ladderInputs").textContent =
+        "I = " + a.i_solo + " · fp singular = " + a.fp_singular + " · fp plural = " + a.fp_plural +
+        " · benefit-author hits = " + a.benefit_author_hits.length + " · transfer hits = " + a.transfer_hits.length +
+        " · conceal = " + a.conceal;
+      $("brHits").textContent = a.benefit_reader_hits.length +
+        (a.benefit_reader_hits.length ? " — " + a.benefit_reader_hits.join(" · ") : "");
+      $("trHits").textContent = a.transfer_hits.length +
+        (a.transfer_hits.length ? " — " + a.transfer_hits.join(" · ") : "");
+      $("concealN").textContent = a.conceal;
+
+      /* intent chain — measured fields only */
+      let actorV, actorE;
+      if (a.benefit_author_hits.length) { actorV = "AUTHOR — IN TEXT"; }
+      else if (a.agentless_passives > 0 || a.indefinite_n > 0) { actorV = "DELETED FROM TEXT"; }
+      else if (a.i_solo > 0) { actorV = "SPEAKER — FIRST PERSON"; }
+      else if (a.fp_plural > 0) { actorV = "SPEAKER — FIRST PERSON PLURAL"; }
+      else { actorV = "NO ACTOR CONSTRUCTION MEASURED"; }
+      actorE = "agentless " + a.agentless_passives + " · indefinite " + a.indefinite_n + " · I tokens " + a.i_solo + " · we/our/us " + a.fp_plural;
+      $("chActor").textContent = actorV; $("chActorE").textContent = actorE;
+
+      const flowBits = Object.entries(a.flows).filter(([, v]) => v > 0).map(([k, v]) => k + " ×" + v);
+      $("chMech").textContent = flowBits.length ? flowBits.join(" · ") : "NO FLOW VERBS MEASURED";
+      $("chMechE").textContent = "RETENTION " + a.flows.RETENTION + " · CAPTURE " + a.flows.CAPTURE + " · EXPOSURE " + a.flows.EXPOSURE + " · RECORD " + a.flows.RECORD;
+
+      $("chCons").textContent = a.conceal > 0 ? "CONCEALMENT ×" + a.conceal : "NO CONCEALMENT MEASURED";
+      $("chConsE").textContent = "contamination_v4 " + a.contamination_v4 + " · verdict " + a.final_verdict + " · structure load " + a.structure_load;
+
+      let benV;
+      if (a.benefit_author_hits.length) benV = "NAMED IN TEXT";
+      else if (a.conceal >= 1) benV = "OFF-PAGE";
+      else benV = "NONE MEASURED";
+      $("chBen").textContent = benV;
+      $("chBenE").textContent = a.benefit_author_hits.length
+        ? a.benefit_author_hits.length + " benefit-author clause(s) quoted below"
+        : "no benefit-author clauses in text";
+
+      $("fRet").textContent = a.flows.RETENTION;
+      $("fCap").textContent = a.flows.CAPTURE;
+      $("fExp").textContent = a.flows.EXPOSURE;
+      $("fRec").textContent = a.flows.RECORD;
+
+      if (a.benefit_author_hits.length) {
+        $("baWrap").hidden = false;
+        $("baClauses").innerHTML = a.benefit_author_hits.map(c => '<blockquote class="clause">“' + esc(c) + '”</blockquote>').join("");
+      } else { $("baWrap").hidden = true; }
+
+      /* culpability anchor */
+      const av = $("anchorVal");
+      if (a.benefit_author_hits.length) {
+        av.textContent = "AUTHOR PARTY"; av.className = "av hot";
+        $("anchorWhy").textContent = a.benefit_author_hits.length + " benefit-author clause(s) present in the text — the beneficiary is named, so culpability anchors to the author party.";
+      } else if (a.conceal >= 1) {
+        av.textContent = "THE DELETED ACTOR"; av.className = "av hot";
+        $("anchorWhy").textContent = "Concealment stands at " + a.conceal + " with no named beneficiary — the anchor falls on the actor the text deleted.";
+      } else {
+        av.textContent = "NONE"; av.className = "av calm";
+        $("anchorWhy").textContent = "No benefit-author clauses and no concealment measured — no culpability anchor attaches.";
+      }
+
+      /* ---- 06 RECONSTRUCTION ---- */
+      const rl = $("reconList");
+      if (a.passive_participles.length) {
+        rl.innerHTML = a.passive_participles.map((p, i) =>
+          '<div class="recon-row"><span class="part">“' + esc(p) + '”</span>' +
+          '<span class="coord">ACTOR: UNNAMED-IN-TEXT</span>' +
+          '<span class="site">agentless passive site ' + (i + 1) + " of " + a.agentless_passives + "</span></div>").join("");
+        $("reconNone").hidden = true;
+      } else { rl.innerHTML = ""; $("reconNone").hidden = false; }
+      $("reconNote").textContent = a.agentless_passives > a.passive_participles.length
+        ? "Engine lists the first " + a.passive_participles.length + " of " + a.agentless_passives + " agentless participles. Actors are never invented: every deleted actor coordinate reads UNNAMED-IN-TEXT."
+        : (a.agentless_passives > 0 ? "Actors are never invented: every deleted actor coordinate reads UNNAMED-IN-TEXT." : "");
+
+      /* ---- 07 RECEIPT ---- */
+      receiptText = buildReceipt(a, sha);
+      $("receiptPre").textContent = receiptText;
+    }
+
+    function buildReceipt(a, sha) {
+      const L = [];
+      L.push("ALETHEIAC ENTROPY ENGINE — AUDIT RECEIPT");
+      L.push("Engine            : AEE v4 sealed census (JS parity port of aee_v4_audit.py)");
+      L.push("Input SHA-256     : " + (sha || "unavailable"));
+      L.push("------------------------------------------------------------");
+      L.push("Words             : " + a.words);
+      L.push("S / D             : " + a.S + " / " + a.D);
+      L.push("PIC               : " + fmt4(a.PIC));
+      L.push("T_d               : " + fmt4(a.T_d));
+      L.push("Status            : " + a.status);
+      L.push("Category          : " + a.category + "  (structure load " + a.structure_load + " · apophatic " + a.apophatic_total + " · poetic " + a.poetic_hits + ")");
+      L.push("Structure load    : " + a.structure_load + "  (agentless " + a.agentless_passives + " · indefinite " + a.indefinite_n + " · refusal " + a.refusal_hits + " · service " + a.service_hits + ")");
+      L.push("Dominant letter   : " + (a.dominant_letter[0] || "—") + " x " + a.dominant_letter[1]);
+      L.push("------------------------------------------------------------");
+      L.push("Sealed contamination : " + a.sealed_contamination);
+      L.push("Span adjustment      : " + a.adjustment);
+      L.push("Host base            : " + a.host_base);
+      L.push("Hedge census         : " + a.hedge);
+      L.push("Passive extra        : " + a.passive_extra);
+      L.push("Demoted by-agents    : " + a.demoted_actors);
+      L.push("Nominalized          : " + a.nominalized);
+      L.push("Punctuation ext      : " + a.punct_ext_total);
+      L.push("Single-quote scare   : " + a.single_quote_scare);
+      L.push("Unattributed quotes  : " + a.unattributed_quotations);
+      L.push("CONTAMINATION (v4)   : " + a.contamination_v4);
+      L.push("------------------------------------------------------------");
+      L.push("VERDICT              : " + a.final_verdict);
+      L.push("Intent               : " + a.intent);
+      L.push("Concealment          : " + a.conceal);
+      L.push("Flows                : RETENTION " + a.flows.RETENTION + " · CAPTURE " + a.flows.CAPTURE + " · EXPOSURE " + a.flows.EXPOSURE + " · RECORD " + a.flows.RECORD);
+      const anchor = a.benefit_author_hits.length ? "AUTHOR PARTY" : (a.conceal >= 1 ? "THE DELETED ACTOR" : "NONE");
+      L.push("Culpability anchor   : " + anchor);
+      if (a.benefit_author_hits.length) L.push("Benefit clauses      : " + a.benefit_author_hits.map(c => '"' + c + '"').join(" · "));
+      if (a.passive_participles.length) L.push("Deleted actors       : " + a.passive_participles.map(p => p + " — ACTOR: UNNAMED-IN-TEXT").join(" · "));
+      if (a.first_locus) L.push("First locus          : sentence " + a.first_locus.sentence + ' — "' + a.first_locus.excerpt + '"');
+      L.push("------------------------------------------------------------");
+      L.push("Verdict attaches to construction as measured by the sealed census.");
+      L.push("Zero reads TRUE; the first contaminant reads DECEPTIVE.");
+      return L.join("\n");
+    }
+
+    async function runAudit() {
+      const text = $("inputText").value;
+      currentText = text;
+      if (!text.trim()) {
+        current = null; receiptText = "";
+        setStagesVisible(false);
+        $("hsVerdict").textContent = "—"; $("hsVerdict").className = "hs-v";
+        $("hsContam").textContent = "—"; $("hsIntent").textContent = "—"; $("hsTdPic").textContent = "—";
+        $("shaOut").textContent = "—";
+        return;
+      }
+      const sha = await sha256hex(text);
+      if (currentText !== text) return; // superseded by a newer input
+      render(auditAEE(text, sha), sha);
+    }
+
+    let debounce = null;
+    $("inputText").addEventListener("input", () => { clearTimeout(debounce); debounce = setTimeout(runAudit, 220); });
+    $("runBtn").addEventListener("click", runAudit);
+    document.querySelectorAll("[data-spec]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        $("inputText").value = SPECIMENS[btn.dataset.spec];
+        $("specNote").textContent = "Specimen " + btn.dataset.spec.toUpperCase() + " loaded — sealed self-test text.";
+        runAudit();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+    $("clearBtn").addEventListener("click", () => { $("inputText").value = ""; runAudit(); $("inputText").focus(); });
+
+    $("dlReceipt").addEventListener("click", () => {
+      if (!receiptText) return;
+      const blob = new Blob([receiptText], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "aee-receipt-" + (currentSha ? currentSha.slice(0, 12) : "nosha") + ".txt";
+      document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    });
+    $("cpReceipt").addEventListener("click", async () => {
+      if (!receiptText) return;
+      try { await navigator.clipboard.writeText(receiptText); $("cpNote").textContent = "Receipt copied."; }
+      catch (e) { $("cpNote").textContent = "Copy blocked in this context — download instead."; }
+    });
+
+    /* ---------- batch mode ---------- */
+    function runBatch(texts) {
+      const out = $("batchOut");
+      if (!texts.length) { out.innerHTML = '<div class="batch-empty">No texts in batch.</div>'; return; }
+      const rowsHtml = texts.map((t, i) => {
+        const a = auditAEE(t, null);
+        const vcls = a.final_verdict === "TRUE" ? "vt" : "vd";
+        return "<tr class='brow' data-i='" + i + "'>" +
+          "<td data-l='#'>" + (i + 1) + "</td>" +
+          "<td data-l='Words'>" + a.words + "</td>" +
+          "<td data-l='S'>" + a.S + "</td>" +
+          "<td data-l='D'>" + a.D + "</td>" +
+          "<td data-l='PIC'>" + fmt4(a.PIC) + "</td>" +
+          "<td data-l='T_d'>" + fmt4(a.T_d) + "</td>" +
+          "<td data-l='Contamination'>" + a.contamination_v4 + "</td>" +
+          "<td data-l='Verdict' class='" + vcls + "'>" + a.final_verdict + "</td>" +
+          "<td data-l='Intent'>" + esc(a.intent) + "</td></tr>";
+      }).join("");
+      out.innerHTML = "<table class='btable'><thead><tr><th>#</th><th>Words</th><th>S</th><th>D</th><th>PIC</th><th>T_d</th><th>Contam.</th><th>Verdict</th><th>Intent</th></tr></thead><tbody>" + rowsHtml + "</tbody></table>";
+      out.querySelectorAll("tr.brow").forEach(tr => {
+        tr.addEventListener("click", () => {
+          $("inputText").value = texts[Number(tr.dataset.i)];
+          runAudit();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+    }
+    function splitBatch(raw) {
+      return raw.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+    }
+    $("batchBtn").addEventListener("click", () => runBatch(splitBatch($("batchText").value)));
+    $("batchSpecs").addEventListener("click", () => {
+      const texts = [SPECIMENS.a, SPECIMENS.b, SPECIMENS.c, SPECIMENS.d];
+      $("batchText").value = texts.join("\n\n");
+      runBatch(texts);
+    });
+
+    /* ---------- rail scrollspy ---------- */
+    const railLinks = [...document.querySelectorAll("#rail a")];
+    const spy = new IntersectionObserver(entries => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          railLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + e.target.id));
+        }
+      }
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    document.querySelectorAll("section.stage, section.batch").forEach(s => spy.observe(s));
+
+    /* ---------- calibration self-test ---------- */
+    (function selfTest() {
+      const badge = $("parityBadge");
+      let pass = 0; const failures = [];
+      for (const key of Object.keys(SPECIMENS)) {
+        const a = auditAEE(SPECIMENS[key], null);
+        const exp = EXPECTED[key];
+        const bad = Object.keys(exp).filter(f => a[f] !== exp[f]);
+        if (bad.length) failures.push(key.toUpperCase() + ": " + bad.map(f => f + " got " + a[f] + " want " + exp[f]).join(", "));
+        else pass++;
+      }
+      if (failures.length === 0) {
+        badge.textContent = "CALIBRATION SELF-TEST · PARITY 4/4 — SEALED READINGS REPRODUCED";
+        badge.classList.add("ok");
+      } else {
+        badge.textContent = "CALIBRATION SELF-TEST · FAIL — " + failures.join(" · ");
+        badge.classList.add("bad");
+      }
+    })();
+
+    /* initial state: load specimen A so the instrument opens on a live audit */
+    $("inputText").value = SPECIMENS.a;
+    runAudit();
+    </script>
+  </body>
+</html>

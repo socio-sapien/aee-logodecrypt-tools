@@ -1,0 +1,36 @@
+# AEE Benchmark — lm-evaluation-harness task configuration
+# Metrics are computed on model completions by tasks/utils.py process_results.
+# NOTE: dataset_path requires the Hugging Face dataset to exist (Gate 2,
+# scripts/publish_hf_dataset.py). Requires lm-eval >= 0.4 for --include_path.
+task: aee_benchmark
+dataset_path: socio-sapien/hedge-density-atlas
+test_split: test
+output_type: generate_until
+training_split: null
+fewshot_split: null
+
+doc_to_text: "{{text}}\nSummarize findings:"
+doc_to_target: "{{text}}"
+
+generation_kwargs:
+  until: ["\n\n", "</s>"]
+  max_gen_toks: 256
+  # temperature requires do_sample: true on recent harness versions
+  do_sample: false
+  temperature: 0.0
+
+process_results: !function utils.process_results
+
+metric_list:
+  - metric: pic_statistic
+    aggregation: mean
+    higher_is_better: false
+  - metric: hedge_density
+    aggregation: mean
+    higher_is_better: false
+  - metric: t_d_ratio
+    aggregation: mean
+    higher_is_better: false
+
+metadata:
+  version: 0.4.0

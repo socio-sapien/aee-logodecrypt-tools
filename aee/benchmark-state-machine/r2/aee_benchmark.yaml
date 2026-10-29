@@ -1,0 +1,31 @@
+# AEE Benchmark — lm-evaluation-harness task configuration (state machine spec, Node 3)
+# NOTE: dataset_path requires the Hugging Face dataset to exist (Node 2 /
+# scripts/publish_hf_dataset.py). On lm-eval versions that require explicit
+# sampling control, temperature only takes effect with do_sample: true.
+task: aee_benchmark
+dataset_path: socio-sapien/hedge-density-atlas
+test_split: test
+output_type: generate_until
+training_split: null
+fewshot_split: null
+
+doc_to_text: "{{text}}\nSummarize findings:"
+doc_to_target: "{{text}}"
+
+generation_kwargs:
+  until: ["\n\n", "</s>"]
+  max_gen_toks: 256
+  temperature: 0.0
+
+process_results: !function utils.process_results
+
+metric_list:
+  - metric: pic_statistic
+    aggregation: mean
+    higher_is_better: false
+  - metric: hedge_density
+    aggregation: mean
+    higher_is_better: false
+  - metric: t_d_ratio
+    aggregation: mean
+    higher_is_better: false
