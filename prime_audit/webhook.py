@@ -9,6 +9,7 @@ import re
 import sqlite3
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from .engine import audit_change, digest
+from .harness import preflight
 
 MAX_BODY = 65536
 
@@ -37,7 +38,7 @@ def ingest(raw, headers, secret, repositories, database):
         else:
             return 202, {'status': 'ignored', 'executed': False}
         audit = audit_change([], text)
-        record = {'repository': repo, 'event': kind, 'payload_sha256': hashlib.sha256(raw).hexdigest(), 'audit': audit}
+        record = {'repository': repo, 'event': kind, 'payload_sha256': hashlib.sha256(raw).hexdigest(), 'audit': audit, 'triage': preflight({'action': 'read', 'paths': []})}
         # GitHub signs the body, not the delivery header. Persist a fingerprint of
         # the authenticated bytes as well as the ID, atomically across concurrent
         # requests. On upgrade, backfill hashes from existing receipts.

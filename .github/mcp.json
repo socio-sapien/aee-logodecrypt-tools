@@ -9,7 +9,8 @@
       ],
       "tools": [
         "prime_audit_text",
-        "prime_simulate_operation"
+        "prime_simulate_operation",
+        "prime_investigate"
       ]
     }
   }

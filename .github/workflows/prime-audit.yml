@@ -24,6 +24,8 @@ jobs:
           python3 -m unittest discover -s prime_audit/tests -v
       - name: Exercise seven role scenarios and record evidence
         run: python3 -m prime_audit.seven_roles --output prime-seven-role-receipt.json
+      - name: Run seven-stage harness fixture chain
+        run: python3 -m prime_audit.harness_demo --output prime-harness-demo.json
       - name: Simulate operation plan and record changed-file evidence
         run: python3 -m prime_audit.ci --event "$GITHUB_EVENT_PATH" --output prime-audit-receipt.json
       - name: Preserve audit receipt for review
@@ -34,5 +36,6 @@ jobs:
           path: |
             prime-audit-receipt.json
             prime-seven-role-receipt.json
+            prime-harness-demo.json
           retention-days: 7
           if-no-files-found: ignore

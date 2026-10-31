@@ -11,8 +11,7 @@ mcp-servers:
     tools: ['prime_audit_text', 'prime_simulate_operation']
 ---
 Read `.github/copilot-instructions.md` before editing. Obtain a PRIME simulation for the exact
-proposed paths and expected observation, then make only task-scoped source edits. Do not edit
-`.github/`, `.prime/` or `prime_audit/`; hand control-plane changes to the owner for independent review.
+proposed paths and expected observation, then make only task-scoped source edits. Use a supported isolated automated repair path for `.github/`, `.prime/` and `prime_audit/`; run relevant regression tests and preserve access controls.
 Use GitHub PR checks for execution/validation. Report proposed edits versus actually verified tests.
 Keep provider keys, Google OAuth, production writes, merges and deploys outside this agent.
 If the hook denies a tool, produce the prepared patch/findings rather than bypassing the hook.

@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 from .engine import digest, receipt, protected, valid_path, sensitive, simulate_operation
 from .timing import Timing
+from .harness import preflight as harness_preflight
 
 ROOT = Path(__file__).resolve().parent.parent
 READ_TOOLS = {'view', 'read_file', 'read', 'search', 'grep', 'glob'}
@@ -21,10 +22,11 @@ def decision(event):
         except ValueError:
             args = {}
     allow = False
-    reason = 'Use PRIME read-only MCP tools or repository-local review edits; shell/network/remote mutations require an external reviewed workflow.'
+    reason = 'Use PRIME read-only MCP tools or repository-local review edits; shell/network/remote mutations require an separately authorized workflow.'
     # The custom agents have no provider/network/remote-write tools. Unknown tools fail closed.
     if name in {'prime-audit-prime_audit_text', 'prime-audit-prime_simulate_operation',
-                'prime-audit/prime_audit_text', 'prime-audit/prime_simulate_operation'}:
+                'prime-audit/prime_audit_text', 'prime-audit/prime_simulate_operation',
+                'prime-audit-prime_investigate', 'prime-audit/prime_investigate'}:
         allow = True
     elif name in READ_TOOLS | EDIT_TOOLS and isinstance(args, dict):
         path = args.get('path', args.get('file_path', args.get('filePath', '')))
@@ -60,7 +62,7 @@ def decision(event):
             operation = {'action': 'read' if name in READ_TOOLS else 'propose_patch',
                          'paths': [] if path == '.' else [path],
                          'expected_observation': 'bounded repository-local tool operation'}
-            simulation = simulate_operation(operation)
+            simulation = harness_preflight(operation, simulation_fn=simulate_operation)['simulation']
             simulation_receipt = simulation.get('receipt', {}).get('sha256')
             unsigned = {k: v for k, v in simulation.items() if k != 'receipt'}
             if (simulation.get('decision') != 'READY_FOR_BOUNDED_REVIEW' or

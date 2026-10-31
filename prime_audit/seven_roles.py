@@ -18,7 +18,7 @@ from .timing import Timing
 
 def _evidence():
     r=simulate_operation({'action':'propose_patch','paths':['file.py']})
-    return r['decision']=='REVIEW_REQUIRED' and r['executed'] is False
+    return r['decision']=='BLOCKED_BY_POLICY' and r['executed'] is False
 
 def _perception():
     r=audit_text('Do not deploy.', 'Deploy.')
@@ -43,7 +43,7 @@ def _integrity():
 def _protocol():
     r=dispatch({'id':1,'method':'tools/call','params':{'name':'prime_simulate_operation','arguments':{'operation':{'action':'deploy','paths':[]}}}})
     obj=json.loads(r['result']['content'][0]['text'])
-    return obj['decision']=='REVIEW_REQUIRED' and not obj['executed']
+    return obj['decision']=='BLOCKED_BY_POLICY' and not obj['executed']
 
 def _webhook():
     raw=json.dumps({'repository':{'full_name':'fixture/repo'},'action':'opened','issue':{'title':'fixture'}}).encode()
@@ -58,7 +58,7 @@ def _webhook():
 def _verification():
     safe=simulate_operation({'action':'test','paths':['file.py'],'expected_observation':'tests pass'})
     risky=simulate_operation({'action':'propose_patch','paths':['.github/workflows/prime-audit.yml'],'expected_observation':'reviewed'})
-    return safe['decision']=='READY_FOR_BOUNDED_REVIEW' and risky['decision']=='REVIEW_REQUIRED' and not safe['executed']
+    return safe['decision']=='READY_FOR_BOUNDED_REVIEW' and risky['decision']=='BLOCKED_BY_POLICY' and not safe['executed']
 
 SCENARIOS = {'evidence':_evidence,'perception':_perception,'boundary':_boundary,'integrity':_integrity,'protocol':_protocol,'webhook':_webhook,'verification':_verification}
 

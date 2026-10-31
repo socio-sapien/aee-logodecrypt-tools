@@ -143,3 +143,45 @@ this check, and unsigned local receipts are not independent proof or authorizati
 
 The repository `.github/mcp.json` registers PRIME for trusted Copilot CLI sessions.
 For other clients, use their supported MCP configuration; no automatic execution is implied.
+
+### Investigation and action harness
+`python3 -m prime_audit.harness_demo` runs seven ordered, offline fixture actions
+through a common investigate → triage → host action → verify wrapper. The JSON
+receipt separates callback outcomes from actual verification, records local preflight
+elapsed nanoseconds, and marks the 7 ms target as observational. This demo starts
+no live agents and does not establish GitHub/network performance.
+
+`prime_audit.harness.run(operation, observations, executor, verifier)` accepts
+host-provided callbacks only: the caller remains responsible for authorization and
+sandboxing. A policy result alone grants no permission. Exceptions from a callback
+are `outcome_unknown` because effects may already have happened; never retry an
+uncertain action blindly. An absent verifier is recorded as `not_run`. The MCP
+`prime_investigate` endpoint exposes triage and the matrix read-only, not execution.
+The hook invokes preflight for its supported file operations; webhook ingestion adds
+a read-only preflight receipt after signature checks. Neither adapter expands scope.
+
+The requested four remedy terms form rows (fix, repair, remedy, solution), and the
+four lens terms form columns (conceptual, ideological, cumulative, progressive).
+Each cell is explicitly unknown, supported or contradicted, based on caller-provided
+references. These are practical indexing labels, not mathematical quaternion values,
+semantic truth, attribution of intent, or proof an action worked. Terms such as
+isolated/omnipresent and mutual exclusion are not presumed logically equivalent or
+encoded without evidence; no automatic inference follows from names.
+
+### Review-routing investigation and automated repair
+Earlier Copilot guidance required owner review for control-plane changes. That
+text was assistant-authored; it did not itself configure GitHub branch protection.
+The local hook independently blocks edits to protected paths, and simulation blocks
+operations outside its permitted scope. The review text did not establish the cause
+of previously cancelled MCP calls. This change removes the human-routing language;
+security controls and actual platform permissions remain in effect.
+
+`prime_audit.auto_repair.repair` is a host-invoked bounded local primitive. It accepts
+one exact literal replacement in a host-allowlisted UTF-8 file with an expected
+SHA-256, rejects sensitive files and symlink paths, then calls a host verifier. A
+failed verifier triggers rollback when the file remains unchanged by other actors;
+otherwise it records a conflict. It does not edit remote repositories, launch a
+GitHub action, authorize effects or automatically fix arbitrary defects. The tests
+exercise successful repair, rollback, conflict, and denied targets. It is not a
+proof that damage is impossible. Host approval, actual platform controls and
+external-effect rules remain separate from simulation.

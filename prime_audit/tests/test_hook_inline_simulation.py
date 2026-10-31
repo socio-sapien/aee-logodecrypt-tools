@@ -22,7 +22,7 @@ class HookInlineSimulationTests(unittest.TestCase):
 
     def test_review_required_fails_closed(self):
         from prime_audit.engine import receipt
-        with patch.object(hook, "simulate_operation", return_value=receipt({"decision": "REVIEW_REQUIRED", "executed": False})):
+        with patch.object(hook, "simulate_operation", return_value=receipt({"decision": "BLOCKED_BY_POLICY", "executed": False})):
             self.assertEqual(hook.decision(self.event())["permissionDecision"], "deny")
 
 if __name__ == "__main__":

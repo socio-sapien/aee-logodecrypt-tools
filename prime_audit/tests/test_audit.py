@@ -15,7 +15,7 @@ from prime_audit.webhook import ingest
 class AuditTests(unittest.TestCase):
     def test_sensitive_read_requires_review(self):
         r = simulate_operation({'action': 'read', 'paths': ['.env']})
-        self.assertEqual(r['decision'], 'REVIEW_REQUIRED')
+        self.assertEqual(r['decision'], 'BLOCKED_BY_POLICY')
 
     def test_hook_process_records_and_denies_shell(self):
         result = subprocess.run([sys.executable, '-m', 'prime_audit.hook'], input=json.dumps({'toolName': 'bash', 'toolArgs': {'command': 'echo not-executed'}}), text=True, capture_output=True, check=True)
@@ -40,14 +40,14 @@ class AuditTests(unittest.TestCase):
         r = simulate_operation({'action':'read','paths':['README.md']})
         self.assertFalse(r['executed']); self.assertEqual(r['decision'], 'READY_FOR_BOUNDED_REVIEW')
     def test_patch_needs_observation(self):
-        self.assertEqual(simulate_operation({'action':'propose_patch'})['decision'], 'REVIEW_REQUIRED')
+        self.assertEqual(simulate_operation({'action':'propose_patch'})['decision'], 'BLOCKED_BY_POLICY')
     def test_protected_patch(self):
         r=simulate_operation({'action':'propose_patch','paths':['.github/hooks/a.json'],'expected_observation':'test'})
-        self.assertEqual(r['decision'], 'REVIEW_REQUIRED')
+        self.assertEqual(r['decision'], 'BLOCKED_BY_POLICY')
     def test_external_never_executes(self):
         for action in ['network','deploy','secret','delete','push','merge']:
             r=simulate_operation({'action':action,'approved':True})
-            self.assertEqual(r['decision'],'REVIEW_REQUIRED'); self.assertFalse(r['executed'])
+            self.assertEqual(r['decision'],'BLOCKED_BY_POLICY'); self.assertFalse(r['executed'])
     def test_invalid_action(self):
         with self.assertRaises(ValueError): simulate_operation({'action':'shell'})
     def test_paths(self):
@@ -56,7 +56,7 @@ class AuditTests(unittest.TestCase):
     def test_receipt(self):
         r=simulate_operation({'action':'read'}); receipt=r.pop('receipt'); self.assertEqual(receipt['sha256'],digest(r))
     def test_diff(self):
-        self.assertEqual(audit_change(['.github/hooks/prime.json'], 'not retained')['decision'],'REVIEW_REQUIRED')
+        self.assertEqual(audit_change(['.github/hooks/prime.json'], 'not retained')['decision'],'AUTOMATED_CHECKS_NEEDED')
     def test_diff_truncation(self):
         self.assertTrue(audit_change(['README.md'], 'x' * 65537)['analysis_truncated'])
     def test_hook_unknown(self):
@@ -78,7 +78,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(dispatch({'id':1,'method':'initialize','params':{'protocolVersion':'2025-03-26'}})['result']['protocolVersion'],'2025-03-26')
     def test_mcp_tools(self):
         tools=dispatch({'id':2,'method':'tools/list'})['result']['tools']
-        self.assertEqual(len(tools),2); self.assertTrue(all(t['annotations']['readOnlyHint'] for t in tools))
+        self.assertEqual({t['name'] for t in tools},{'prime_audit_text','prime_simulate_operation','prime_investigate'}); self.assertTrue(all(t['annotations']['readOnlyHint'] for t in tools))
     def test_mcp_call(self):
         r=dispatch({'id':1,'method':'tools/call','params':{'name':'prime_simulate_operation','arguments':{'operation':{'action':'push'}}}})
         self.assertFalse(r['result']['isError']); self.assertFalse(json.loads(r['result']['content'][0]['text'])['executed'])

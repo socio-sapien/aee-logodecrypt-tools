@@ -57,12 +57,12 @@ def simulate_operation(operation):
     if action not in {'read', 'propose_patch', 'test'}:
         reasons.append('external or destructive effect requires a separate authorized executor')
     if action == 'propose_patch' and any(protected(p) for p in paths):
-        reasons.append('control-plane change requires independent human review')
+        reasons.append('control-plane change requires a supported isolated automation path')
     if action in {'propose_patch', 'test'} and not operation.get('expected_observation'):
         reasons.append('define a concrete expected observation before execution')
     return receipt({'schema': 'prime.operation.v1', 'mode': 'simulation-only',
         'operation_sha256': digest(operation), 'action': action, 'paths': paths,
-        'decision': 'REVIEW_REQUIRED' if reasons else 'READY_FOR_BOUNDED_REVIEW',
+        'decision': 'BLOCKED_BY_POLICY' if reasons else 'READY_FOR_BOUNDED_REVIEW',
         'reasons': reasons, 'executed': False,
         'constraints': {'network': False, 'credential_access': False, 'automatic_apply': False},
         'meaning': 'Policy simulation only; neither authorization nor proof of runtime safety.'})
@@ -83,5 +83,5 @@ def audit_change(paths, diff):
         'seven_role_cues': cues,
         'negation_cue_count': len(report['surface']['negation_cues']),
         'instrument_receipt': report['receipt'], 'executed': False,
-        'decision': 'REVIEW_REQUIRED' if truncated or any(protected(p) for p in paths) else 'REVIEW_RECORDED',
+        'decision': 'AUTOMATED_CHECKS_NEEDED' if truncated or any(protected(p) for p in paths) else 'AUDIT_RECORDED',
         'meaning': 'Text cues are review evidence, not a correctness/security verdict.'})

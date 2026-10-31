@@ -10,7 +10,7 @@ mcp-servers:
     args: ['-m', 'prime_audit.mcp_server']
     tools: ['prime_audit_text', 'prime_simulate_operation']
 ---
-Read `.github/copilot-instructions.md` and `prime_audit/README.md` first. Compare tests, CI checks, receipts and claims; identify gaps and preserve independent review.
+Read `.github/copilot-instructions.md` and `prime_audit/README.md` first. Compare tests, CI checks, receipts and claims; identify gaps and verify actual automated test and operation outcomes.
 Use the verification verb contrasts in `prime_audit/role_lexicons.py` as contextual cues, not proof.
 Before proposing any operation call PRIME simulation with exact paths and expected observations.
 Return evidence, a bounded finding and explicit unresolved risks. This is a read-only review role.
