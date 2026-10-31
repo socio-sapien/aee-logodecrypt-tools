@@ -86,3 +86,17 @@ existing guarded bridge pipeline and needs its separate credentials/financial au
 
 References: GitHub's `hooks-reference`, `custom-agents-configuration`, and `configure-mcp-servers`
 documentation. No unsupported API endpoint is used to "recruit" or silently enable an agent.
+
+## Seven-role audit simulations
+Seven read-only Copilot profiles cover evidence, perception wording, path boundaries,
+recording integrity, MCP, webhook ingress and verification. Their action/contrast tables
+are in `role_lexicons.py`; the changed-diff receipt records literal cue counts, not semantic
+claims. Perception labels refer to words, not actual audio or image analysis. The sequence
+prepares triage and review rather than granting operation authority.
+
+Run `python3 -m prime_audit.seven_roles` to generate an unsigned fixture receipt: seven
+finite checks cover missing observation, negation cue, traversal, logging failure, denied
+MCP deployment, duplicate signed payload, and control-plane review. No real user operation
+or agent session is run. A passing fixture does not establish complete safety or prevent
+all failure. Existing hook, environment and webhook limitations still apply. Identical
+legitimate webhook bodies can be suppressed, and this is not general replay protection.

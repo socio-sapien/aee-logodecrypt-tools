@@ -69,10 +69,14 @@ def audit_change(paths, diff):
         raise ValueError('invalid changed-file inventory')
     truncated = len(diff) > MAX_TEXT
     report = audit_text(diff[:MAX_TEXT])
+    # Literal cues are hints only; no raw source is copied into the receipt.
+    from .role_lexicons import cue_ledger
+    cues = cue_ledger(diff[:MAX_TEXT])
     # Do not copy patch/source text into receipts or hook logs.
     return receipt({'schema': 'prime.change.v1', 'paths': paths,
         'control_plane_changes': [p for p in paths if protected(p)],
         'diff_sha256': hashlib.sha256(diff.encode()).hexdigest(), 'analysis_truncated': truncated,
+        'seven_role_cues': cues,
         'negation_cue_count': len(report['surface']['negation_cues']),
         'instrument_receipt': report['receipt'], 'executed': False,
         'decision': 'REVIEW_REQUIRED' if truncated or any(protected(p) for p in paths) else 'REVIEW_RECORDED',

@@ -22,6 +22,8 @@ jobs:
         run: |
           python3 prime_audit/instrument.py --self-test
           python3 -m unittest discover -s prime_audit/tests -v
+      - name: Exercise seven role scenarios and record evidence
+        run: python3 -m prime_audit.seven_roles --output prime-seven-role-receipt.json
       - name: Simulate operation plan and record changed-file evidence
         run: python3 -m prime_audit.ci --event "$GITHUB_EVENT_PATH" --output prime-audit-receipt.json
       - name: Preserve audit receipt for review
@@ -29,6 +31,8 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: prime-audit-receipt
-          path: prime-audit-receipt.json
+          path: |
+            prime-audit-receipt.json
+            prime-seven-role-receipt.json
           retention-days: 7
           if-no-files-found: ignore
