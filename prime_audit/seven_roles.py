@@ -13,6 +13,7 @@ from .mcp_server import dispatch
 from .webhook import ingest
 
 from .role_lexicons import ROLES
+from .timing import Timing
 
 def _evidence():
     r=simulate_operation({'action':'propose_patch','paths':['file.py']})
@@ -62,15 +63,18 @@ SCENARIOS = {'evidence':_evidence,'perception':_perception,'boundary':_boundary,
 
 def run():
     results=[]
+    timing=Timing()
     for role, spec in ROLES.items():
+        started=timing.clock()
         try:
             passed=SCENARIOS[role]() is True
             error=None
         except Exception as exc:
             passed=False
             error=type(exc).__name__
+        timing.mark(role, started)
         results.append({'role':role,'stage':spec['stage'],'passed':passed,'error_type':error})
-    return receipt({'schema':'prime.seven-role-simulations.v1','mode':'offline-fixture-only','roles':results,'agent_sessions_started':0,'executed_operations':0,'limitations':['Finite synthetic checks, not a guarantee.','Lexicons are contextual cues, not semantic or sensory analysis.','Identical webhook bodies may be legitimate; deduplication is not complete replay protection.']})
+    return receipt({'timing':timing.record(), 'schema':'prime.seven-role-simulations.v1','mode':'offline-fixture-only','roles':results,'agent_sessions_started':0,'executed_operations':0,'limitations':['Finite synthetic checks, not a guarantee.','Lexicons are contextual cues, not semantic or sensory analysis.','Identical webhook bodies may be legitimate; deduplication is not complete replay protection.']})
 
 def main():
     import argparse

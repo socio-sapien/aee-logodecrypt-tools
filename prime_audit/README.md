@@ -100,3 +100,13 @@ MCP deployment, duplicate signed payload, and control-plane review. No real user
 or agent session is run. A passing fixture does not establish complete safety or prevent
 all failure. Existing hook, environment and webhook limitations still apply. Identical
 legitimate webhook bodies can be suppressed, and this is not general replay protection.
+
+## Temporal proximity
+The local CI comparison, audit and operation preflight, seven offline scenarios,
+Copilot pre-tool decision, and MCP tool calls record monotonic elapsed time in
+nanoseconds with an advisory 7 ms target. A target breach is evidence to investigate;
+it does not bypass validation, deny a safe operation, cancel work, or prove completion.
+Hook timing excludes durable log I/O; CI excludes checkout, setup and artifact upload;
+MCP timing excludes transport. Provider calls, GitHub queues, human approvals, webhooks
+and other operations are outside this measurement; no end-to-end deadline is guaranteed.
+Receipts can vary with load and hardware. No prompts or secrets are recorded in timing data.

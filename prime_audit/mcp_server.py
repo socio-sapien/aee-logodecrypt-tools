@@ -2,6 +2,7 @@
 import json
 import sys
 from .engine import audit_text, simulate_operation, MAX_TEXT
+from .timing import Timing
 
 TOOLS = [
  {'name': 'prime_audit_text', 'description': 'Inspect supplied text against optional source; no network or execution.',
@@ -29,6 +30,7 @@ def dispatch(msg):
         out['result'] = {'tools': TOOLS}
     elif method == 'tools/call':
         try:
+            timing = Timing(); started = timing.clock()
             params = msg['params']; args = params.get('arguments', {})
             if params['name'] == 'prime_audit_text' and set(args) <= {'text', 'source'}:
                 result = audit_text(**args)
@@ -36,7 +38,8 @@ def dispatch(msg):
                 result = simulate_operation(args['operation'])
             else:
                 raise ValueError('unknown tool or arguments')
-            out['result'] = {'content': [{'type': 'text', 'text': json.dumps(result, ensure_ascii=False)}], 'isError': False}
+            timing.mark('mcp_tool', started)
+            out['result'] = {'content': [{'type': 'text', 'text': json.dumps(result, ensure_ascii=False)}], 'isError': False, '_meta': {'prime_timing': timing.record()}}
         except (ValueError, KeyError, TypeError, AttributeError):
             out['result'] = {'content': [{'type': 'text', 'text': 'Invalid audit request; no operation executed.'}], 'isError': True}
     else:
