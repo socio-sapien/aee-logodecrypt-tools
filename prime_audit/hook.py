@@ -78,6 +78,32 @@ def decision(event):
             'permissionDecisionReason': 'Repository-local bounded tool passed preflight.' if allow else reason,
             '_simulation_receipt': simulation_receipt}
 
+def repository_git_dir(root):
+    """Locate normal or linked-worktree metadata without executing git.
+
+    For a gitfile, require Git's reciprocal worktree metadata: the target must
+    be under a common repository's worktrees directory and point back to the
+    checkout's .git file. No caller-supplied log path is accepted.
+    """
+    dotgit = root / '.git'
+    if dotgit.is_symlink():
+        raise ValueError('symlinked metadata')
+    if dotgit.is_dir():
+        return dotgit.resolve(strict=True)
+    if not dotgit.is_file():
+        raise ValueError('missing repository metadata')
+    raw = dotgit.read_text(encoding='utf-8')
+    if len(raw) > 4096 or not raw.startswith('gitdir: ') or len(raw.splitlines()) != 1:
+        raise ValueError('invalid gitfile')
+    target = Path(raw.strip()[8:])
+    gitdir = (target if target.is_absolute() else root / target).resolve(strict=True)
+    if not gitdir.is_dir() or gitdir.parent.name != 'worktrees':
+        raise ValueError('invalid worktree metadata')
+    backlink = (gitdir / 'gitdir').read_text(encoding='utf-8').strip()
+    if not backlink or Path(backlink).resolve(strict=True) != dotgit.resolve(strict=True):
+        raise ValueError('worktree backlink mismatch')
+    return gitdir
+
 @monitored("pre_tool_request")
 def main():
     try:
@@ -94,11 +120,10 @@ def main():
         # Keep receipt hashes only; don't send internal fields to Copilot.
         simulation_receipt = result.pop('_simulation_receipt', None)
         # Fixed path, no caller-provided log destination, no prompt or secret contents.
-        directory = ROOT / '.git' / 'prime-audit'
-        if not (ROOT / '.git').is_dir():
-            raise ValueError('missing repository metadata')
+        git_dir = repository_git_dir(ROOT)
+        directory = git_dir / 'prime-audit'
         directory.mkdir(mode=0o700, exist_ok=True)
-        directory.resolve().relative_to((ROOT / '.git').resolve())
+        directory.resolve(strict=True).relative_to(git_dir)
         record = receipt({'event_sha256': digest(event), 'decision': result['permissionDecision'], 'tool': str(event.get('toolName', ''))[:100], 'simulation_receipt_sha256': simulation_receipt, 'timing': timing.record()})
         fd = os.open(directory / 'decisions.jsonl', os.O_WRONLY | os.O_CREAT | os.O_APPEND | os.O_NOFOLLOW, 0o600)
         os.fchmod(fd, 0o600)
