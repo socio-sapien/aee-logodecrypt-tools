@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "prime-audit": {
+      "type": "local",
+      "command": "python3",
+      "args": [
+        "-m",
+        "prime_audit.mcp_server"
+      ],
+      "tools": [
+        "prime_audit_text",
+        "prime_simulate_operation"
+      ]
+    }
+  }
+}

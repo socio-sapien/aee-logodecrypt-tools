@@ -130,3 +130,16 @@ These signals remain best-effort observations, not guaranteed deadlines or proof
 a completed simulation. Hook policy and model instructions are separate: a permitted
 read is not proof that a preceding simulation completed. No external provider or network
 response timing is controlled by these checkpoints.
+
+### Inline simulation before supported file operations
+For a hook-allowed repository-local read or edit, the pre-tool hook runs a local
+operation simulation and verifies its unsigned integrity receipt before returning
+allow. A simulation error, invalid receipt or review-required result returns deny;
+MCP connectivity is not needed for this local check. The hook stores only a receipt
+hash alongside the existing decision record. Separate agent-initiated MCP calls are
+still useful for model-visible evidence but are not a prerequisite for this check.
+The host executes hooks: timeouts, disabled hooks or unsupported tools may evade
+this check, and unsigned local receipts are not independent proof or authorization.
+
+The repository `.github/mcp.json` registers PRIME for trusted Copilot CLI sessions.
+For other clients, use their supported MCP configuration; no automatic execution is implied.
