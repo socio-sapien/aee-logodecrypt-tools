@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 from .engine import digest, receipt, protected, valid_path, sensitive, simulate_operation
 from .timing import Timing
+from .full import hook_audit
 from .harness import preflight as harness_preflight
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -24,7 +25,7 @@ def decision(event):
     allow = False
     reason = 'Use PRIME read-only MCP tools or repository-local review edits; shell/network/remote mutations require an separately authorized workflow.'
     # The custom agents have no provider/network/remote-write tools. Unknown tools fail closed.
-    if name in {'prime-audit-prime_audit_text', 'prime-audit-prime_simulate_operation',
+    if name in {'prime-audit-prime_full_audit', 'prime-audit/prime_full_audit', 'prime_full_audit', 'prime-audit-prime_audit_text', 'prime-audit-prime_simulate_operation',
                 'prime-audit/prime_audit_text', 'prime-audit/prime_simulate_operation',
                 'prime-audit-prime_investigate', 'prime-audit/prime_investigate'}:
         allow = True
@@ -115,6 +116,7 @@ def main():
             raise ValueError('object required')
         timing = Timing()
         start = timing.clock()
+        full_battery = hook_audit(event, ROOT)
         result = decision(event)
         timing.mark("pre_tool_decision", start)
         # Keep receipt hashes only; don't send internal fields to Copilot.
@@ -124,7 +126,7 @@ def main():
         directory = git_dir / 'prime-audit'
         directory.mkdir(mode=0o700, exist_ok=True)
         directory.resolve(strict=True).relative_to(git_dir)
-        record = receipt({'event_sha256': digest(event), 'decision': result['permissionDecision'], 'tool': str(event.get('toolName', ''))[:100], 'simulation_receipt_sha256': simulation_receipt, 'timing': timing.record()})
+        record = receipt({'event_sha256': digest(event), 'full_battery': full_battery, 'decision': result['permissionDecision'], 'tool': str(event.get('toolName', ''))[:100], 'simulation_receipt_sha256': simulation_receipt, 'timing': timing.record()})
         fd = os.open(directory / 'decisions.jsonl', os.O_WRONLY | os.O_CREAT | os.O_APPEND | os.O_NOFOLLOW, 0o600)
         os.fchmod(fd, 0o600)
         with os.fdopen(fd, 'a', encoding='utf-8') as stream:

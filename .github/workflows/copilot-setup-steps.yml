@@ -15,5 +15,9 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.12'
+      - name: Verify installed full PRIME battery
+        run: |
+          python3 prime_audit/vendor/prime_v6_7.py --self-test
+          python3 -m prime_audit.environment --output "$RUNNER_TEMP/prime-environment.json"
       - name: Verify secret-free PRIME tools
         run: python3 -m unittest discover -s prime_audit/tests -v
