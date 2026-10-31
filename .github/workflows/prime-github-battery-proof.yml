@@ -1,6 +1,8 @@
 name: PRIME battery evidence proof
 on:
   workflow_dispatch:
+  push:
+    branches: [prime/github-battery-proof]
 permissions:
   contents: read
 jobs:
