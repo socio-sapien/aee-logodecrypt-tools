@@ -15,10 +15,13 @@ jobs:
           python-version: '3.12'
       - name: Execute complete current PRIME text instrument and evidence ledgers
         run: PYTHONPATH=. python demonstrations/github-battery/run_battery.py
+      - name: Audit repository agent instructions and simulate a real read before execution
+        run: PYTHONPATH=. python demonstrations/github-battery/preexecution.py
       - name: Upload controlled inputs, calculations, and outputs
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: prime-battery-proof
           path: |
             battery-results.json
+            preexecution-results.json
             demonstrations/github-battery/
