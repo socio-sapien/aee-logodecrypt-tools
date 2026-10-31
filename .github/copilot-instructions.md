@@ -18,3 +18,10 @@ Do not claim a successful CI run proves semantic fidelity, universal safety, or 
 - `prime-implementer`: propose scoped source changes, never alter the audit control plane.
 - GitHub Actions `PRIME repository audit`: deterministic tests and changed-file receipts on PR/push.
 The owner reviews the PR and actual checks before merge. Neither agent is an autonomous deployer.
+
+## Seven-role review sequence
+The seven `prime-{evidence,perception,boundary,integrity,protocol,webhook,verification}`
+profiles divide review across triage, source context, preflight, tool integrity, MCP, webhook,
+and verification. Profiles do not themselves create agent sessions or authorize effects.
+Run `python3 -m prime_audit.seven_roles` for seven deterministic, offline adverse fixtures;
+CI records the receipt. Verbs and contrasts are literal review cues, not semantic conclusions.

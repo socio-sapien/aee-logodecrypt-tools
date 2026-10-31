@@ -1,4 +1,5 @@
 """Loopback-only signed GitHub webhook simulation inbox; never executes queued requests."""
+from .timing import monitored
 import argparse
 import hashlib
 import hmac
@@ -11,6 +12,7 @@ from .engine import audit_change, digest
 
 MAX_BODY = 65536
 
+@monitored("webhook_ingest")
 def ingest(raw, headers, secret, repositories, database):
     if not secret or len(raw) > MAX_BODY:
         return 401, {'error': 'missing configuration or oversized payload'}

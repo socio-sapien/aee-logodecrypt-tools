@@ -1,10 +1,12 @@
 """Provider-free CI: audit a git comparison; never execute the diff."""
+from .timing import monitored
 import argparse
 import json
 import re
 import subprocess
 from pathlib import Path
 from .engine import audit_change, simulate_operation
+from .timing import Timing
 
 def git(*args):
     return subprocess.check_output(['git', *args], text=True).strip()
@@ -14,6 +16,7 @@ def commit(ref):
         raise ValueError('Full commit SHA required')
     return git('rev-parse', '--verify', ref + '^{commit}')
 
+@monitored("ci_review")
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--base')
@@ -33,13 +36,19 @@ def main():
                 base = git('rev-parse', 'HEAD^')
     else:
         base, head = a.base, a.head
+    timing = Timing()
+    started = timing.clock()
     refs = [commit(base), commit(head)]
     paths = subprocess.check_output(['git', 'diff', '--name-only', '-z', *refs, '--']).decode().split('\0')
     diff = subprocess.check_output(['git', 'diff', '--no-ext-diff', '--no-textconv', '--unified=3', *refs, '--']).decode(errors='replace')
+    timing.mark('git_comparison', started)
+    started = timing.clock()
     manifest = json.loads(Path('.prime/operations.json').read_text())
     if not isinstance(manifest, list) or len(manifest) > 100:
         raise ValueError('operation plan must be a bounded array')
     result = {'base': refs[0], 'head': refs[1], 'change': audit_change([x for x in paths if x], diff), 'operations': [simulate_operation(op) for op in manifest]}
+    timing.mark('audit_and_preflight', started)
+    result['timing'] = timing.record()
     result['operation_gate'] = 'pass' if all(op['decision'] == 'READY_FOR_BOUNDED_REVIEW' for op in result['operations']) else 'review_required'
     Path(a.output).write_text(json.dumps(result, indent=2) + '\n')
     if result['operation_gate'] != 'pass':

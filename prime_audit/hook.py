@@ -1,14 +1,17 @@
 """Copilot preToolUse adapter. Bounded, no network, no subprocess, no raw-argument log."""
+from .timing import monitored
 import json
 import os
 import sys
 from pathlib import Path
 from .engine import digest, receipt, protected, valid_path, sensitive
+from .timing import Timing
 
 ROOT = Path(__file__).resolve().parent.parent
 READ_TOOLS = {'view', 'read_file', 'read', 'search', 'grep', 'glob'}
 EDIT_TOOLS = {'str_replace_editor', 'str_replace', 'edit', 'write_file', 'create_file', 'apply_patch'}
 
+@monitored("pre_tool_decision")
 def decision(event):
     name = event.get('toolName', event.get('tool_name', ''))
     args = event.get('toolArgs', event.get('tool_input', {}))
@@ -60,14 +63,17 @@ def main():
         event = json.loads(raw)
         if not isinstance(event, dict):
             raise ValueError('object required')
+        timing = Timing()
+        start = timing.clock()
         result = decision(event)
+        timing.mark("pre_tool_decision", start)
         # Fixed path, no caller-provided log destination, no prompt or secret contents.
         directory = ROOT / '.git' / 'prime-audit'
         if not (ROOT / '.git').is_dir():
             raise ValueError('missing repository metadata')
         directory.mkdir(mode=0o700, exist_ok=True)
         directory.resolve().relative_to((ROOT / '.git').resolve())
-        record = receipt({'event_sha256': digest(event), 'decision': result['permissionDecision'], 'tool': str(event.get('toolName', ''))[:100]})
+        record = receipt({'event_sha256': digest(event), 'decision': result['permissionDecision'], 'tool': str(event.get('toolName', ''))[:100], 'timing': timing.record()})
         fd = os.open(directory / 'decisions.jsonl', os.O_WRONLY | os.O_CREAT | os.O_APPEND | os.O_NOFOLLOW, 0o600)
         os.fchmod(fd, 0o600)
         with os.fdopen(fd, 'a', encoding='utf-8') as stream:

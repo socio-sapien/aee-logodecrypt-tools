@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """Run the supplied Chassis CLI against task and provider text, storing a local report."""
+import sys as _prime_sys
+from pathlib import Path as _PrimePath
+_prime_sys.path.insert(0, str(_PrimePath(__file__).resolve().parents[3]))
+from prime_audit.timing import monitored as _prime_monitored
 import argparse
 import json
 import os
@@ -11,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CLI = ROOT / "chassis_cli_v7.py"
 
 
+@_prime_monitored("chassis_audit")
 def cli_audit(text: str, db: str) -> dict:
     env = os.environ.copy()
     env["THAUMATURGICON_DB"] = db
