@@ -19,3 +19,8 @@ The Chassis v7 → Mistral Vibe → optional ChainGPT scaffold is in [`integrati
 
 See [the installed Copilot agents, MCP tools, preflight hook and webhook simulation inbox](prime_audit/README.md).
 Audit automation is secret-free; live provider/deployment activation remains separately scoped.
+
+## Installed PRIME environment
+
+The full standalone PRIME 6.7 source is at `prime_audit/vendor/prime_v6_7.py`.
+See [environment integration](docs/prime-environment.md) for automatic hooks, MCP discovery and verification.

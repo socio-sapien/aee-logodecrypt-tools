@@ -20,6 +20,8 @@ jobs:
           python-version: '3.12'
       - name: Test instrument and audit adapters without providers
         run: |
+          python3 prime_audit/vendor/prime_v6_7.py --self-test
+          python3 -m prime_audit.environment --output prime-environment.json
           python3 prime_audit/instrument.py --self-test
           python3 -m unittest discover -s prime_audit/tests -v
       - name: Exercise seven role scenarios and record evidence
@@ -40,6 +42,7 @@ jobs:
           name: prime-audit-receipt
           path: |
             prime-audit-receipt.json
+            prime-environment.json
             prime-seven-role-receipt.json
             prime-harness-demo.json
             prime-source-chain-receipt.json

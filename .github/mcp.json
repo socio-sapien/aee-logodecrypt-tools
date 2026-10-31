@@ -8,6 +8,7 @@
         "prime_audit.mcp_server"
       ],
       "tools": [
+        "prime_full_audit",
         "prime_audit_text",
         "prime_simulate_operation",
         "prime_investigate"
