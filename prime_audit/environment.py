@@ -10,6 +10,10 @@ from .engine import receipt
 ROOT = Path(__file__).resolve().parent.parent
 
 def verify():
+    assert (ROOT/'PRIME_6_7.py').is_file()
+    assert (ROOT/'PRIME_PROTOCOL.md').is_file()
+    hooks=json.loads((ROOT/'.github/hooks/prime-audit.json').read_text())['hooks']
+    assert all(event in hooks for event in ('userPromptTransformed','preToolUse','postToolUse','postToolUseFailure'))
     config=json.loads((ROOT/'.github/mcp.json').read_text())
     assert 'prime_full_audit' in config['mcpServers']['prime-audit']['tools']
     result=dispatch({'id':1,'method':'tools/call','params':{'name':'prime_full_audit','arguments':{'text':'Do not run until approved. 15 records.','source':'Run if approved. 12 records.'}}})

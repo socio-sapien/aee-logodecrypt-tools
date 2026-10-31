@@ -7,7 +7,7 @@ from .instrument import analyze, verify
 
 MAX_TEXT = 65536
 ACTIONS = {'read', 'propose_patch', 'test', 'network', 'deploy', 'secret', 'delete', 'push', 'merge'}
-PROTECTED = ('.git', '.github', '.prime', 'prime_audit')
+PROTECTED = ('.git', '.github', '.prime', 'prime_audit', 'PRIME_6_7.py', 'PRIME_PROTOCOL.md', 'AGENTS.md')
 
 def canonical(value):
     return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False)

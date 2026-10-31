@@ -20,6 +20,7 @@ def audit_full(text, source=None):
     matches = list(TOKEN_RE.finditer(text))
     small = len(matches) <= 128
     report = prime.run_omni_analysis(text, context=source,
+        domain='agent_trace', include_performance=True,
         include_word_dynamics=small, include_logical_actions=True)
     if not prime.verify_report(report, text.encode())['report_integrity_valid']:
         raise ValueError('PRIME 6.7 report integrity failure')
@@ -47,7 +48,7 @@ def audit_full(text, source=None):
 def hook_audit(event, root):
     """Audit exact available instructions and event in memory; persist hashes only."""
     inputs = [('tool-event', json.dumps(event, ensure_ascii=False, sort_keys=True))]
-    for name in ('AGENTS.md', '.github/copilot-instructions.md'):
+    for name in ('AGENTS.md', '.github/copilot-instructions.md', 'PRIME_PROTOCOL.md'):
         path = root / name
         if path.is_file():
             if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):

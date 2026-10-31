@@ -1,3 +1,7 @@
+## Root PRIME 6.7 installation
+
+Run `python3 PRIME_6_7.py --version` and read [the operational protocol](PRIME_PROTOCOL.md). The vendored full instrument, MCP server, lifecycle hooks, setup verification and CI are included. Actual host coverage and limitations are stated in that protocol.
+
 # AEE and LOGODECRYPT tools
 
 A collection of Nathaniel Jaffe-Norris’s Aletheiac-Entropy Engine and LOGODECRYPT software variants and specifications.
