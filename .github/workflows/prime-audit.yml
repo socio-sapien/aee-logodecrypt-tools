@@ -24,6 +24,11 @@ jobs:
           python3 -m unittest discover -s prime_audit/tests -v
       - name: Exercise seven role scenarios and record evidence
         run: python3 -m prime_audit.seven_roles --output prime-seven-role-receipt.json
+      - name: Check full-source seven-role audit
+        run: |
+          printf 'Source says 12 units.\n' > "$RUNNER_TEMP/prime-source.txt"
+          printf 'Report says 15 units.\n' > "$RUNNER_TEMP/prime-candidate.txt"
+          python3 -m prime_audit.source_chain --source "$RUNNER_TEMP/prime-source.txt" --candidate "$RUNNER_TEMP/prime-candidate.txt" --output prime-source-chain-receipt.json
       - name: Run seven-stage harness fixture chain
         run: python3 -m prime_audit.harness_demo --output prime-harness-demo.json
       - name: Simulate operation plan and record changed-file evidence
@@ -37,5 +42,6 @@ jobs:
             prime-audit-receipt.json
             prime-seven-role-receipt.json
             prime-harness-demo.json
+            prime-source-chain-receipt.json
           retention-days: 7
           if-no-files-found: ignore
