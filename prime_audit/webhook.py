@@ -76,6 +76,7 @@ def main():
     if not secret or not repositories:
         parser.error('PRIME_WEBHOOK_SECRET and PRIME_WEBHOOK_REPOSITORIES are required')
     class Handler(BaseHTTPRequestHandler):
+        @monitored("webhook_request")
         def do_POST(self):
             if self.path != '/github/webhook':
                 self.send_error(404); return

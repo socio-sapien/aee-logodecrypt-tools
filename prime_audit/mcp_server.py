@@ -31,8 +31,8 @@ def dispatch(msg):
     elif method == 'tools/list':
         out['result'] = {'tools': TOOLS}
     elif method == 'tools/call':
+        timing = Timing(); started = timing.clock()
         try:
-            timing = Timing(); started = timing.clock()
             params = msg['params']; args = params.get('arguments', {})
             if params['name'] == 'prime_audit_text' and set(args) <= {'text', 'source'}:
                 result = audit_text(**args)
@@ -43,7 +43,8 @@ def dispatch(msg):
             timing.mark('mcp_tool', started)
             out['result'] = {'content': [{'type': 'text', 'text': json.dumps(result, ensure_ascii=False)}], 'isError': False, '_meta': {'prime_timing': timing.record()}}
         except (ValueError, KeyError, TypeError, AttributeError):
-            out['result'] = {'content': [{'type': 'text', 'text': 'Invalid audit request; no operation executed.'}], 'isError': True}
+            timing.mark('mcp_tool', started)
+            out['result'] = {'content': [{'type': 'text', 'text': 'Invalid audit request; no operation executed.'}], 'isError': True, '_meta': {'prime_timing': timing.record()}}
     else:
         out['error'] = {'code': -32601, 'message': 'Method not found'}
     return out

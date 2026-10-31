@@ -55,6 +55,7 @@ def decision(event):
     return {'permissionDecision': 'allow' if allow else 'deny',
             'permissionDecisionReason': 'Repository-local bounded tool passed preflight.' if allow else reason}
 
+@monitored("pre_tool_request")
 def main():
     try:
         raw = sys.stdin.read(262145)

@@ -30,6 +30,7 @@ def protected(path):
 def sensitive(path):
     return any(x == '.git' or x in {'.env', 'credentials.json', 'token.json', 'client_secret.json'} or x.startswith(('.env.', 'client_secret_')) or x.endswith(('.pem', '.key')) for x in PurePosixPath(path).parts)
 
+@monitored("audit_text")
 def audit_text(text, source=None):
     if not isinstance(text, str) or len(text) > MAX_TEXT:
         raise ValueError('text must be a string of at most 65536 characters')

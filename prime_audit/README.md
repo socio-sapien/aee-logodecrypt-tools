@@ -121,3 +121,12 @@ Signals contain stage names and timing only, not inputs or secrets. Thread sched
 stderr delivery can be delayed; these signals are not hard real-time interrupts and never
 cancel or authorize an operation. Provider execution and end-to-end coverage remain dependent
 on separate integration and authorization. Only paths invoking these wrappers are covered.
+
+### Additional local checkpoint boundaries
+`pre_tool_request` includes hook input parsing and receipt I/O, including rejected input;
+`webhook_request` covers the loopback HTTP handler including body reads; `audit_text`
+times direct text audits. Failed MCP tool calls include local elapsed timing metadata.
+These signals remain best-effort observations, not guaranteed deadlines or proof of
+a completed simulation. Hook policy and model instructions are separate: a permitted
+read is not proof that a preceding simulation completed. No external provider or network
+response timing is controlled by these checkpoints.
