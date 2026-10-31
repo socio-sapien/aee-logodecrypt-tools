@@ -1,4 +1,5 @@
 """Copilot preToolUse adapter. Bounded, no network, no subprocess, no raw-argument log."""
+from .timing import monitored
 import json
 import os
 import sys
@@ -10,6 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 READ_TOOLS = {'view', 'read_file', 'read', 'search', 'grep', 'glob'}
 EDIT_TOOLS = {'str_replace_editor', 'str_replace', 'edit', 'write_file', 'create_file', 'apply_patch'}
 
+@monitored("pre_tool_decision")
 def decision(event):
     name = event.get('toolName', event.get('tool_name', ''))
     args = event.get('toolArgs', event.get('tool_input', {}))

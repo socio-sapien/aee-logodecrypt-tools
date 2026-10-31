@@ -1,4 +1,5 @@
 """Minimal newline-delimited JSON-RPC MCP stdio server. Pure audit tools only."""
+from .timing import monitored
 import json
 import sys
 from .engine import audit_text, simulate_operation, MAX_TEXT
@@ -13,6 +14,7 @@ TOOLS = [
   'annotations': {'readOnlyHint': True, 'destructiveHint': False, 'openWorldHint': False}}
 ]
 
+@monitored("mcp_dispatch")
 def dispatch(msg):
     if not isinstance(msg, dict) or not isinstance(msg.get('params', {}), dict):
         raise ValueError('object params required')

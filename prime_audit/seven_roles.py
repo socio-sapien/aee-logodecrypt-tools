@@ -1,4 +1,5 @@
 """Seven role simulations. These checks never assign agents or execute user operations."""
+from .timing import monitored
 import contextlib
 import hashlib
 import hmac
@@ -61,6 +62,7 @@ def _verification():
 
 SCENARIOS = {'evidence':_evidence,'perception':_perception,'boundary':_boundary,'integrity':_integrity,'protocol':_protocol,'webhook':_webhook,'verification':_verification}
 
+@monitored("seven_scenarios")
 def run():
     results=[]
     timing=Timing()

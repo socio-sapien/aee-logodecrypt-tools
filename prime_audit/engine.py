@@ -1,4 +1,5 @@
 """Deterministic policy simulation. No subprocess, network, credentials or code execution."""
+from .timing import monitored
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
@@ -39,6 +40,7 @@ def audit_text(text, source=None):
         raise ValueError('instrument receipt mismatch')
     return report
 
+@monitored("operation_triage")
 def simulate_operation(operation):
     if not isinstance(operation, dict):
         raise ValueError('operation must be an object')
@@ -64,6 +66,7 @@ def simulate_operation(operation):
         'constraints': {'network': False, 'credential_access': False, 'automatic_apply': False},
         'meaning': 'Policy simulation only; neither authorization nor proof of runtime safety.'})
 
+@monitored("change_audit")
 def audit_change(paths, diff):
     if len(paths) > 10000 or any(not valid_path(p) for p in paths):
         raise ValueError('invalid changed-file inventory')

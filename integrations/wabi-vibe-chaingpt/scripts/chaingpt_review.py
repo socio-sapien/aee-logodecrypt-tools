@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """One explicit real ChainGPT REST request; never called by local tests."""
+import sys as _prime_sys
+from pathlib import Path as _PrimePath
+_prime_sys.path.insert(0, str(_PrimePath(__file__).resolve().parents[3]))
+from prime_audit.timing import monitored as _prime_monitored
 import argparse
 import json
 import os
@@ -30,6 +34,7 @@ def extract_answer(payload: object) -> str:
     return data["bot"]
 
 
+@_prime_monitored("chaingpt_request")
 def post_question(question: str, api_key: str) -> str:
     body = json.dumps(request_payload(question), ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(

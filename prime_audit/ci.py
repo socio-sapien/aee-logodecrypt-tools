@@ -1,4 +1,5 @@
 """Provider-free CI: audit a git comparison; never execute the diff."""
+from .timing import monitored
 import argparse
 import json
 import re
@@ -15,6 +16,7 @@ def commit(ref):
         raise ValueError('Full commit SHA required')
     return git('rev-parse', '--verify', ref + '^{commit}')
 
+@monitored("ci_review")
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--base')

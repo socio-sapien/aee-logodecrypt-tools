@@ -110,3 +110,14 @@ Hook timing excludes durable log I/O; CI excludes checkout, setup and artifact u
 MCP timing excludes transport. Provider calls, GitHub queues, human approvals, webhooks
 and other operations are outside this measurement; no end-to-end deadline is guaranteed.
 Receipts can vary with load and hardware. No prompts or secrets are recorded in timing data.
+
+### Live timing signals
+Best-effort in-process watchdogs emit a 7 ms overrun signal to stderr while a monitored
+operation is still running, then emit completion with measured elapsed time. Wrapped paths
+include CI audit, seven-scenario run, change audit, simulation triage, pre-tool decision,
+MCP dispatch, webhook inbox,
+and available local bridge entry points for Workspace, Gemini, ChainGPT and chassis audit.
+Signals contain stage names and timing only, not inputs or secrets. Thread scheduling and
+stderr delivery can be delayed; these signals are not hard real-time interrupts and never
+cancel or authorize an operation. Provider execution and end-to-end coverage remain dependent
+on separate integration and authorization. Only paths invoking these wrappers are covered.
