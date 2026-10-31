@@ -49,11 +49,11 @@ def main():
     result = {'base': refs[0], 'head': refs[1], 'change': audit_change([x for x in paths if x], diff), 'operations': [simulate_operation(op) for op in manifest]}
     timing.mark('audit_and_preflight', started)
     result['timing'] = timing.record()
-    result['operation_gate'] = 'pass' if all(op['decision'] == 'READY_FOR_BOUNDED_REVIEW' for op in result['operations']) else 'review_required'
+    result['operation_gate'] = 'pass' if all(op['decision'] == 'READY_FOR_BOUNDED_REVIEW' for op in result['operations']) else 'blocked_by_policy'
     Path(a.output).write_text(json.dumps(result, indent=2) + '\n')
     if result['operation_gate'] != 'pass':
-        raise SystemExit('PRIME operation policy requires review; no operation executed.')
-    print('PRIME audit recorded. Review the receipt; this is not authorization or a security certification.')
+        raise SystemExit('PRIME operation policy blocked an operation; none was executed.')
+    print('PRIME audit recorded. Receipt is not authorization or a security certification.')
 
 if __name__ == '__main__':
     main()

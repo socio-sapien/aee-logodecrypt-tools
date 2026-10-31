@@ -4,8 +4,9 @@ import json
 import os
 import sys
 from pathlib import Path
-from .engine import digest, receipt, protected, valid_path, sensitive
+from .engine import digest, receipt, protected, valid_path, sensitive, simulate_operation
 from .timing import Timing
+from .harness import preflight as harness_preflight
 
 ROOT = Path(__file__).resolve().parent.parent
 READ_TOOLS = {'view', 'read_file', 'read', 'search', 'grep', 'glob'}
@@ -21,10 +22,11 @@ def decision(event):
         except ValueError:
             args = {}
     allow = False
-    reason = 'Use PRIME read-only MCP tools or repository-local review edits; shell/network/remote mutations require an external reviewed workflow.'
+    reason = 'Use PRIME read-only MCP tools or repository-local review edits; shell/network/remote mutations require an separately authorized workflow.'
     # The custom agents have no provider/network/remote-write tools. Unknown tools fail closed.
     if name in {'prime-audit-prime_audit_text', 'prime-audit-prime_simulate_operation',
-                'prime-audit/prime_audit_text', 'prime-audit/prime_simulate_operation'}:
+                'prime-audit/prime_audit_text', 'prime-audit/prime_simulate_operation',
+                'prime-audit-prime_investigate', 'prime-audit/prime_investigate'}:
         allow = True
     elif name in READ_TOOLS | EDIT_TOOLS and isinstance(args, dict):
         path = args.get('path', args.get('file_path', args.get('filePath', '')))
@@ -52,9 +54,31 @@ def decision(event):
                         allow = False
                 except (ValueError, OSError, RuntimeError):
                     allow = False
+    simulation_receipt = None
+    # Run policy simulation in the hook itself for every permitted file operation.
+    # It is independent of the agent's MCP connection or instructions.
+    if allow and name in READ_TOOLS | EDIT_TOOLS:
+        try:
+            operation = {'action': 'read' if name in READ_TOOLS else 'propose_patch',
+                         'paths': [] if path == '.' else [path],
+                         'expected_observation': 'bounded repository-local tool operation'}
+            simulation = harness_preflight(operation, simulation_fn=simulate_operation)['simulation']
+            simulation_receipt = simulation.get('receipt', {}).get('sha256')
+            unsigned = {k: v for k, v in simulation.items() if k != 'receipt'}
+            if (simulation.get('decision') != 'READY_FOR_BOUNDED_REVIEW' or
+                simulation.get('executed') is not False or
+                not isinstance(simulation_receipt, str) or simulation_receipt != digest(unsigned)):
+                allow = False
+                reason = 'PRIME local simulation did not pass; operation denied.'
+        except Exception:
+            # Missing or broken simulation must not become an approval.
+            allow = False
+            reason = 'PRIME local simulation failed; operation denied.'
     return {'permissionDecision': 'allow' if allow else 'deny',
-            'permissionDecisionReason': 'Repository-local bounded tool passed preflight.' if allow else reason}
+            'permissionDecisionReason': 'Repository-local bounded tool passed preflight.' if allow else reason,
+            '_simulation_receipt': simulation_receipt}
 
+@monitored("pre_tool_request")
 def main():
     try:
         raw = sys.stdin.read(262145)
@@ -67,13 +91,15 @@ def main():
         start = timing.clock()
         result = decision(event)
         timing.mark("pre_tool_decision", start)
+        # Keep receipt hashes only; don't send internal fields to Copilot.
+        simulation_receipt = result.pop('_simulation_receipt', None)
         # Fixed path, no caller-provided log destination, no prompt or secret contents.
         directory = ROOT / '.git' / 'prime-audit'
         if not (ROOT / '.git').is_dir():
             raise ValueError('missing repository metadata')
         directory.mkdir(mode=0o700, exist_ok=True)
         directory.resolve().relative_to((ROOT / '.git').resolve())
-        record = receipt({'event_sha256': digest(event), 'decision': result['permissionDecision'], 'tool': str(event.get('toolName', ''))[:100], 'timing': timing.record()})
+        record = receipt({'event_sha256': digest(event), 'decision': result['permissionDecision'], 'tool': str(event.get('toolName', ''))[:100], 'simulation_receipt_sha256': simulation_receipt, 'timing': timing.record()})
         fd = os.open(directory / 'decisions.jsonl', os.O_WRONLY | os.O_CREAT | os.O_APPEND | os.O_NOFOLLOW, 0o600)
         os.fchmod(fd, 0o600)
         with os.fdopen(fd, 'a', encoding='utf-8') as stream:

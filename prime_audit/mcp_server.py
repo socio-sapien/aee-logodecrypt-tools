@@ -4,8 +4,10 @@ import json
 import sys
 from .engine import audit_text, simulate_operation, MAX_TEXT
 from .timing import Timing
+from .harness import run as harness_run
 
 TOOLS = [
+ {'name': 'prime_investigate', 'description': 'Assess an operation and caller-supplied evidence matrix. No execution or authorization.', 'inputSchema': {'type': 'object', 'properties': {'operation': {'type': 'object'}, 'observations': {'type': 'array', 'maxItems': 16}}, 'required': ['operation'], 'additionalProperties': False}, 'annotations': {'readOnlyHint': True, 'destructiveHint': False, 'openWorldHint': False}},
  {'name': 'prime_audit_text', 'description': 'Inspect supplied text against optional source; no network or execution.',
   'inputSchema': {'type': 'object', 'properties': {'text': {'type': 'string', 'maxLength': MAX_TEXT}, 'source': {'type': 'string', 'maxLength': MAX_TEXT}}, 'required': ['text'], 'additionalProperties': False},
   'annotations': {'readOnlyHint': True, 'destructiveHint': False, 'openWorldHint': False}},
@@ -31,11 +33,13 @@ def dispatch(msg):
     elif method == 'tools/list':
         out['result'] = {'tools': TOOLS}
     elif method == 'tools/call':
+        timing = Timing(); started = timing.clock()
         try:
-            timing = Timing(); started = timing.clock()
             params = msg['params']; args = params.get('arguments', {})
             if params['name'] == 'prime_audit_text' and set(args) <= {'text', 'source'}:
                 result = audit_text(**args)
+            elif params['name'] == 'prime_investigate' and set(args) <= {'operation', 'observations'} and 'operation' in args:
+                result = harness_run(**args)
             elif params['name'] == 'prime_simulate_operation' and set(args) == {'operation'}:
                 result = simulate_operation(args['operation'])
             else:
@@ -43,7 +47,8 @@ def dispatch(msg):
             timing.mark('mcp_tool', started)
             out['result'] = {'content': [{'type': 'text', 'text': json.dumps(result, ensure_ascii=False)}], 'isError': False, '_meta': {'prime_timing': timing.record()}}
         except (ValueError, KeyError, TypeError, AttributeError):
-            out['result'] = {'content': [{'type': 'text', 'text': 'Invalid audit request; no operation executed.'}], 'isError': True}
+            timing.mark('mcp_tool', started)
+            out['result'] = {'content': [{'type': 'text', 'text': 'Invalid audit request; no operation executed.'}], 'isError': True, '_meta': {'prime_timing': timing.record()}}
     else:
         out['error'] = {'code': -32601, 'message': 'Method not found'}
     return out
