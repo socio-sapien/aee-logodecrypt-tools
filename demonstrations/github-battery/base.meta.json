@@ -1,0 +1,5 @@
+{
+  "seconds": 5.665254745001221,
+  "exit": 0,
+  "prompt": "Compare this candidate with the source. List each contradiction, quote the relevant source and candidate phrases, and identify any unchanged fact. Do not assume which source is true. Source: Source record: The inspection failed on 12 samples. Logs are retained for 7 days. The logs are not used to train models. The system was deployed on Tuesday. Candidate: Candidate report: The inspection passed on 15 samples. Logs are retained for 30 days. The logs are used to train models. The system was deployed on Tuesday."
+}

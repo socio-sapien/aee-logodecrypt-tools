@@ -1,0 +1,9 @@
+● Auto selected GPT-6 Luna since the task has medium complexity.
+
+| Topic | Source | Candidate | Comparison |
+|---|---|---|---|
+| Inspection result | “failed on 12 samples” | “passed on 15 samples” | Contradiction |
+| Log retention | “retained for 7 days” | “retained for 30 days” | Contradiction |
+| Model training | “not used to train models” | “used to train models” | Contradiction |
+| Deployment day | “deployed on Tuesday” | “deployed on Tuesday” | Unchanged fact |
+

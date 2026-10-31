@@ -1,0 +1,20 @@
+● Auto selected GPT-6 Luna since the task has low complexity.
+
+● prime_audit_text (MCP: prime-audit) · source: "Source record: The inspection failed on 12 samples…
+  └ {"tool":"AEE × LOGODECRYPT PRIME","version":"1.0.0","source_verbatim":"Candid...
+
+✗ prime_simulate_operation (MCP: prime-audit) · operation: {…}
+  └ MCP server 'prime-audit': Invalid audit request; no operation executed.
+
+✗ prime_investigate (MCP: prime-audit) · operation: {…}, observations: [4 items]
+  └ MCP server 'prime-audit': Invalid audit request; no operation executed.
+
+| Fact | Source | Candidate | Comparison |
+|---|---|---|---|
+| Inspection result and sample count | “failed on 12 samples” | “passed on 15 samples” | Contradiction |
+| Log retention | “retained for 7 days” | “retained for 30 days” | Contradiction |
+| Model training | “not used to train models” | “used to train models” | Contradiction |
+| Deployment day | “deployed on Tuesday” | “deployed on Tuesday” | Unchanged |
+
+**PRIME tool results:** `prime_audit_text` returned a review-cue analysis noting candidate numbers “15” and “30” versus source numbers “12” and “7,” and a “failed”/“passed” polarity change. It also says it does not determine semantic accuracy or intent. `prime_simulate_operation` and `prime_investigate` each returned: “Invalid audit request; no operation executed.”
+
