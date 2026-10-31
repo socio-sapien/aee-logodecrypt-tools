@@ -1,0 +1,22 @@
+[
+  {
+    "action": "read",
+    "paths": [
+      "README.md"
+    ]
+  },
+  {
+    "action": "propose_patch",
+    "paths": [
+      "src/example.py"
+    ],
+    "expected_observation": "Task-specific regression reproduced and resolved in PR checks; sample plan only."
+  },
+  {
+    "action": "test",
+    "paths": [
+      "prime_audit/tests/test_audit.py"
+    ],
+    "expected_observation": "PRIME adapter test suite succeeds without providers."
+  }
+]

@@ -14,3 +14,8 @@ This is an initial selection from files accessible through the connected Drive, 
 ## GitHub agent workflow scaffold
 
 The Chassis v7 → Mistral Vibe → optional ChainGPT scaffold is in [`integrations/wabi-vibe-chaingpt/`](integrations/wabi-vibe-chaingpt/), with a GitHub Actions workflow at [`.github/workflows/wabi-vibe-chaingpt.yml`](.github/workflows/wabi-vibe-chaingpt.yml). The automated CI path runs tests without provider credentials; the real-provider job requires a private repository and owner-provisioned API secrets. See the integration README for scope and setup.
+
+## PRIME GitHub audit integration
+
+See [the installed Copilot agents, MCP tools, preflight hook and webhook simulation inbox](prime_audit/README.md).
+Audit automation is secret-free; live provider/deployment activation remains separately scoped.

@@ -1,0 +1,10 @@
+
+__pycache__/
+*.pyc
+prime-inbox.sqlite3*
+prime-audit-receipt.json
+
+.env
+.env.*
+*.pem
+*.key

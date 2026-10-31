@@ -1,0 +1,7 @@
+{
+  "source_repository": "socio-sapien/aee-logodecrypt-tools",
+  "source_commit": "fa8341df02e092ffa7e41a7dcd6362f0cf821806",
+  "source_path": "prime/aee_logodecrypt_prime.py",
+  "sha256": "ce9e0545c82d2fe0652dedf6a37843c5b19e1a70a0f3781f53fbf1fb833d8b7a",
+  "copy_policy": "Exact snapshot; changes to adapter do not alter instrument."
+}

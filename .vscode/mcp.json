@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "prime-audit": {
+      "type": "stdio",
+      "command": "python3",
+      "args": [
+        "-m",
+        "prime_audit.mcp_server"
+      ],
+      "cwd": "${workspaceFolder}"
+    }
+  }
+}
