@@ -1,7 +1,5 @@
-name: Reconcile PRIME role index
+name: PRIME isolated repair proof
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: write
@@ -10,7 +8,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   reconcile:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/prime/repair-proof'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -35,7 +33,7 @@ jobs:
           git add -- .prime/role-index.json
           git commit -m 'Reconcile generated PRIME role index'
           gh auth setup-git
-          git push origin HEAD:main
+          git push origin HEAD:prime/repair-proof
       - name: Preserve repair receipt
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
