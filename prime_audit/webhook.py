@@ -36,19 +36,33 @@ def ingest(raw, headers, secret, repositories, database):
             return 202, {'status': 'ignored', 'executed': False}
         audit = audit_change([], text)
         record = {'repository': repo, 'event': kind, 'payload_sha256': hashlib.sha256(raw).hexdigest(), 'audit': audit}
-        # Delivery IDs are unique for this local inbox; no caller-selected paths or code.
+        # GitHub signs the body, not the delivery header. Persist a fingerprint of
+        # the authenticated bytes as well as the ID, atomically across concurrent
+        # requests. On upgrade, backfill hashes from existing receipts.
+        payload_hash = record['payload_sha256']
         fd = os.open(database, os.O_WRONLY | os.O_CREAT | os.O_NOFOLLOW, 0o600)
         os.fchmod(fd, 0o600)
         os.close(fd)
         with sqlite3.connect(database) as db:
+            db.execute('BEGIN IMMEDIATE')
             db.execute('CREATE TABLE IF NOT EXISTS inbox (delivery TEXT PRIMARY KEY, receipt TEXT NOT NULL)')
+            has_fingerprints = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='payload_fingerprints'").fetchone()
+            db.execute('CREATE TABLE IF NOT EXISTS payload_fingerprints (sha256 TEXT PRIMARY KEY)')
+            if not has_fingerprints:
+                for (old_receipt,) in db.execute('SELECT receipt FROM inbox').fetchall():
+                    old_hash = json.loads(old_receipt)['payload_sha256']
+                    if not isinstance(old_hash, str) or not re.fullmatch(r'[a-f0-9]{64}', old_hash):
+                        raise ValueError('invalid legacy receipt')
+                    db.execute('INSERT OR IGNORE INTO payload_fingerprints VALUES (?)', (old_hash,))
+            db.execute('INSERT INTO payload_fingerprints VALUES (?)', (payload_hash,))
             db.execute('INSERT INTO inbox VALUES (?,?)', (delivery, json.dumps(record)))
-        os.chmod(database, 0o600)
         return 202, {'status': 'simulation_queued', 'delivery': delivery, 'receipt_sha256': digest(record), 'executed': False}
     except sqlite3.IntegrityError:
-        return 409, {'error': 'delivery already recorded', 'executed': False}
-    except (KeyError, TypeError, ValueError):
+        return 409, {'error': 'delivery or payload already recorded', 'executed': False}
+    except (KeyError, TypeError, ValueError, AttributeError):
         return 400, {'error': 'invalid event envelope'}
+    except (OSError, sqlite3.DatabaseError):
+        return 503, {'error': 'inbox unavailable', 'executed': False}
 
 def main():
     parser = argparse.ArgumentParser()

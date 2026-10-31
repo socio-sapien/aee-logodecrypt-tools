@@ -63,7 +63,7 @@ python3 -m prime_audit.webhook --port 8081 --database /private/path/prime-inbox.
 ```
 
 The listener binds to 127.0.0.1 only. It verifies HMAC-SHA256 over exact bytes, repository allowlist,
-event type, body size and unique delivery ID; duplicate deliveries are rejected in SQLite.
+event type and body size; it atomically rejects duplicate delivery IDs and exact authenticated payload bytes in SQLite, including on a changed delivery ID. Identical legitimate event bodies are also rejected. GitHub signs the body, not the event or delivery headers, so this is duplicate suppression, not a general replay-proof or header-authentication protocol.
 It queues only simulation receipts and hashes, not prompt text or executable commands.
 It does not fetch URLs, call providers, post comments or execute queue entries. A separately
 approved TLS deployment and actual GitHub webhook registration are still required for live events;

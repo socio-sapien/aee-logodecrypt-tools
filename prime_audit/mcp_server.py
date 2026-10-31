@@ -21,7 +21,7 @@ def dispatch(msg):
     out = {'jsonrpc': '2.0', 'id': msg['id']}
     if method == 'initialize':
         requested = msg.get('params', {}).get('protocolVersion')
-        version = requested if requested in {'2024-11-05', '2025-03-26', '2025-06-18'} else '2024-11-05'
+        version = requested if isinstance(requested, str) and requested in {'2024-11-05', '2025-03-26', '2025-06-18'} else '2024-11-05'
         out['result'] = {'protocolVersion': version, 'capabilities': {'tools': {}}, 'serverInfo': {'name': 'prime-audit', 'version': '1.0.0'}}
     elif method == 'ping':
         out['result'] = {}
