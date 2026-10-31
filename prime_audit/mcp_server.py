@@ -10,7 +10,7 @@ from .harness import run as harness_run
 TOOLS = [
  {'name': 'prime_full_audit', 'description': 'Run the installed PRIME 6.7 full text battery, logical actions and bounded per-word dynamics on complete inputs. Metadata-only lenses remain unset without metadata.', 'inputSchema': {'type': 'object', 'properties': {'text': {'type': 'string', 'maxLength': MAX_TEXT}, 'source': {'type': 'string', 'maxLength': MAX_TEXT}}, 'required': ['text'], 'additionalProperties': False}, 'annotations': {'readOnlyHint': True, 'destructiveHint': False, 'openWorldHint': False}},
  {'name': 'prime_investigate', 'description': 'Assess an operation and caller-supplied evidence matrix. No execution or authorization.', 'inputSchema': {'type': 'object', 'properties': {'operation': {'type': 'object'}, 'observations': {'type': 'array', 'maxItems': 16}}, 'required': ['operation'], 'additionalProperties': False}, 'annotations': {'readOnlyHint': True, 'destructiveHint': False, 'openWorldHint': False}},
- {'name': 'prime_audit_text', 'description': 'Inspect supplied text against optional source; no network or execution.',
+ {'name': 'prime_audit_text', 'description': 'Run PRIME 6.7 full text battery (compatibility name); no network or execution.',
   'inputSchema': {'type': 'object', 'properties': {'text': {'type': 'string', 'maxLength': MAX_TEXT}, 'source': {'type': 'string', 'maxLength': MAX_TEXT}}, 'required': ['text'], 'additionalProperties': False},
   'annotations': {'readOnlyHint': True, 'destructiveHint': False, 'openWorldHint': False}},
  {'name': 'prime_simulate_operation', 'description': 'Simulate operation policy; never execute or authorize it.',
@@ -29,7 +29,7 @@ def dispatch(msg):
     if method == 'initialize':
         requested = msg.get('params', {}).get('protocolVersion')
         version = requested if isinstance(requested, str) and requested in {'2024-11-05', '2025-03-26', '2025-06-18'} else '2024-11-05'
-        out['result'] = {'protocolVersion': version, 'capabilities': {'tools': {}}, 'serverInfo': {'name': 'prime-audit', 'version': '1.0.0'}}
+        out['result'] = {'protocolVersion': version, 'capabilities': {'tools': {}}, 'serverInfo': {'name': 'prime-audit', 'version': '6.7.0'}}
     elif method == 'ping':
         out['result'] = {}
     elif method == 'tools/list':
@@ -41,7 +41,7 @@ def dispatch(msg):
             if params['name'] == 'prime_full_audit' and set(args) <= {'text', 'source'}:
                 result = audit_full(**args)
             elif params['name'] == 'prime_audit_text' and set(args) <= {'text', 'source'}:
-                result = audit_text(**args)
+                result = audit_full(**args)
             elif params['name'] == 'prime_investigate' and set(args) <= {'operation', 'observations'} and 'operation' in args:
                 result = harness_run(**args)
             elif params['name'] == 'prime_simulate_operation' and set(args) == {'operation'}:

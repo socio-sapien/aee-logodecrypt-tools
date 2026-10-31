@@ -1,3 +1,7 @@
+# Root PRIME 6.7 mandate
+
+Read and follow `PRIME_PROTOCOL.md` before repository operations. The root executable is `PRIME_6_7.py`; the full unchanged instrument remains vendored. Automatic lifecycle hooks cover submitted prompts, pre-tool requests and post-tool results/errors, subject to host support. Preserve real evidence and chronology, simulate before live execution, correct failures and rerun, and never present manufactured controls as real-world proof.
+
 # Installed PRIME 6.7 environment
 
 The executable full instrument is `prime_audit/vendor/prime_v6_7.py` (unchanged standalone 6.7).

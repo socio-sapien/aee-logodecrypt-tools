@@ -6,7 +6,31 @@
         "type": "command",
         "bash": "python3 -m prime_audit.hook",
         "cwd": ".",
-        "timeoutSec": 5
+        "timeoutSec": 15
+      }
+    ],
+    "userPromptTransformed": [
+      {
+        "type": "command",
+        "bash": "python3 -m prime_audit.lifecycle userPromptTransformed",
+        "cwd": ".",
+        "timeoutSec": 15
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "bash": "python3 -m prime_audit.lifecycle postToolUse",
+        "cwd": ".",
+        "timeoutSec": 15
+      }
+    ],
+    "postToolUseFailure": [
+      {
+        "type": "command",
+        "bash": "python3 -m prime_audit.lifecycle postToolUseFailure",
+        "cwd": ".",
+        "timeoutSec": 15
       }
     ]
   }
