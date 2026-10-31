@@ -40,11 +40,14 @@ def decision(event):
                     resolved.relative_to(ROOT)
                     allow = name in READ_TOOLS or not protected(path)
                     # Never expose a repository-local secret through read-only tools either.
-                    if sensitive(path) or (name in {'grep', 'glob', 'search'} and not resolved.is_file()):
+                    # Check both the supplied path and its resolved target: a safe-looking
+                    # symlink must not expose or edit a repository-local secret.
+                    resolved_path = str(resolved.relative_to(ROOT))
+                    if sensitive(path) or sensitive(resolved_path) or (name in {'grep', 'glob', 'search'} and not resolved.is_file()):
                         allow = False
                     if name in EDIT_TOOLS and protected(str(resolved.relative_to(ROOT))):
                         allow = False
-                except (ValueError, OSError):
+                except (ValueError, OSError, RuntimeError):
                     allow = False
     return {'permissionDecision': 'allow' if allow else 'deny',
             'permissionDecisionReason': 'Repository-local bounded tool passed preflight.' if allow else reason}
