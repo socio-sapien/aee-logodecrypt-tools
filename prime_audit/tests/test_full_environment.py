@@ -34,7 +34,9 @@ class FullEnvironmentTests(unittest.TestCase):
     def test_mcp_full_audit(self):
         r=dispatch({'id':1,'method':'tools/call','params':{'name':'prime_full_audit','arguments':{'text':'actual instruction'}}})
         self.assertFalse(r['result']['isError'])
-        self.assertEqual(json.loads(r['result']['content'][0]['text'])['version'],'6.7.0')
+        full = json.loads(r['result']['content'][0]['text'])
+        self.assertEqual(full['version'],'6.7.0')
+        self.assertIn('surface_census', full)
 
     def test_invalid_mcp_arguments_not_executed(self):
         for args in ({'operation':{}},{'text':4},{'text':'x','invented':1}):
@@ -59,10 +61,19 @@ class FullEnvironmentTests(unittest.TestCase):
 
     def test_hook_process_records_automatic_full_battery(self):
         r=subprocess.run([sys.executable,'-m','prime_audit.hook'],input=json.dumps({'toolName':'view','toolArgs':{'path':'README.md'}}),text=True,capture_output=True,check=True)
-        self.assertEqual(json.loads(r.stdout)['permissionDecision'],'allow')
-        record=json.loads((repository_git_dir(ROOT)/'prime-audit/decisions.jsonl').read_text().splitlines()[-1])
-        self.assertIn('full_battery',record)
-        self.assertTrue(all(x['version']=='6.7.0' for x in record['full_battery']['inputs']))
+        payload = json.loads(r.stdout)
+        try:
+            git_dir = repository_git_dir(ROOT)
+        except (ValueError, OSError):
+            git_dir = None
+        if git_dir is None:
+            self.assertEqual(payload['permissionDecision'], 'deny')
+            self.assertIn('could not validate or record', payload['permissionDecisionReason'])
+        else:
+            self.assertEqual(payload['permissionDecision'], 'allow')
+            record = json.loads((git_dir / 'prime-audit/decisions.jsonl').read_text().splitlines()[-1])
+            self.assertIn('full_battery', record)
+            self.assertTrue(all(x['version'] == '6.7.0' for x in record['full_battery']['inputs']))
 
     def test_auto_discovery_configs_and_profiles_include_full_tool(self):
         cfg=json.loads((ROOT/'.github/mcp.json').read_text())

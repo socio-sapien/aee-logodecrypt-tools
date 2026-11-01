@@ -185,3 +185,49 @@ GitHub action, authorize effects or automatically fix arbitrary defects. The tes
 exercise successful repair, rollback, conflict, and denied targets. It is not a
 proof that damage is impossible. Host approval, actual platform controls and
 external-effect rules remain separate from simulation.
+
+## Evidence-case audit (local revision)
+
+`prime_audit.evidence_case.audit_evidence_case(prompt, output, tool_receipts=[], requirements=[])`
+compares caller-supplied text and structured receipt records. The `prime_evidence_case` MCP
+read-only tool and `python3 -m prime_audit.case_cli case.json` expose the same flow. A case JSON
+object has exact `prompt` and `output` strings plus optional `tool_receipts` (up to 256 JSON
+records) and `requirements` (up to 64 caller-selected literal strings). The CLI reads local JSON
+from a path or stdin and prints JSON; it does not install, transmit, execute, or alter anything.
+
+The report includes exact supplied text, SHA-256 digests, a character-preserving token/case/punctuation
+census, number and symbol spans, codepoint totals, adjacent token/word relations, curated polarity
+matches, literal prompt/output differences, and fields found in caller-supplied receipts. Deduction,
+induction, abductive hypotheses and unknowns are separate output categories. “Deduction” covers only
+mechanical checks over supplied premises; induction describes this case and makes no population
+claim; abduction lists alternatives without selecting a cause. Caller-selected requirements are
+exact-string checks only. Missing words, symbols, numbers or receipts are review cues, not semantic
+proofs of omission, contradiction, intent, or successful execution. Receipt records are not
+independently authenticated.
+
+The standalone instrument's `STRUCT`/`EVAS` vocabularies and PRIME 6.7's corresponding lexicons
+are analytic match sets, never stop-word lists or exclusion filters. The full-battery adapter now
+adds a full Unicode surface census; legacy vocabulary metrics remain for compatibility. The word
+“claim” and all other input terms remain eligible for analysis. These changes do not modify the
+vendored PRIME 6.7 snapshot or its provenance file. No hidden reasoning, confession, external LLM
+session, runtime internals, or absolute truth is accessible or inferred.
+
+Limits: each prompt/output is at most 65,536 Python characters, each supplied receipt at most
+65,536 serialized bytes, and at most 256 receipts. SHA-256 values are unsigned integrity hashes,
+not signatures or attestations. Run `python3 -m unittest prime_audit.tests.test_evidence_case -v`
+for the new focused tests and the full suite with `python3 -m unittest discover -s prime_audit/tests -v`.
+
+
+## Running tests from the source archive
+
+From the extracted `prime-evidence-audit` directory, run:
+
+```sh
+python PRIME_6_7.py --self-test
+python -m unittest discover -s prime_audit/tests -v
+```
+
+The test suite runs from both a Git checkout and the standalone ZIP. The hook's receipt-writing
+integration requires Git metadata: in a Git checkout it records receipts and permits eligible
+operations; from a ZIP without `.git`, it safely denies hook operations whose receipt cannot be
+written. The tests cover both modes.

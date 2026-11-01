@@ -19,8 +19,16 @@ class AuditTests(unittest.TestCase):
 
     def test_hook_process_records_and_denies_shell(self):
         result = subprocess.run([sys.executable, '-m', 'prime_audit.hook'], input=json.dumps({'toolName': 'bash', 'toolArgs': {'command': 'echo not-executed'}}), text=True, capture_output=True, check=True)
-        self.assertEqual(json.loads(result.stdout)['permissionDecision'], 'deny')
-        self.assertTrue((repository_git_dir(ROOT) / 'prime-audit/decisions.jsonl').is_file())
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload['permissionDecision'], 'deny')
+        try:
+            git_dir = repository_git_dir(ROOT)
+        except (ValueError, OSError):
+            git_dir = None
+        if git_dir is None:
+            self.assertIn('could not validate or record', payload['permissionDecisionReason'])
+        else:
+            self.assertTrue((git_dir / 'prime-audit/decisions.jsonl').is_file())
 
     def test_canonical_paths(self):
         for path in ('.', './.github/workflows/x', 'foo//bar', 'foo/../bar', '/tmp/x'):
@@ -78,7 +86,7 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(dispatch({'id':1,'method':'initialize','params':{'protocolVersion':'2025-03-26'}})['result']['protocolVersion'],'2025-03-26')
     def test_mcp_tools(self):
         tools=dispatch({'id':2,'method':'tools/list'})['result']['tools']
-        self.assertEqual({t['name'] for t in tools},{'prime_full_audit','prime_audit_text','prime_simulate_operation','prime_investigate'}); self.assertTrue(all(t['annotations']['readOnlyHint'] for t in tools))
+        self.assertEqual({t['name'] for t in tools},{'prime_full_audit','prime_evidence_case','prime_audit_text','prime_simulate_operation','prime_investigate'}); self.assertTrue(all(t['annotations']['readOnlyHint'] for t in tools))
     def test_mcp_call(self):
         r=dispatch({'id':1,'method':'tools/call','params':{'name':'prime_simulate_operation','arguments':{'operation':{'action':'push'}}}})
         self.assertFalse(r['result']['isError']); self.assertFalse(json.loads(r['result']['content'][0]['text'])['executed'])
