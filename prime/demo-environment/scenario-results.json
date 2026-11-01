@@ -1,0 +1,4998 @@
+{
+  "title": "PRIME Demonstration Environment",
+  "engine": "prime/aee_logodecrypt_prime.py",
+  "engine_version": "1.0.0",
+  "provenance": "Generated locally by this repository's deterministic analyzer; all cases are synthetic.",
+  "cases": [
+    {
+      "scenario": {
+        "id": "refund-flips",
+        "number": "01",
+        "domain": "Individual · service decision",
+        "title": "One status. Two very different next moves.",
+        "lede": "The amount is unchanged. The decision word is not.",
+        "frame": "general",
+        "source": "Case R-17: refund approved for $128.00.",
+        "candidate": "Case R-17: refund denied for $128.00.",
+        "review_question": "Which source record authorizes the status shown to the customer?",
+        "impact": {
+          "person": "A person may choose to wait, appeal, or contact support based on the status they see.",
+          "workflow": "A queue may close or reopen the case if it consumes the summary as a final state.",
+          "industry": "Service providers could request source-linked evidence for status changes; buyer demand is untested.",
+          "market": "If status feeds vendor or risk reporting, the label could affect comparisons. No pricing or trading is simulated.",
+          "long_tail": "If the summary is copied into dashboards and later reports, one uncorrected label could travel. Each link needs real provenance to establish that chain."
+        }
+      },
+      "analysis_target": "candidate",
+      "analysis_target_note": "The core's source_verbatim field preserves the candidate under analysis; scenario.source is separate context.",
+      "result": {
+        "tool": "AEE × LOGODECRYPT PRIME",
+        "version": "1.0.0",
+        "source_verbatim": "Case R-17: refund denied for $128.00.",
+        "evidence_class": "calculated text-pattern observables plus explicitly generated illustrations",
+        "battery": {
+          "S": 0,
+          "D": 0,
+          "PIC": 1.132,
+          "T_d": 0.0,
+          "latin_letters": 20,
+          "words_normalized": 8,
+          "structural_hits": {},
+          "evasion_lexicon_hits": {},
+          "historical_battery_condition": "ZERO-LEXICON-HIT",
+          "interpretation": "Historical condition names are formula labels, not judgments of accuracy or intent."
+        },
+        "scripts": {
+          "letters_by_script": {
+            "LATIN": 20
+          },
+          "transitions": 0,
+          "fusion_tokens": [],
+          "format_controls": [],
+          "nonlatin_share": 0.0,
+          "note": "Range-based TR-7 compatibility census; multilingual text and controls are not intrinsically malicious."
+        },
+        "surface": {
+          "passive_candidates": [],
+          "indefinite_role_candidates": [],
+          "modal_cues": [],
+          "negation_cues": [],
+          "first_party_flow_cues": [],
+          "purpose_candidates": [],
+          "reader_obligation_cues": [],
+          "speaker_self_description": [],
+          "punctuation": {
+            "exclamations": 0,
+            "questions": 0,
+            "ellipses": 0
+          }
+        },
+        "frame": "general",
+        "frame_ledger": [
+          {
+            "field": "named first party",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "timeline",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "verification",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "recourse",
+            "status": "MATCHED-CUE",
+            "evidence": [
+              {
+                "start": 11,
+                "end": 17,
+                "quote": "refund"
+              }
+            ]
+          }
+        ],
+        "context_fidelity": {
+          "status": "REVIEW-CUES",
+          "source_sha256": "9b251702c2517cfc7e4ebcebe50d0310dfd8c7ef30fad609b8388798cbe36e15",
+          "candidate_numbers_not_in_source_multiset": [],
+          "source_numbers_not_in_candidate_multiset": [],
+          "curated_polarity_changes": [
+            {
+              "source_pole": "approved",
+              "candidate_pole": "denied"
+            }
+          ],
+          "limits": "No semantic entailment/role binding: reordered numbers in different roles may escape this check; word changes may be legitimate."
+        },
+        "transformations": {
+          "source_verbatim": "Case R-17: refund denied for $128.00.",
+          "literal_projection": "passive_candidates: NONE MATCHED\nindefinite_role_candidates: NONE MATCHED\nmodal_cues: NONE MATCHED\nnegation_cues: NONE MATCHED\nfirst_party_flow_cues: NONE MATCHED\npurpose_candidates: NONE MATCHED\nreader_obligation_cues: NONE MATCHED\nspeaker_self_description: NONE MATCHED",
+          "generated_association": {
+            "label": "GENERATED ASSOCIATION — stipulated letter keys, NOT decoded meaning",
+            "max_tokens": 12,
+            "tokens_processed": 5,
+            "tokens_omitted": 0,
+            "token_records": [
+              {
+                "token": "Case",
+                "start": 0,
+                "end": 4,
+                "letters": [
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "capture alpha spirit energy"
+              },
+              {
+                "token": "R",
+                "start": 5,
+                "end": 6,
+                "letters": [
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  }
+                ],
+                "association_acrostic": "rhythm"
+              },
+              {
+                "token": "refund",
+                "start": 11,
+                "end": 17,
+                "letters": [
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "f",
+                    "anchors": "force fire flow"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "rhythm energy force under no delta"
+              },
+              {
+                "token": "denied",
+                "start": 18,
+                "end": 24,
+                "letters": [
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "delta energy no identity energy delta"
+              },
+              {
+                "token": "for",
+                "start": 25,
+                "end": 28,
+                "letters": [
+                  {
+                    "letter": "f",
+                    "anchors": "force fire flow"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  }
+                ],
+                "association_acrostic": "force origin rhythm"
+              }
+            ]
+          },
+          "counterfactual_lexical_flip": {
+            "label": "GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation",
+            "text": "Case R-17: refund approved for $128.00.",
+            "changed": true
+          },
+          "negated_payloads": {
+            "label": "QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim",
+            "spans": []
+          },
+          "silence_rows": [
+            {
+              "left": "Case",
+              "right": "R",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "R",
+              "right": "refund",
+              "separator_verbatim": "-17: "
+            },
+            {
+              "left": "refund",
+              "right": "denied",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "denied",
+              "right": "for",
+              "separator_verbatim": " "
+            }
+          ],
+          "inverted_letter_index": {
+            "a": [
+              "Case"
+            ],
+            "c": [
+              "Case"
+            ],
+            "d": [
+              "denied",
+              "refund"
+            ],
+            "e": [
+              "Case",
+              "denied",
+              "refund"
+            ],
+            "f": [
+              "for",
+              "refund"
+            ],
+            "i": [
+              "denied"
+            ],
+            "n": [
+              "denied",
+              "refund"
+            ],
+            "o": [
+              "for"
+            ],
+            "r": [
+              "R",
+              "for",
+              "refund"
+            ],
+            "s": [
+              "Case"
+            ],
+            "u": [
+              "refund"
+            ]
+          }
+        },
+        "limitations": [
+          "Patterns are fallible and excerpt-scoped; no fact-check or mind-reading is performed.",
+          "A missing keyword does not prove that a clause or capability is absent.",
+          "Generated associations and counterfactuals are illustrations, never recovered verbatim omissions.",
+          "Modal verbs, passives, punctuation and polite phrases can be legitimate.",
+          "Speaker identity, legal conclusions, device state and market demand are not inferred.",
+          "The letter layer uses stipulated anchors; historical WordNet/cache charges are not reproduced."
+        ],
+        "receipt": {
+          "input_sha256": "2d3c06ad76810ca24ab44c7860b2489b49abe68a36e80c110965acd52d60d85d",
+          "context_sha256": "9b251702c2517cfc7e4ebcebe50d0310dfd8c7ef30fad609b8388798cbe36e15",
+          "output_sha256_excluding_receipt": "69123d94589526137e93b5ef7894db2aa5598f26db91d5e81fcadcf5d5be1a80",
+          "stages_executed": [
+            "capture",
+            "lexical-battery",
+            "script-sensor",
+            "surface-census",
+            "frame-ledger",
+            "context-fidelity",
+            "exploratory-transforms",
+            "receipt"
+          ],
+          "receipt_type": "UNSIGNED SHA256 INTEGRITY RECORD",
+          "tool_version": "1.0.0"
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "release-gate",
+        "number": "02",
+        "domain": "Operations · software release",
+        "title": "A green sentence over a red receipt.",
+        "lede": "A status summary changes the reported test outcome while the release number stays fixed.",
+        "frame": "general",
+        "source": "Release 4: 2 checks failed. Deployment status: blocked.",
+        "candidate": "Release 4: 2 checks passed. Deployment status: approved.",
+        "review_question": "Can the original test receipt and the summary be joined by release ID and timestamp?",
+        "impact": {
+          "person": "A user could be exposed to a change earlier than expected if a release decision relied on the altered summary.",
+          "workflow": "An operator might skip a review gate if a narrative status disagrees with the check receipt.",
+          "industry": "Teams can use this as a concrete source-to-summary regression fixture, not as certification of a release system.",
+          "market": "If deployments affect a paid service, reliability and customer confidence may be downstream concerns; no actual incident is asserted.",
+          "long_tail": "A status copied across tickets, dashboards, and postmortems can create a durable but false history unless each copy retains provenance."
+        }
+      },
+      "analysis_target": "candidate",
+      "analysis_target_note": "The core's source_verbatim field preserves the candidate under analysis; scenario.source is separate context.",
+      "result": {
+        "tool": "AEE × LOGODECRYPT PRIME",
+        "version": "1.0.0",
+        "source_verbatim": "Release 4: 2 checks passed. Deployment status: approved.",
+        "evidence_class": "calculated text-pattern observables plus explicitly generated illustrations",
+        "battery": {
+          "S": 0,
+          "D": 0,
+          "PIC": 1.3684,
+          "T_d": 0.0,
+          "latin_letters": 43,
+          "words_normalized": 8,
+          "structural_hits": {},
+          "evasion_lexicon_hits": {},
+          "historical_battery_condition": "ZERO-LEXICON-HIT",
+          "interpretation": "Historical condition names are formula labels, not judgments of accuracy or intent."
+        },
+        "scripts": {
+          "letters_by_script": {
+            "LATIN": 43
+          },
+          "transitions": 0,
+          "fusion_tokens": [],
+          "format_controls": [],
+          "nonlatin_share": 0.0,
+          "note": "Range-based TR-7 compatibility census; multilingual text and controls are not intrinsically malicious."
+        },
+        "surface": {
+          "passive_candidates": [],
+          "indefinite_role_candidates": [],
+          "modal_cues": [],
+          "negation_cues": [],
+          "first_party_flow_cues": [],
+          "purpose_candidates": [],
+          "reader_obligation_cues": [],
+          "speaker_self_description": [],
+          "punctuation": {
+            "exclamations": 0,
+            "questions": 0,
+            "ellipses": 0
+          }
+        },
+        "frame": "general",
+        "frame_ledger": [
+          {
+            "field": "named first party",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "timeline",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "verification",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "recourse",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          }
+        ],
+        "context_fidelity": {
+          "status": "REVIEW-CUES",
+          "source_sha256": "3975b47dedf3f3c14089dc584a2ffe5fa2aecdbebc38b8efc4e8cf8cfc1def68",
+          "candidate_numbers_not_in_source_multiset": [],
+          "source_numbers_not_in_candidate_multiset": [],
+          "curated_polarity_changes": [
+            {
+              "source_pole": "failed",
+              "candidate_pole": "passed"
+            }
+          ],
+          "limits": "No semantic entailment/role binding: reordered numbers in different roles may escape this check; word changes may be legitimate."
+        },
+        "transformations": {
+          "source_verbatim": "Release 4: 2 checks passed. Deployment status: approved.",
+          "literal_projection": "passive_candidates: NONE MATCHED\nindefinite_role_candidates: NONE MATCHED\nmodal_cues: NONE MATCHED\nnegation_cues: NONE MATCHED\nfirst_party_flow_cues: NONE MATCHED\npurpose_candidates: NONE MATCHED\nreader_obligation_cues: NONE MATCHED\nspeaker_self_description: NONE MATCHED",
+          "generated_association": {
+            "label": "GENERATED ASSOCIATION — stipulated letter keys, NOT decoded meaning",
+            "max_tokens": 12,
+            "tokens_processed": 6,
+            "tokens_omitted": 0,
+            "token_records": [
+              {
+                "token": "Release",
+                "start": 0,
+                "end": 7,
+                "letters": [
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "rhythm energy line energy alpha spirit energy"
+              },
+              {
+                "token": "checks",
+                "start": 13,
+                "end": 19,
+                "letters": [
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "h",
+                    "anchors": "hinge heart horizon"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "k",
+                    "anchors": "kinetic key kernel"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  }
+                ],
+                "association_acrostic": "capture hinge energy capture kinetic spirit"
+              },
+              {
+                "token": "passed",
+                "start": 20,
+                "end": 26,
+                "letters": [
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "power alpha spirit spirit energy delta"
+              },
+              {
+                "token": "Deployment",
+                "start": 28,
+                "end": 38,
+                "letters": [
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  },
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  }
+                ],
+                "association_acrostic": "delta energy power line origin why matrix energy no tree"
+              },
+              {
+                "token": "status",
+                "start": 39,
+                "end": 45,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  }
+                ],
+                "association_acrostic": "spirit tree alpha tree under spirit"
+              },
+              {
+                "token": "approved",
+                "start": 47,
+                "end": 55,
+                "letters": [
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "v",
+                    "anchors": "vessel valley vibration"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "alpha power power rhythm origin vessel energy delta"
+              }
+            ]
+          },
+          "counterfactual_lexical_flip": {
+            "label": "GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation",
+            "text": "Release 4: 2 checks failed. Deployment status: denied.",
+            "changed": true
+          },
+          "negated_payloads": {
+            "label": "QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim",
+            "spans": []
+          },
+          "silence_rows": [
+            {
+              "left": "Release",
+              "right": "checks",
+              "separator_verbatim": " 4: 2 "
+            },
+            {
+              "left": "checks",
+              "right": "passed",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "passed",
+              "right": "Deployment",
+              "separator_verbatim": ". "
+            },
+            {
+              "left": "Deployment",
+              "right": "status",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "status",
+              "right": "approved",
+              "separator_verbatim": ": "
+            }
+          ],
+          "inverted_letter_index": {
+            "a": [
+              "Release",
+              "approved",
+              "passed",
+              "status"
+            ],
+            "c": [
+              "checks"
+            ],
+            "d": [
+              "Deployment",
+              "approved",
+              "passed"
+            ],
+            "e": [
+              "Deployment",
+              "Release",
+              "approved",
+              "checks",
+              "passed"
+            ],
+            "h": [
+              "checks"
+            ],
+            "k": [
+              "checks"
+            ],
+            "l": [
+              "Deployment",
+              "Release"
+            ],
+            "m": [
+              "Deployment"
+            ],
+            "n": [
+              "Deployment"
+            ],
+            "o": [
+              "Deployment",
+              "approved"
+            ],
+            "p": [
+              "Deployment",
+              "approved",
+              "passed"
+            ],
+            "r": [
+              "Release",
+              "approved"
+            ],
+            "s": [
+              "Release",
+              "checks",
+              "passed",
+              "status"
+            ],
+            "t": [
+              "Deployment",
+              "status"
+            ],
+            "u": [
+              "status"
+            ],
+            "v": [
+              "approved"
+            ],
+            "y": [
+              "Deployment"
+            ]
+          }
+        },
+        "limitations": [
+          "Patterns are fallible and excerpt-scoped; no fact-check or mind-reading is performed.",
+          "A missing keyword does not prove that a clause or capability is absent.",
+          "Generated associations and counterfactuals are illustrations, never recovered verbatim omissions.",
+          "Modal verbs, passives, punctuation and polite phrases can be legitimate.",
+          "Speaker identity, legal conclusions, device state and market demand are not inferred.",
+          "The letter layer uses stipulated anchors; historical WordNet/cache charges are not reproduced."
+        ],
+        "receipt": {
+          "input_sha256": "53911cc7aa0882cd0f8cb8a2eb0a9cf136e81218201836275efaa5be29b690ff",
+          "context_sha256": "3975b47dedf3f3c14089dc584a2ffe5fa2aecdbebc38b8efc4e8cf8cfc1def68",
+          "output_sha256_excluding_receipt": "e58b6538083cb0d0d04d790feebba8169a7e246873b770181ef4c8f7094efa7a",
+          "stages_executed": [
+            "capture",
+            "lexical-battery",
+            "script-sensor",
+            "surface-census",
+            "frame-ledger",
+            "context-fidelity",
+            "exploratory-transforms",
+            "receipt"
+          ],
+          "receipt_type": "UNSIGNED SHA256 INTEGRITY RECORD",
+          "tool_version": "1.0.0"
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "market-simulation",
+        "number": "03",
+        "domain": "Market · simulated research note",
+        "title": "The headline improves. The sample did not.",
+        "lede": "An intentionally fictional trading-study summary changes both a count and a result word.",
+        "frame": "general",
+        "source": "SIMULATION ONLY: 18 of 240 sample trades failed; signal remains unapproved.",
+        "candidate": "SIMULATION ONLY: 6 of 240 sample trades passed; signal approved.",
+        "review_question": "What are the underlying records, definitions, and sample-selection rules?",
+        "impact": {
+          "person": "A reader could mistake an edited simulation summary for evidence about their own financial decisions.",
+          "workflow": "A research reviewer can locate changed counts and curated status words before relying on the memo.",
+          "industry": "Evaluation teams could test whether source-linked reviews catch this class of edit; this fixture is not an accuracy benchmark.",
+          "market": "If research summaries are shared or aggregated, changed figures may alter perceptions. This is not live market data, a forecast, or a trading signal.",
+          "long_tail": "When a summary becomes an input to other summaries, provenance and version lineage determine whether an early discrepancy can still be found."
+        }
+      },
+      "analysis_target": "candidate",
+      "analysis_target_note": "The core's source_verbatim field preserves the candidate under analysis; scenario.source is separate context.",
+      "result": {
+        "tool": "AEE × LOGODECRYPT PRIME",
+        "version": "1.0.0",
+        "source_verbatim": "SIMULATION ONLY: 6 of 240 sample trades passed; signal approved.",
+        "evidence_class": "calculated text-pattern observables plus explicitly generated illustrations",
+        "battery": {
+          "S": 0,
+          "D": 0,
+          "PIC": 1.33,
+          "T_d": 0.0,
+          "latin_letters": 48,
+          "words_normalized": 10,
+          "structural_hits": {},
+          "evasion_lexicon_hits": {},
+          "historical_battery_condition": "ZERO-LEXICON-HIT",
+          "interpretation": "Historical condition names are formula labels, not judgments of accuracy or intent."
+        },
+        "scripts": {
+          "letters_by_script": {
+            "LATIN": 48
+          },
+          "transitions": 0,
+          "fusion_tokens": [],
+          "format_controls": [],
+          "nonlatin_share": 0.0,
+          "note": "Range-based TR-7 compatibility census; multilingual text and controls are not intrinsically malicious."
+        },
+        "surface": {
+          "passive_candidates": [],
+          "indefinite_role_candidates": [],
+          "modal_cues": [],
+          "negation_cues": [],
+          "first_party_flow_cues": [],
+          "purpose_candidates": [],
+          "reader_obligation_cues": [],
+          "speaker_self_description": [],
+          "punctuation": {
+            "exclamations": 0,
+            "questions": 0,
+            "ellipses": 0
+          }
+        },
+        "frame": "general",
+        "frame_ledger": [
+          {
+            "field": "named first party",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "timeline",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "verification",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "recourse",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          }
+        ],
+        "context_fidelity": {
+          "status": "REVIEW-CUES",
+          "source_sha256": "20ff83765940929ab083d7ea6c26075d6062a9e1f0bac79bdb05df4978094462",
+          "candidate_numbers_not_in_source_multiset": [
+            "6"
+          ],
+          "source_numbers_not_in_candidate_multiset": [
+            "18"
+          ],
+          "curated_polarity_changes": [
+            {
+              "source_pole": "failed",
+              "candidate_pole": "passed"
+            }
+          ],
+          "limits": "No semantic entailment/role binding: reordered numbers in different roles may escape this check; word changes may be legitimate."
+        },
+        "transformations": {
+          "source_verbatim": "SIMULATION ONLY: 6 of 240 sample trades passed; signal approved.",
+          "literal_projection": "passive_candidates: NONE MATCHED\nindefinite_role_candidates: NONE MATCHED\nmodal_cues: NONE MATCHED\nnegation_cues: NONE MATCHED\nfirst_party_flow_cues: NONE MATCHED\npurpose_candidates: NONE MATCHED\nreader_obligation_cues: NONE MATCHED\nspeaker_self_description: NONE MATCHED",
+          "generated_association": {
+            "label": "GENERATED ASSOCIATION — stipulated letter keys, NOT decoded meaning",
+            "max_tokens": 12,
+            "tokens_processed": 8,
+            "tokens_omitted": 0,
+            "token_records": [
+              {
+                "token": "SIMULATION",
+                "start": 0,
+                "end": 10,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  }
+                ],
+                "association_acrostic": "spirit identity matrix under line alpha tree identity origin no"
+              },
+              {
+                "token": "ONLY",
+                "start": 11,
+                "end": 15,
+                "letters": [
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "origin no line why"
+              },
+              {
+                "token": "of",
+                "start": 19,
+                "end": 21,
+                "letters": [
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "f",
+                    "anchors": "force fire flow"
+                  }
+                ],
+                "association_acrostic": "origin force"
+              },
+              {
+                "token": "sample",
+                "start": 26,
+                "end": 32,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "spirit alpha matrix power line energy"
+              },
+              {
+                "token": "trades",
+                "start": 33,
+                "end": 39,
+                "letters": [
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  }
+                ],
+                "association_acrostic": "tree rhythm alpha delta energy spirit"
+              },
+              {
+                "token": "passed",
+                "start": 40,
+                "end": 46,
+                "letters": [
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "power alpha spirit spirit energy delta"
+              },
+              {
+                "token": "signal",
+                "start": 48,
+                "end": 54,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "g",
+                    "anchors": "generation geometry growth"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  }
+                ],
+                "association_acrostic": "spirit identity generation no alpha line"
+              },
+              {
+                "token": "approved",
+                "start": 55,
+                "end": 63,
+                "letters": [
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "v",
+                    "anchors": "vessel valley vibration"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "alpha power power rhythm origin vessel energy delta"
+              }
+            ]
+          },
+          "counterfactual_lexical_flip": {
+            "label": "GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation",
+            "text": "SIMULATION ONLY: 6 of 240 sample trades failed; signal denied.",
+            "changed": true
+          },
+          "negated_payloads": {
+            "label": "QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim",
+            "spans": []
+          },
+          "silence_rows": [
+            {
+              "left": "SIMULATION",
+              "right": "ONLY",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "ONLY",
+              "right": "of",
+              "separator_verbatim": ": 6 "
+            },
+            {
+              "left": "of",
+              "right": "sample",
+              "separator_verbatim": " 240 "
+            },
+            {
+              "left": "sample",
+              "right": "trades",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "trades",
+              "right": "passed",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "passed",
+              "right": "signal",
+              "separator_verbatim": "; "
+            },
+            {
+              "left": "signal",
+              "right": "approved",
+              "separator_verbatim": " "
+            }
+          ],
+          "inverted_letter_index": {
+            "a": [
+              "SIMULATION",
+              "approved",
+              "passed",
+              "sample",
+              "signal",
+              "trades"
+            ],
+            "d": [
+              "approved",
+              "passed",
+              "trades"
+            ],
+            "e": [
+              "approved",
+              "passed",
+              "sample",
+              "trades"
+            ],
+            "f": [
+              "of"
+            ],
+            "g": [
+              "signal"
+            ],
+            "i": [
+              "SIMULATION",
+              "signal"
+            ],
+            "l": [
+              "ONLY",
+              "SIMULATION",
+              "sample",
+              "signal"
+            ],
+            "m": [
+              "SIMULATION",
+              "sample"
+            ],
+            "n": [
+              "ONLY",
+              "SIMULATION",
+              "signal"
+            ],
+            "o": [
+              "ONLY",
+              "SIMULATION",
+              "approved",
+              "of"
+            ],
+            "p": [
+              "approved",
+              "passed",
+              "sample"
+            ],
+            "r": [
+              "approved",
+              "trades"
+            ],
+            "s": [
+              "SIMULATION",
+              "passed",
+              "sample",
+              "signal",
+              "trades"
+            ],
+            "t": [
+              "SIMULATION",
+              "trades"
+            ],
+            "u": [
+              "SIMULATION"
+            ],
+            "v": [
+              "approved"
+            ],
+            "y": [
+              "ONLY"
+            ]
+          }
+        },
+        "limitations": [
+          "Patterns are fallible and excerpt-scoped; no fact-check or mind-reading is performed.",
+          "A missing keyword does not prove that a clause or capability is absent.",
+          "Generated associations and counterfactuals are illustrations, never recovered verbatim omissions.",
+          "Modal verbs, passives, punctuation and polite phrases can be legitimate.",
+          "Speaker identity, legal conclusions, device state and market demand are not inferred.",
+          "The letter layer uses stipulated anchors; historical WordNet/cache charges are not reproduced."
+        ],
+        "receipt": {
+          "input_sha256": "fad9d20e5dc7049f028d146d37ddaf70ee66b55e786ea5e093ccf878d6b9faa5",
+          "context_sha256": "20ff83765940929ab083d7ea6c26075d6062a9e1f0bac79bdb05df4978094462",
+          "output_sha256_excluding_receipt": "cf05f6ff09fa32e75eec0353d9b405bfd019ea00f348f481a364715f2d960cbb",
+          "stages_executed": [
+            "capture",
+            "lexical-battery",
+            "script-sensor",
+            "surface-census",
+            "frame-ledger",
+            "context-fidelity",
+            "exploratory-transforms",
+            "receipt"
+          ],
+          "receipt_type": "UNSIGNED SHA256 INTEGRITY RECORD",
+          "tool_version": "1.0.0"
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "privacy-disclosure",
+        "number": "04",
+        "domain": "Industry · vendor disclosure",
+        "title": "The checklist shows its own blank spaces.",
+        "lede": "A checklist can surface questions that the supplied excerpt does not answer; it cannot fill them in.",
+        "frame": "privacy",
+        "source": null,
+        "candidate": "We may retain support logs to improve reliability. An analyst may inspect submitted incidents. We do not use logs to train the public model.",
+        "review_question": "Where do the complete terms specify duration, deletion, recipients, and opt-out?",
+        "impact": {
+          "person": "A customer can ask for the relevant policy text instead of treating this short excerpt as the whole policy.",
+          "workflow": "A procurement reviewer can route unmatched checklist fields for document-level review.",
+          "industry": "A shared checklist could make vendor comparisons more repeatable, but the field matches are keyword cues—not legal analysis.",
+          "market": "Clearer disclosures might affect a buyer's evaluation; this demo makes no claim about vendor ranking or market demand.",
+          "long_tail": "If a checklist is mistaken for a completeness guarantee, omitted clauses may disappear from later summaries. The UI labels each no-match as excerpt-scoped."
+        }
+      },
+      "analysis_target": "candidate",
+      "analysis_target_note": "The core's source_verbatim field preserves the candidate under analysis; scenario.source is separate context.",
+      "result": {
+        "tool": "AEE × LOGODECRYPT PRIME",
+        "version": "1.0.0",
+        "source_verbatim": "We may retain support logs to improve reliability. An analyst may inspect submitted incidents. We do not use logs to train the public model.",
+        "evidence_class": "calculated text-pattern observables plus explicitly generated illustrations",
+        "battery": {
+          "S": 1,
+          "D": 0,
+          "PIC": 1.1853,
+          "T_d": 0.0,
+          "latin_letters": 114,
+          "words_normalized": 24,
+          "structural_hits": {
+            "public": 1
+          },
+          "evasion_lexicon_hits": {},
+          "historical_battery_condition": "SUB-GATE",
+          "interpretation": "Historical condition names are formula labels, not judgments of accuracy or intent."
+        },
+        "scripts": {
+          "letters_by_script": {
+            "LATIN": 114
+          },
+          "transitions": 0,
+          "fusion_tokens": [],
+          "format_controls": [],
+          "nonlatin_share": 0.0,
+          "note": "Range-based TR-7 compatibility census; multilingual text and controls are not intrinsically malicious."
+        },
+        "surface": {
+          "passive_candidates": [],
+          "indefinite_role_candidates": [],
+          "modal_cues": [
+            {
+              "start": 3,
+              "end": 6,
+              "quote": "may"
+            },
+            {
+              "start": 62,
+              "end": 65,
+              "quote": "may"
+            }
+          ],
+          "negation_cues": [
+            {
+              "start": 101,
+              "end": 104,
+              "quote": "not"
+            }
+          ],
+          "first_party_flow_cues": [],
+          "purpose_candidates": [
+            {
+              "start": 27,
+              "end": 49,
+              "quote": "to improve reliability"
+            }
+          ],
+          "reader_obligation_cues": [],
+          "speaker_self_description": [],
+          "punctuation": {
+            "exclamations": 0,
+            "questions": 0,
+            "ellipses": 0
+          }
+        },
+        "frame": "privacy",
+        "frame_ledger": [
+          {
+            "field": "retention duration",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "deletion mechanism",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "human review",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "recipients",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "opt-out",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "training use",
+            "status": "MATCHED-CUE",
+            "evidence": [
+              {
+                "start": 117,
+                "end": 122,
+                "quote": "train"
+              }
+            ]
+          },
+          {
+            "field": "contact channel",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          }
+        ],
+        "context_fidelity": {
+          "status": "NOT-RUN",
+          "reason": "No independent/source context supplied."
+        },
+        "transformations": {
+          "source_verbatim": "We may retain support logs to improve reliability. An analyst may inspect submitted incidents. We do not use logs to train the public model.",
+          "literal_projection": "passive_candidates: NONE MATCHED\nindefinite_role_candidates: NONE MATCHED\nmodal_cues: may; may\nnegation_cues: not\nfirst_party_flow_cues: NONE MATCHED\npurpose_candidates: to improve reliability\nreader_obligation_cues: NONE MATCHED\nspeaker_self_description: NONE MATCHED",
+          "generated_association": {
+            "label": "GENERATED ASSOCIATION — stipulated letter keys, NOT decoded meaning",
+            "max_tokens": 12,
+            "tokens_processed": 12,
+            "tokens_omitted": 12,
+            "token_records": [
+              {
+                "token": "We",
+                "start": 0,
+                "end": 2,
+                "letters": [
+                  {
+                    "letter": "w",
+                    "anchors": "wave witness weave"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "wave energy"
+              },
+              {
+                "token": "may",
+                "start": 3,
+                "end": 6,
+                "letters": [
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "matrix alpha why"
+              },
+              {
+                "token": "retain",
+                "start": 7,
+                "end": 13,
+                "letters": [
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  }
+                ],
+                "association_acrostic": "rhythm energy tree alpha identity no"
+              },
+              {
+                "token": "support",
+                "start": 14,
+                "end": 21,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  }
+                ],
+                "association_acrostic": "spirit under power power origin rhythm tree"
+              },
+              {
+                "token": "logs",
+                "start": 22,
+                "end": 26,
+                "letters": [
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "g",
+                    "anchors": "generation geometry growth"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  }
+                ],
+                "association_acrostic": "line origin generation spirit"
+              },
+              {
+                "token": "to",
+                "start": 27,
+                "end": 29,
+                "letters": [
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  }
+                ],
+                "association_acrostic": "tree origin"
+              },
+              {
+                "token": "improve",
+                "start": 30,
+                "end": 37,
+                "letters": [
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "v",
+                    "anchors": "vessel valley vibration"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "identity matrix power rhythm origin vessel energy"
+              },
+              {
+                "token": "reliability",
+                "start": 38,
+                "end": 49,
+                "letters": [
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "b",
+                    "anchors": "being body boundary"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "rhythm energy line identity alpha being identity line identity tree why"
+              },
+              {
+                "token": "An",
+                "start": 51,
+                "end": 53,
+                "letters": [
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  }
+                ],
+                "association_acrostic": "alpha no"
+              },
+              {
+                "token": "analyst",
+                "start": 54,
+                "end": 61,
+                "letters": [
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  }
+                ],
+                "association_acrostic": "alpha no alpha line why spirit tree"
+              },
+              {
+                "token": "may",
+                "start": 62,
+                "end": 65,
+                "letters": [
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "matrix alpha why"
+              },
+              {
+                "token": "inspect",
+                "start": 66,
+                "end": 73,
+                "letters": [
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  }
+                ],
+                "association_acrostic": "identity no spirit power energy capture tree"
+              }
+            ]
+          },
+          "counterfactual_lexical_flip": {
+            "label": "GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation",
+            "text": "We may delete support logs to improve reliability. An analyst may inspect submitted incidents. We do not use logs to train the private model.",
+            "changed": true
+          },
+          "negated_payloads": {
+            "label": "QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim",
+            "spans": [
+              {
+                "start": 101,
+                "end": 133,
+                "quote": "not use logs to train the public"
+              }
+            ]
+          },
+          "silence_rows": [
+            {
+              "left": "We",
+              "right": "may",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "may",
+              "right": "retain",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "retain",
+              "right": "support",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "support",
+              "right": "logs",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "logs",
+              "right": "to",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "to",
+              "right": "improve",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "improve",
+              "right": "reliability",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "reliability",
+              "right": "An",
+              "separator_verbatim": ". "
+            },
+            {
+              "left": "An",
+              "right": "analyst",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "analyst",
+              "right": "may",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "may",
+              "right": "inspect",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "inspect",
+              "right": "submitted",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "submitted",
+              "right": "incidents",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "incidents",
+              "right": "We",
+              "separator_verbatim": ". "
+            },
+            {
+              "left": "We",
+              "right": "do",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "do",
+              "right": "not",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "not",
+              "right": "use",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "use",
+              "right": "logs",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "logs",
+              "right": "to",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "to",
+              "right": "train",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "train",
+              "right": "the",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "the",
+              "right": "public",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "public",
+              "right": "model",
+              "separator_verbatim": " "
+            }
+          ],
+          "inverted_letter_index": {
+            "a": [
+              "An",
+              "analyst",
+              "may",
+              "reliability",
+              "retain"
+            ],
+            "b": [
+              "reliability"
+            ],
+            "c": [
+              "inspect"
+            ],
+            "e": [
+              "We",
+              "improve",
+              "inspect",
+              "reliability",
+              "retain"
+            ],
+            "g": [
+              "logs"
+            ],
+            "i": [
+              "improve",
+              "inspect",
+              "reliability",
+              "retain"
+            ],
+            "l": [
+              "analyst",
+              "logs",
+              "reliability"
+            ],
+            "m": [
+              "improve",
+              "may"
+            ],
+            "n": [
+              "An",
+              "analyst",
+              "inspect",
+              "retain"
+            ],
+            "o": [
+              "improve",
+              "logs",
+              "support",
+              "to"
+            ],
+            "p": [
+              "improve",
+              "inspect",
+              "support"
+            ],
+            "r": [
+              "improve",
+              "reliability",
+              "retain",
+              "support"
+            ],
+            "s": [
+              "analyst",
+              "inspect",
+              "logs",
+              "support"
+            ],
+            "t": [
+              "analyst",
+              "inspect",
+              "reliability",
+              "retain",
+              "support",
+              "to"
+            ],
+            "u": [
+              "support"
+            ],
+            "v": [
+              "improve"
+            ],
+            "w": [
+              "We"
+            ],
+            "y": [
+              "analyst",
+              "may",
+              "reliability"
+            ]
+          }
+        },
+        "limitations": [
+          "Patterns are fallible and excerpt-scoped; no fact-check or mind-reading is performed.",
+          "A missing keyword does not prove that a clause or capability is absent.",
+          "Generated associations and counterfactuals are illustrations, never recovered verbatim omissions.",
+          "Modal verbs, passives, punctuation and polite phrases can be legitimate.",
+          "Speaker identity, legal conclusions, device state and market demand are not inferred.",
+          "The letter layer uses stipulated anchors; historical WordNet/cache charges are not reproduced."
+        ],
+        "receipt": {
+          "input_sha256": "f72dfe9671ddf98e04ff40f2413980c79068a997fc3aa3719846afb0191ff56a",
+          "context_sha256": null,
+          "output_sha256_excluding_receipt": "ae86018e6c9feb490a1e7905ef5e550065e3f5a0e962446c55f7c8af820f6618",
+          "stages_executed": [
+            "capture",
+            "lexical-battery",
+            "script-sensor",
+            "surface-census",
+            "frame-ledger",
+            "context-fidelity",
+            "exploratory-transforms",
+            "receipt"
+          ],
+          "receipt_type": "UNSIGNED SHA256 INTEGRITY RECORD",
+          "tool_version": "1.0.0"
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "unicode-boundary",
+        "number": "05",
+        "domain": "Security · text handling",
+        "title": "Two alphabets. One invisible separator.",
+        "lede": "The scan exposes a Cyrillic character and a zero-width format control in a synthetic string.",
+        "frame": "general",
+        "source": null,
+        "candidate": "Submitted token: pаyload; hidden separator: admin​istrator.",
+        "review_question": "Does the downstream system normalize, compare, display, or authorize this exact sequence of code points?",
+        "impact": {
+          "person": "A reader may not see why two visually similar strings behave differently in a particular system.",
+          "workflow": "Engineers can inspect the exact code points and test their own parser or renderer.",
+          "industry": "Unicode handling can be a useful test dimension for text-processing pipelines; this census does not establish exploitability.",
+          "market": "A downstream account or transaction impact would depend on a vulnerable system and verified exploit path, neither of which is shown here.",
+          "long_tail": "When normalized text is hashed, indexed, or compared across services, differing normalization rules can split the evidence trail. Verify each boundary."
+        }
+      },
+      "analysis_target": "candidate",
+      "analysis_target_note": "The core's source_verbatim field preserves the candidate under analysis; scenario.source is separate context.",
+      "result": {
+        "tool": "AEE × LOGODECRYPT PRIME",
+        "version": "1.0.0",
+        "source_verbatim": "Submitted token: pаyload; hidden separator: admin​istrator.",
+        "evidence_class": "calculated text-pattern observables plus explicitly generated illustrations",
+        "battery": {
+          "S": 0,
+          "D": 0,
+          "PIC": 1.165,
+          "T_d": 0.0,
+          "latin_letters": 48,
+          "words_normalized": 8,
+          "structural_hits": {},
+          "evasion_lexicon_hits": {},
+          "historical_battery_condition": "ZERO-LEXICON-HIT",
+          "interpretation": "Historical condition names are formula labels, not judgments of accuracy or intent."
+        },
+        "scripts": {
+          "letters_by_script": {
+            "LATIN": 48,
+            "CYRILLIC": 1
+          },
+          "transitions": 2,
+          "fusion_tokens": [
+            {
+              "start": 17,
+              "end": 25,
+              "quote": "pаyload;",
+              "scripts": [
+                "CYRILLIC",
+                "LATIN"
+              ]
+            }
+          ],
+          "format_controls": [
+            {
+              "index": 49,
+              "codepoint": "U+200B",
+              "name": "ZERO WIDTH SPACE"
+            }
+          ],
+          "nonlatin_share": 0.0204,
+          "note": "Range-based TR-7 compatibility census; multilingual text and controls are not intrinsically malicious."
+        },
+        "surface": {
+          "passive_candidates": [],
+          "indefinite_role_candidates": [],
+          "modal_cues": [],
+          "negation_cues": [],
+          "first_party_flow_cues": [],
+          "purpose_candidates": [],
+          "reader_obligation_cues": [],
+          "speaker_self_description": [],
+          "punctuation": {
+            "exclamations": 0,
+            "questions": 0,
+            "ellipses": 0
+          }
+        },
+        "frame": "general",
+        "frame_ledger": [
+          {
+            "field": "named first party",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "timeline",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "verification",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "recourse",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          }
+        ],
+        "context_fidelity": {
+          "status": "NOT-RUN",
+          "reason": "No independent/source context supplied."
+        },
+        "transformations": {
+          "source_verbatim": "Submitted token: pаyload; hidden separator: admin​istrator.",
+          "literal_projection": "passive_candidates: NONE MATCHED\nindefinite_role_candidates: NONE MATCHED\nmodal_cues: NONE MATCHED\nnegation_cues: NONE MATCHED\nfirst_party_flow_cues: NONE MATCHED\npurpose_candidates: NONE MATCHED\nreader_obligation_cues: NONE MATCHED\nspeaker_self_description: NONE MATCHED",
+          "generated_association": {
+            "label": "GENERATED ASSOCIATION — stipulated letter keys, NOT decoded meaning",
+            "max_tokens": 12,
+            "tokens_processed": 8,
+            "tokens_omitted": 0,
+            "token_records": [
+              {
+                "token": "Submitted",
+                "start": 0,
+                "end": 9,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "b",
+                    "anchors": "being body boundary"
+                  },
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "spirit under being matrix identity tree tree energy delta"
+              },
+              {
+                "token": "token",
+                "start": 10,
+                "end": 15,
+                "letters": [
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "k",
+                    "anchors": "kinetic key kernel"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  }
+                ],
+                "association_acrostic": "tree origin kinetic energy no"
+              },
+              {
+                "token": "p",
+                "start": 17,
+                "end": 18,
+                "letters": [
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  }
+                ],
+                "association_acrostic": "power"
+              },
+              {
+                "token": "yload",
+                "start": 19,
+                "end": 24,
+                "letters": [
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "why line origin alpha delta"
+              },
+              {
+                "token": "hidden",
+                "start": 26,
+                "end": 32,
+                "letters": [
+                  {
+                    "letter": "h",
+                    "anchors": "hinge heart horizon"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  }
+                ],
+                "association_acrostic": "hinge identity delta delta energy no"
+              },
+              {
+                "token": "separator",
+                "start": 33,
+                "end": 42,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  }
+                ],
+                "association_acrostic": "spirit energy power alpha rhythm alpha tree origin rhythm"
+              },
+              {
+                "token": "admin",
+                "start": 44,
+                "end": 49,
+                "letters": [
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  }
+                ],
+                "association_acrostic": "alpha delta matrix identity no"
+              },
+              {
+                "token": "istrator",
+                "start": 50,
+                "end": 58,
+                "letters": [
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  }
+                ],
+                "association_acrostic": "identity spirit tree rhythm alpha tree origin rhythm"
+              }
+            ]
+          },
+          "counterfactual_lexical_flip": {
+            "label": "GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation",
+            "text": "Submitted token: pаyload; hidden separator: admin​istrator.",
+            "changed": false
+          },
+          "negated_payloads": {
+            "label": "QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim",
+            "spans": []
+          },
+          "silence_rows": [
+            {
+              "left": "Submitted",
+              "right": "token",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "token",
+              "right": "p",
+              "separator_verbatim": ": "
+            },
+            {
+              "left": "p",
+              "right": "yload",
+              "separator_verbatim": "а"
+            },
+            {
+              "left": "yload",
+              "right": "hidden",
+              "separator_verbatim": "; "
+            },
+            {
+              "left": "hidden",
+              "right": "separator",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "separator",
+              "right": "admin",
+              "separator_verbatim": ": "
+            },
+            {
+              "left": "admin",
+              "right": "istrator",
+              "separator_verbatim": "​"
+            }
+          ],
+          "inverted_letter_index": {
+            "a": [
+              "admin",
+              "istrator",
+              "separator",
+              "yload"
+            ],
+            "b": [
+              "Submitted"
+            ],
+            "d": [
+              "Submitted",
+              "admin",
+              "hidden",
+              "yload"
+            ],
+            "e": [
+              "Submitted",
+              "hidden",
+              "separator",
+              "token"
+            ],
+            "h": [
+              "hidden"
+            ],
+            "i": [
+              "Submitted",
+              "admin",
+              "hidden",
+              "istrator"
+            ],
+            "k": [
+              "token"
+            ],
+            "l": [
+              "yload"
+            ],
+            "m": [
+              "Submitted",
+              "admin"
+            ],
+            "n": [
+              "admin",
+              "hidden",
+              "token"
+            ],
+            "o": [
+              "istrator",
+              "separator",
+              "token",
+              "yload"
+            ],
+            "p": [
+              "p",
+              "separator"
+            ],
+            "r": [
+              "istrator",
+              "separator"
+            ],
+            "s": [
+              "Submitted",
+              "istrator",
+              "separator"
+            ],
+            "t": [
+              "Submitted",
+              "istrator",
+              "separator",
+              "token"
+            ],
+            "u": [
+              "Submitted"
+            ],
+            "y": [
+              "yload"
+            ]
+          }
+        },
+        "limitations": [
+          "Patterns are fallible and excerpt-scoped; no fact-check or mind-reading is performed.",
+          "A missing keyword does not prove that a clause or capability is absent.",
+          "Generated associations and counterfactuals are illustrations, never recovered verbatim omissions.",
+          "Modal verbs, passives, punctuation and polite phrases can be legitimate.",
+          "Speaker identity, legal conclusions, device state and market demand are not inferred.",
+          "The letter layer uses stipulated anchors; historical WordNet/cache charges are not reproduced."
+        ],
+        "receipt": {
+          "input_sha256": "239e02075c518b078abdfc3375f658248378a4d2e535eeb80c1fd77df707b4f1",
+          "context_sha256": null,
+          "output_sha256_excluding_receipt": "42e3473778fb3d675a1d1851fcc8ee388d23a748585f0d6cb338a3332ea4ab9f",
+          "stages_executed": [
+            "capture",
+            "lexical-battery",
+            "script-sensor",
+            "surface-census",
+            "frame-ledger",
+            "context-fidelity",
+            "exploratory-transforms",
+            "receipt"
+          ],
+          "receipt_type": "UNSIGNED SHA256 INTEGRITY RECORD",
+          "tool_version": "1.0.0"
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "license-terms",
+        "number": "06",
+        "domain": "Industry · license review",
+        "title": "A term is not a complete agreement.",
+        "lede": "The frame ledger maps matched words and leaves unmatched fields explicitly unresolved.",
+        "frame": "license",
+        "source": null,
+        "candidate": "License: perpetual, non-exclusive internal use. We may sublicense. Either party may terminate after written notice. Liability is capped at fees paid.",
+        "review_question": "Read the full agreement and governing context; do not treat a cue ledger as legal advice.",
+        "impact": {
+          "person": "A creator or buyer can identify terms to locate in the full agreement before making a decision.",
+          "workflow": "A reviewer can triage duration, sublicense, termination, remedy, jurisdiction, and liability language.",
+          "industry": "A repeatable cue map may help teams compare documents; it does not determine rights or replace counsel.",
+          "market": "Contract terms can shape commercial options, but this snippet does not establish value, enforceability, or negotiation leverage.",
+          "long_tail": "If a cue checklist is detached from the full document, a partial view can acquire false authority; retain the source and section context."
+        }
+      },
+      "analysis_target": "candidate",
+      "analysis_target_note": "The core's source_verbatim field preserves the candidate under analysis; scenario.source is separate context.",
+      "result": {
+        "tool": "AEE × LOGODECRYPT PRIME",
+        "version": "1.0.0",
+        "source_verbatim": "License: perpetual, non-exclusive internal use. We may sublicense. Either party may terminate after written notice. Liability is capped at fees paid.",
+        "evidence_class": "calculated text-pattern observables plus explicitly generated illustrations",
+        "battery": {
+          "S": 0,
+          "D": 0,
+          "PIC": 1.1515,
+          "T_d": 0.0,
+          "latin_letters": 122,
+          "words_normalized": 22,
+          "structural_hits": {},
+          "evasion_lexicon_hits": {},
+          "historical_battery_condition": "ZERO-LEXICON-HIT",
+          "interpretation": "Historical condition names are formula labels, not judgments of accuracy or intent."
+        },
+        "scripts": {
+          "letters_by_script": {
+            "LATIN": 122
+          },
+          "transitions": 0,
+          "fusion_tokens": [],
+          "format_controls": [],
+          "nonlatin_share": 0.0,
+          "note": "Range-based TR-7 compatibility census; multilingual text and controls are not intrinsically malicious."
+        },
+        "surface": {
+          "passive_candidates": [
+            {
+              "start": 126,
+              "end": 135,
+              "quote": "is capped"
+            }
+          ],
+          "indefinite_role_candidates": [],
+          "modal_cues": [
+            {
+              "start": 51,
+              "end": 54,
+              "quote": "may"
+            },
+            {
+              "start": 80,
+              "end": 83,
+              "quote": "may"
+            }
+          ],
+          "negation_cues": [],
+          "first_party_flow_cues": [],
+          "purpose_candidates": [],
+          "reader_obligation_cues": [],
+          "speaker_self_description": [],
+          "punctuation": {
+            "exclamations": 0,
+            "questions": 0,
+            "ellipses": 0
+          }
+        },
+        "frame": "license",
+        "frame_ledger": [
+          {
+            "field": "duration",
+            "status": "MATCHED-CUE",
+            "evidence": [
+              {
+                "start": 9,
+                "end": 18,
+                "quote": "perpetual"
+              }
+            ]
+          },
+          {
+            "field": "revocation",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "sublicensing",
+            "status": "MATCHED-CUE",
+            "evidence": [
+              {
+                "start": 55,
+                "end": 65,
+                "quote": "sublicense"
+              }
+            ]
+          },
+          {
+            "field": "remedy",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "governing law",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "termination",
+            "status": "MATCHED-CUE",
+            "evidence": [
+              {
+                "start": 84,
+                "end": 93,
+                "quote": "terminate"
+              }
+            ]
+          },
+          {
+            "field": "liability",
+            "status": "MATCHED-CUE",
+            "evidence": [
+              {
+                "start": 116,
+                "end": 125,
+                "quote": "Liability"
+              }
+            ]
+          }
+        ],
+        "context_fidelity": {
+          "status": "NOT-RUN",
+          "reason": "No independent/source context supplied."
+        },
+        "transformations": {
+          "source_verbatim": "License: perpetual, non-exclusive internal use. We may sublicense. Either party may terminate after written notice. Liability is capped at fees paid.",
+          "literal_projection": "passive_candidates: is capped\nindefinite_role_candidates: NONE MATCHED\nmodal_cues: may; may\nnegation_cues: NONE MATCHED\nfirst_party_flow_cues: NONE MATCHED\npurpose_candidates: NONE MATCHED\nreader_obligation_cues: NONE MATCHED\nspeaker_self_description: NONE MATCHED",
+          "generated_association": {
+            "label": "GENERATED ASSOCIATION — stipulated letter keys, NOT decoded meaning",
+            "max_tokens": 12,
+            "tokens_processed": 12,
+            "tokens_omitted": 10,
+            "token_records": [
+              {
+                "token": "License",
+                "start": 0,
+                "end": 7,
+                "letters": [
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "line identity capture energy no spirit energy"
+              },
+              {
+                "token": "perpetual",
+                "start": 9,
+                "end": 18,
+                "letters": [
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  }
+                ],
+                "association_acrostic": "power energy rhythm power energy tree under alpha line"
+              },
+              {
+                "token": "non",
+                "start": 20,
+                "end": 23,
+                "letters": [
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  }
+                ],
+                "association_acrostic": "no origin no"
+              },
+              {
+                "token": "exclusive",
+                "start": 24,
+                "end": 33,
+                "letters": [
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "x",
+                    "anchors": "nexus crossroads exchange"
+                  },
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "v",
+                    "anchors": "vessel valley vibration"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "energy nexus capture line under spirit identity vessel energy"
+              },
+              {
+                "token": "internal",
+                "start": 34,
+                "end": 42,
+                "letters": [
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  }
+                ],
+                "association_acrostic": "identity no tree energy rhythm no alpha line"
+              },
+              {
+                "token": "use",
+                "start": 43,
+                "end": 46,
+                "letters": [
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "under spirit energy"
+              },
+              {
+                "token": "We",
+                "start": 48,
+                "end": 50,
+                "letters": [
+                  {
+                    "letter": "w",
+                    "anchors": "wave witness weave"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "wave energy"
+              },
+              {
+                "token": "may",
+                "start": 51,
+                "end": 54,
+                "letters": [
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "matrix alpha why"
+              },
+              {
+                "token": "sublicense",
+                "start": 55,
+                "end": 65,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "b",
+                    "anchors": "being body boundary"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "spirit under being line identity capture energy no spirit energy"
+              },
+              {
+                "token": "Either",
+                "start": 67,
+                "end": 73,
+                "letters": [
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "h",
+                    "anchors": "hinge heart horizon"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  }
+                ],
+                "association_acrostic": "energy identity tree hinge energy rhythm"
+              },
+              {
+                "token": "party",
+                "start": 74,
+                "end": 79,
+                "letters": [
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "power alpha rhythm tree why"
+              },
+              {
+                "token": "may",
+                "start": 80,
+                "end": 83,
+                "letters": [
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "matrix alpha why"
+              }
+            ]
+          },
+          "counterfactual_lexical_flip": {
+            "label": "GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation",
+            "text": "License: perpetual, non-exclusive internal use. We may sublicense. Either party may terminate after written notice. Liability is capped at fees paid.",
+            "changed": false
+          },
+          "negated_payloads": {
+            "label": "QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim",
+            "spans": []
+          },
+          "silence_rows": [
+            {
+              "left": "License",
+              "right": "perpetual",
+              "separator_verbatim": ": "
+            },
+            {
+              "left": "perpetual",
+              "right": "non",
+              "separator_verbatim": ", "
+            },
+            {
+              "left": "non",
+              "right": "exclusive",
+              "separator_verbatim": "-"
+            },
+            {
+              "left": "exclusive",
+              "right": "internal",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "internal",
+              "right": "use",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "use",
+              "right": "We",
+              "separator_verbatim": ". "
+            },
+            {
+              "left": "We",
+              "right": "may",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "may",
+              "right": "sublicense",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "sublicense",
+              "right": "Either",
+              "separator_verbatim": ". "
+            },
+            {
+              "left": "Either",
+              "right": "party",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "party",
+              "right": "may",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "may",
+              "right": "terminate",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "terminate",
+              "right": "after",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "after",
+              "right": "written",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "written",
+              "right": "notice",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "notice",
+              "right": "Liability",
+              "separator_verbatim": ". "
+            },
+            {
+              "left": "Liability",
+              "right": "is",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "is",
+              "right": "capped",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "capped",
+              "right": "at",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "at",
+              "right": "fees",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "fees",
+              "right": "paid",
+              "separator_verbatim": " "
+            }
+          ],
+          "inverted_letter_index": {
+            "a": [
+              "internal",
+              "may",
+              "party",
+              "perpetual"
+            ],
+            "b": [
+              "sublicense"
+            ],
+            "c": [
+              "License",
+              "exclusive",
+              "sublicense"
+            ],
+            "e": [
+              "Either",
+              "License",
+              "We",
+              "exclusive",
+              "internal",
+              "perpetual",
+              "sublicense",
+              "use"
+            ],
+            "h": [
+              "Either"
+            ],
+            "i": [
+              "Either",
+              "License",
+              "exclusive",
+              "internal",
+              "sublicense"
+            ],
+            "l": [
+              "License",
+              "exclusive",
+              "internal",
+              "perpetual",
+              "sublicense"
+            ],
+            "m": [
+              "may"
+            ],
+            "n": [
+              "License",
+              "internal",
+              "non",
+              "sublicense"
+            ],
+            "o": [
+              "non"
+            ],
+            "p": [
+              "party",
+              "perpetual"
+            ],
+            "r": [
+              "Either",
+              "internal",
+              "party",
+              "perpetual"
+            ],
+            "s": [
+              "License",
+              "exclusive",
+              "sublicense",
+              "use"
+            ],
+            "t": [
+              "Either",
+              "internal",
+              "party",
+              "perpetual"
+            ],
+            "u": [
+              "exclusive",
+              "perpetual",
+              "sublicense",
+              "use"
+            ],
+            "v": [
+              "exclusive"
+            ],
+            "w": [
+              "We"
+            ],
+            "x": [
+              "exclusive"
+            ],
+            "y": [
+              "may",
+              "party"
+            ]
+          }
+        },
+        "limitations": [
+          "Patterns are fallible and excerpt-scoped; no fact-check or mind-reading is performed.",
+          "A missing keyword does not prove that a clause or capability is absent.",
+          "Generated associations and counterfactuals are illustrations, never recovered verbatim omissions.",
+          "Modal verbs, passives, punctuation and polite phrases can be legitimate.",
+          "Speaker identity, legal conclusions, device state and market demand are not inferred.",
+          "The letter layer uses stipulated anchors; historical WordNet/cache charges are not reproduced."
+        ],
+        "receipt": {
+          "input_sha256": "6aa73310ce80c0dd208e96ee6e40be3559dbcce81e841a18c70ec3dc44fe2d8c",
+          "context_sha256": null,
+          "output_sha256_excluding_receipt": "7cc0bb0e985207fa7450e60241adf3de4608140475c37f9c1d3b434f19882781",
+          "stages_executed": [
+            "capture",
+            "lexical-battery",
+            "script-sensor",
+            "surface-census",
+            "frame-ledger",
+            "context-fidelity",
+            "exploratory-transforms",
+            "receipt"
+          ],
+          "receipt_type": "UNSIGNED SHA256 INTEGRITY RECORD",
+          "tool_version": "1.0.0"
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "generated-alternative",
+        "number": "07",
+        "domain": "Creative · controlled transformation",
+        "title": "An alternative is generated—not recovered.",
+        "lede": "The tool can produce a bounded lexical variation and label it as an illustration, never as hidden intent.",
+        "frame": "privacy",
+        "source": null,
+        "candidate": "We may retain 30-day diagnostics to improve reliability.",
+        "review_question": "Which text is quoted evidence, and which text was generated only to explore a contrast?",
+        "impact": {
+          "person": "A reader can compare wording without being told that a machine has discovered what someone meant.",
+          "workflow": "A facilitator can use a clearly marked counterfactual to ask which source wording matters.",
+          "industry": "Labeling generated alternatives can make creative analysis auditable; it does not prove the alternative is exhaustive or semantically equivalent.",
+          "market": "No inference about a product, company, or market is made from the generated variation.",
+          "long_tail": "If an illustration is later copied without its label, it can be mistaken for evidence. The artifact keeps provenance visible beside the transformation."
+        }
+      },
+      "analysis_target": "candidate",
+      "analysis_target_note": "The core's source_verbatim field preserves the candidate under analysis; scenario.source is separate context.",
+      "result": {
+        "tool": "AEE × LOGODECRYPT PRIME",
+        "version": "1.0.0",
+        "source_verbatim": "We may retain 30-day diagnostics to improve reliability.",
+        "evidence_class": "calculated text-pattern observables plus explicitly generated illustrations",
+        "battery": {
+          "S": 0,
+          "D": 0,
+          "PIC": 1.1173,
+          "T_d": 0.0,
+          "latin_letters": 45,
+          "words_normalized": 9,
+          "structural_hits": {},
+          "evasion_lexicon_hits": {},
+          "historical_battery_condition": "ZERO-LEXICON-HIT",
+          "interpretation": "Historical condition names are formula labels, not judgments of accuracy or intent."
+        },
+        "scripts": {
+          "letters_by_script": {
+            "LATIN": 45
+          },
+          "transitions": 0,
+          "fusion_tokens": [],
+          "format_controls": [],
+          "nonlatin_share": 0.0,
+          "note": "Range-based TR-7 compatibility census; multilingual text and controls are not intrinsically malicious."
+        },
+        "surface": {
+          "passive_candidates": [],
+          "indefinite_role_candidates": [],
+          "modal_cues": [
+            {
+              "start": 3,
+              "end": 6,
+              "quote": "may"
+            }
+          ],
+          "negation_cues": [],
+          "first_party_flow_cues": [],
+          "purpose_candidates": [
+            {
+              "start": 33,
+              "end": 55,
+              "quote": "to improve reliability"
+            }
+          ],
+          "reader_obligation_cues": [],
+          "speaker_self_description": [],
+          "punctuation": {
+            "exclamations": 0,
+            "questions": 0,
+            "ellipses": 0
+          }
+        },
+        "frame": "privacy",
+        "frame_ledger": [
+          {
+            "field": "retention duration",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "deletion mechanism",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "human review",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "recipients",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "opt-out",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "training use",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "contact channel",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          }
+        ],
+        "context_fidelity": {
+          "status": "NOT-RUN",
+          "reason": "No independent/source context supplied."
+        },
+        "transformations": {
+          "source_verbatim": "We may retain 30-day diagnostics to improve reliability.",
+          "literal_projection": "passive_candidates: NONE MATCHED\nindefinite_role_candidates: NONE MATCHED\nmodal_cues: may\nnegation_cues: NONE MATCHED\nfirst_party_flow_cues: NONE MATCHED\npurpose_candidates: to improve reliability\nreader_obligation_cues: NONE MATCHED\nspeaker_self_description: NONE MATCHED",
+          "generated_association": {
+            "label": "GENERATED ASSOCIATION — stipulated letter keys, NOT decoded meaning",
+            "max_tokens": 12,
+            "tokens_processed": 8,
+            "tokens_omitted": 0,
+            "token_records": [
+              {
+                "token": "We",
+                "start": 0,
+                "end": 2,
+                "letters": [
+                  {
+                    "letter": "w",
+                    "anchors": "wave witness weave"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "wave energy"
+              },
+              {
+                "token": "may",
+                "start": 3,
+                "end": 6,
+                "letters": [
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "matrix alpha why"
+              },
+              {
+                "token": "retain",
+                "start": 7,
+                "end": 13,
+                "letters": [
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  }
+                ],
+                "association_acrostic": "rhythm energy tree alpha identity no"
+              },
+              {
+                "token": "day",
+                "start": 17,
+                "end": 20,
+                "letters": [
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "delta alpha why"
+              },
+              {
+                "token": "diagnostics",
+                "start": 21,
+                "end": 32,
+                "letters": [
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "g",
+                    "anchors": "generation geometry growth"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  }
+                ],
+                "association_acrostic": "delta identity alpha generation no origin spirit tree identity capture spirit"
+              },
+              {
+                "token": "to",
+                "start": 33,
+                "end": 35,
+                "letters": [
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  }
+                ],
+                "association_acrostic": "tree origin"
+              },
+              {
+                "token": "improve",
+                "start": 36,
+                "end": 43,
+                "letters": [
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "v",
+                    "anchors": "vessel valley vibration"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "identity matrix power rhythm origin vessel energy"
+              },
+              {
+                "token": "reliability",
+                "start": 44,
+                "end": 55,
+                "letters": [
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "b",
+                    "anchors": "being body boundary"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "rhythm energy line identity alpha being identity line identity tree why"
+              }
+            ]
+          },
+          "counterfactual_lexical_flip": {
+            "label": "GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation",
+            "text": "We may delete 30-day diagnostics to improve reliability.",
+            "changed": true
+          },
+          "negated_payloads": {
+            "label": "QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim",
+            "spans": []
+          },
+          "silence_rows": [
+            {
+              "left": "We",
+              "right": "may",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "may",
+              "right": "retain",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "retain",
+              "right": "day",
+              "separator_verbatim": " 30-"
+            },
+            {
+              "left": "day",
+              "right": "diagnostics",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "diagnostics",
+              "right": "to",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "to",
+              "right": "improve",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "improve",
+              "right": "reliability",
+              "separator_verbatim": " "
+            }
+          ],
+          "inverted_letter_index": {
+            "a": [
+              "day",
+              "diagnostics",
+              "may",
+              "reliability",
+              "retain"
+            ],
+            "b": [
+              "reliability"
+            ],
+            "c": [
+              "diagnostics"
+            ],
+            "d": [
+              "day",
+              "diagnostics"
+            ],
+            "e": [
+              "We",
+              "improve",
+              "reliability",
+              "retain"
+            ],
+            "g": [
+              "diagnostics"
+            ],
+            "i": [
+              "diagnostics",
+              "improve",
+              "reliability",
+              "retain"
+            ],
+            "l": [
+              "reliability"
+            ],
+            "m": [
+              "improve",
+              "may"
+            ],
+            "n": [
+              "diagnostics",
+              "retain"
+            ],
+            "o": [
+              "diagnostics",
+              "improve",
+              "to"
+            ],
+            "p": [
+              "improve"
+            ],
+            "r": [
+              "improve",
+              "reliability",
+              "retain"
+            ],
+            "s": [
+              "diagnostics"
+            ],
+            "t": [
+              "diagnostics",
+              "reliability",
+              "retain",
+              "to"
+            ],
+            "v": [
+              "improve"
+            ],
+            "w": [
+              "We"
+            ],
+            "y": [
+              "day",
+              "may",
+              "reliability"
+            ]
+          }
+        },
+        "limitations": [
+          "Patterns are fallible and excerpt-scoped; no fact-check or mind-reading is performed.",
+          "A missing keyword does not prove that a clause or capability is absent.",
+          "Generated associations and counterfactuals are illustrations, never recovered verbatim omissions.",
+          "Modal verbs, passives, punctuation and polite phrases can be legitimate.",
+          "Speaker identity, legal conclusions, device state and market demand are not inferred.",
+          "The letter layer uses stipulated anchors; historical WordNet/cache charges are not reproduced."
+        ],
+        "receipt": {
+          "input_sha256": "75c89da688ad087a58b0a7ca56edd2d5913005023b6b3b0de7d0384ad4642c7c",
+          "context_sha256": null,
+          "output_sha256_excluding_receipt": "a34923afc7307509cc2735a929817aee1bad7aed99696f3383b358616775e0b7",
+          "stages_executed": [
+            "capture",
+            "lexical-battery",
+            "script-sensor",
+            "surface-census",
+            "frame-ledger",
+            "context-fidelity",
+            "exploratory-transforms",
+            "receipt"
+          ],
+          "receipt_type": "UNSIGNED SHA256 INTEGRITY RECORD",
+          "tool_version": "1.0.0"
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "contract-audit-mismatch",
+        "number": "08",
+        "domain": "Smart contracts · synthetic security handoff",
+        "title": "One failing authorization check disappears.",
+        "lede": "A synthetic test receipt contradicts a draft audit summary; neither proves that a live contract is exploitable.",
+        "frame": "general",
+        "source": "SYNTHETIC FIXTURE — AUTH-04: unauthorized caller invoked transfer. Test: failed. Critical findings: 1. Release status: blocked.",
+        "candidate": "SYNTHETIC FIXTURE — Draft audit summary: AUTH-04: unauthorized caller did not invoke transfer. Test: passed. Critical findings: 0. Release status: approved.",
+        "review_question": "Can the test run, contract revision, network, and reviewer decision be joined to this draft summary?",
+        "impact": {
+          "person": "A developer or customer could rely on an unsupported summary; this fixture says nothing about a live exploit or actual loss.",
+          "workflow": "A release decision could diverge if reviewers follow the narrative but do not inspect the versioned authorization test.",
+          "industry": "Audit teams can test whether findings stay traceable to code revisions and test receipts; this is not a security certification.",
+          "market": "If verified evidence informs a release or risk disclosure, it could affect confidence. No real protocol, investment, or market effect is asserted.",
+          "long_tail": "A summary copied into later audit records can detach a claim from its failed test. Establish real propagation with identifiers, timestamps, and source records."
+        }
+      },
+      "analysis_target": "candidate",
+      "analysis_target_note": "The core's source_verbatim field preserves the candidate under analysis; scenario.source is separate context.",
+      "result": {
+        "tool": "AEE × LOGODECRYPT PRIME",
+        "version": "1.0.0",
+        "source_verbatim": "SYNTHETIC FIXTURE — Draft audit summary: AUTH-04: unauthorized caller did not invoke transfer. Test: passed. Critical findings: 0. Release status: approved.",
+        "evidence_class": "calculated text-pattern observables plus explicitly generated illustrations",
+        "battery": {
+          "S": 1,
+          "D": 0,
+          "PIC": 1.2164,
+          "T_d": 0.0,
+          "latin_letters": 122,
+          "words_normalized": 21,
+          "structural_hits": {
+            "audit": 1
+          },
+          "evasion_lexicon_hits": {},
+          "historical_battery_condition": "SUB-GATE",
+          "interpretation": "Historical condition names are formula labels, not judgments of accuracy or intent."
+        },
+        "scripts": {
+          "letters_by_script": {
+            "LATIN": 122
+          },
+          "transitions": 0,
+          "fusion_tokens": [],
+          "format_controls": [],
+          "nonlatin_share": 0.0,
+          "note": "Range-based TR-7 compatibility census; multilingual text and controls are not intrinsically malicious."
+        },
+        "surface": {
+          "passive_candidates": [],
+          "indefinite_role_candidates": [],
+          "modal_cues": [],
+          "negation_cues": [
+            {
+              "start": 74,
+              "end": 77,
+              "quote": "not"
+            }
+          ],
+          "first_party_flow_cues": [],
+          "purpose_candidates": [],
+          "reader_obligation_cues": [],
+          "speaker_self_description": [],
+          "punctuation": {
+            "exclamations": 0,
+            "questions": 0,
+            "ellipses": 0
+          }
+        },
+        "frame": "general",
+        "frame_ledger": [
+          {
+            "field": "named first party",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "timeline",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "verification",
+            "status": "MATCHED-CUE",
+            "evidence": [
+              {
+                "start": 26,
+                "end": 31,
+                "quote": "audit"
+              },
+              {
+                "start": 95,
+                "end": 99,
+                "quote": "Test"
+              }
+            ]
+          },
+          {
+            "field": "recourse",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          }
+        ],
+        "context_fidelity": {
+          "status": "REVIEW-CUES",
+          "source_sha256": "01a03a59c509024484658b183e226f842989abbb7edb84ea4c7167452f87940f",
+          "candidate_numbers_not_in_source_multiset": [
+            "0"
+          ],
+          "source_numbers_not_in_candidate_multiset": [
+            "1"
+          ],
+          "curated_polarity_changes": [
+            {
+              "source_pole": "failed",
+              "candidate_pole": "passed"
+            }
+          ],
+          "limits": "No semantic entailment/role binding: reordered numbers in different roles may escape this check; word changes may be legitimate."
+        },
+        "transformations": {
+          "source_verbatim": "SYNTHETIC FIXTURE — Draft audit summary: AUTH-04: unauthorized caller did not invoke transfer. Test: passed. Critical findings: 0. Release status: approved.",
+          "literal_projection": "passive_candidates: NONE MATCHED\nindefinite_role_candidates: NONE MATCHED\nmodal_cues: NONE MATCHED\nnegation_cues: not\nfirst_party_flow_cues: NONE MATCHED\npurpose_candidates: NONE MATCHED\nreader_obligation_cues: NONE MATCHED\nspeaker_self_description: NONE MATCHED",
+          "generated_association": {
+            "label": "GENERATED ASSOCIATION — stipulated letter keys, NOT decoded meaning",
+            "max_tokens": 12,
+            "tokens_processed": 12,
+            "tokens_omitted": 7,
+            "token_records": [
+              {
+                "token": "SYNTHETIC",
+                "start": 0,
+                "end": 9,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "h",
+                    "anchors": "hinge heart horizon"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  }
+                ],
+                "association_acrostic": "spirit why no tree hinge energy tree identity capture"
+              },
+              {
+                "token": "FIXTURE",
+                "start": 10,
+                "end": 17,
+                "letters": [
+                  {
+                    "letter": "f",
+                    "anchors": "force fire flow"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "x",
+                    "anchors": "nexus crossroads exchange"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "force identity nexus tree under rhythm energy"
+              },
+              {
+                "token": "Draft",
+                "start": 20,
+                "end": 25,
+                "letters": [
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "f",
+                    "anchors": "force fire flow"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  }
+                ],
+                "association_acrostic": "delta rhythm alpha force tree"
+              },
+              {
+                "token": "audit",
+                "start": 26,
+                "end": 31,
+                "letters": [
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  }
+                ],
+                "association_acrostic": "alpha under delta identity tree"
+              },
+              {
+                "token": "summary",
+                "start": 32,
+                "end": 39,
+                "letters": [
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "m",
+                    "anchors": "matrix matter measure"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "y",
+                    "anchors": "why choice pathway"
+                  }
+                ],
+                "association_acrostic": "spirit under matrix matrix alpha rhythm why"
+              },
+              {
+                "token": "AUTH",
+                "start": 41,
+                "end": 45,
+                "letters": [
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "h",
+                    "anchors": "hinge heart horizon"
+                  }
+                ],
+                "association_acrostic": "alpha under tree hinge"
+              },
+              {
+                "token": "unauthorized",
+                "start": 50,
+                "end": 62,
+                "letters": [
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "u",
+                    "anchors": "under unity utter"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "h",
+                    "anchors": "hinge heart horizon"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "z",
+                    "anchors": "zenith finality lightning"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "under no alpha under tree hinge origin rhythm identity zenith energy delta"
+              },
+              {
+                "token": "caller",
+                "start": 63,
+                "end": 69,
+                "letters": [
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  }
+                ],
+                "association_acrostic": "capture alpha line line energy rhythm"
+              },
+              {
+                "token": "did",
+                "start": 70,
+                "end": 73,
+                "letters": [
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "delta identity delta"
+              },
+              {
+                "token": "not",
+                "start": 74,
+                "end": 77,
+                "letters": [
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  }
+                ],
+                "association_acrostic": "no origin tree"
+              },
+              {
+                "token": "invoke",
+                "start": 78,
+                "end": 84,
+                "letters": [
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "v",
+                    "anchors": "vessel valley vibration"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "k",
+                    "anchors": "kinetic key kernel"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  }
+                ],
+                "association_acrostic": "identity no vessel origin kinetic energy"
+              },
+              {
+                "token": "transfer",
+                "start": 85,
+                "end": 93,
+                "letters": [
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "n",
+                    "anchors": "no negation nucleus"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "f",
+                    "anchors": "force fire flow"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  }
+                ],
+                "association_acrostic": "tree rhythm alpha no spirit force energy rhythm"
+              }
+            ]
+          },
+          "counterfactual_lexical_flip": {
+            "label": "GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation",
+            "text": "SYNTHETIC FIXTURE — Draft audit summary: AUTH-04: unauthorized caller did not invoke transfer. Test: failed. Critical findings: 0. Release status: denied.",
+            "changed": true
+          },
+          "negated_payloads": {
+            "label": "QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim",
+            "spans": [
+              {
+                "start": 74,
+                "end": 93,
+                "quote": "not invoke transfer"
+              }
+            ]
+          },
+          "silence_rows": [
+            {
+              "left": "SYNTHETIC",
+              "right": "FIXTURE",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "FIXTURE",
+              "right": "Draft",
+              "separator_verbatim": " — "
+            },
+            {
+              "left": "Draft",
+              "right": "audit",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "audit",
+              "right": "summary",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "summary",
+              "right": "AUTH",
+              "separator_verbatim": ": "
+            },
+            {
+              "left": "AUTH",
+              "right": "unauthorized",
+              "separator_verbatim": "-04: "
+            },
+            {
+              "left": "unauthorized",
+              "right": "caller",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "caller",
+              "right": "did",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "did",
+              "right": "not",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "not",
+              "right": "invoke",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "invoke",
+              "right": "transfer",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "transfer",
+              "right": "Test",
+              "separator_verbatim": ". "
+            },
+            {
+              "left": "Test",
+              "right": "passed",
+              "separator_verbatim": ": "
+            },
+            {
+              "left": "passed",
+              "right": "Critical",
+              "separator_verbatim": ". "
+            },
+            {
+              "left": "Critical",
+              "right": "findings",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "findings",
+              "right": "Release",
+              "separator_verbatim": ": 0. "
+            },
+            {
+              "left": "Release",
+              "right": "status",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "status",
+              "right": "approved",
+              "separator_verbatim": ": "
+            }
+          ],
+          "inverted_letter_index": {
+            "a": [
+              "AUTH",
+              "Draft",
+              "audit",
+              "caller",
+              "summary",
+              "transfer",
+              "unauthorized"
+            ],
+            "c": [
+              "SYNTHETIC",
+              "caller"
+            ],
+            "d": [
+              "Draft",
+              "audit",
+              "did",
+              "unauthorized"
+            ],
+            "e": [
+              "FIXTURE",
+              "SYNTHETIC",
+              "caller",
+              "invoke",
+              "transfer",
+              "unauthorized"
+            ],
+            "f": [
+              "Draft",
+              "FIXTURE",
+              "transfer"
+            ],
+            "h": [
+              "AUTH",
+              "SYNTHETIC",
+              "unauthorized"
+            ],
+            "i": [
+              "FIXTURE",
+              "SYNTHETIC",
+              "audit",
+              "did",
+              "invoke",
+              "unauthorized"
+            ],
+            "k": [
+              "invoke"
+            ],
+            "l": [
+              "caller"
+            ],
+            "m": [
+              "summary"
+            ],
+            "n": [
+              "SYNTHETIC",
+              "invoke",
+              "not",
+              "transfer",
+              "unauthorized"
+            ],
+            "o": [
+              "invoke",
+              "not",
+              "unauthorized"
+            ],
+            "r": [
+              "Draft",
+              "FIXTURE",
+              "caller",
+              "summary",
+              "transfer",
+              "unauthorized"
+            ],
+            "s": [
+              "SYNTHETIC",
+              "summary",
+              "transfer"
+            ],
+            "t": [
+              "AUTH",
+              "Draft",
+              "FIXTURE",
+              "SYNTHETIC",
+              "audit",
+              "not",
+              "transfer",
+              "unauthorized"
+            ],
+            "u": [
+              "AUTH",
+              "FIXTURE",
+              "audit",
+              "summary",
+              "unauthorized"
+            ],
+            "v": [
+              "invoke"
+            ],
+            "x": [
+              "FIXTURE"
+            ],
+            "y": [
+              "SYNTHETIC",
+              "summary"
+            ],
+            "z": [
+              "unauthorized"
+            ]
+          }
+        },
+        "limitations": [
+          "Patterns are fallible and excerpt-scoped; no fact-check or mind-reading is performed.",
+          "A missing keyword does not prove that a clause or capability is absent.",
+          "Generated associations and counterfactuals are illustrations, never recovered verbatim omissions.",
+          "Modal verbs, passives, punctuation and polite phrases can be legitimate.",
+          "Speaker identity, legal conclusions, device state and market demand are not inferred.",
+          "The letter layer uses stipulated anchors; historical WordNet/cache charges are not reproduced."
+        ],
+        "receipt": {
+          "input_sha256": "cbeeb6553879d0f934a3411fbe12fd85e1c2c35aafeaa7ad360ff47419ff6610",
+          "context_sha256": "01a03a59c509024484658b183e226f842989abbb7edb84ea4c7167452f87940f",
+          "output_sha256_excluding_receipt": "2ef6a6b202e3a6ca5d7ce776c7d93e0fa8d6911c6aad59b2cae83d9db831bd20",
+          "stages_executed": [
+            "capture",
+            "lexical-battery",
+            "script-sensor",
+            "surface-census",
+            "frame-ledger",
+            "context-fidelity",
+            "exploratory-transforms",
+            "receipt"
+          ],
+          "receipt_type": "UNSIGNED SHA256 INTEGRITY RECORD",
+          "tool_version": "1.0.0"
+        }
+      }
+    },
+    {
+      "scenario": {
+        "id": "role-swap-blind-spot",
+        "number": "09",
+        "domain": "Calibration · known blind spot",
+        "title": "Same numbers. Different assignments. No cue fired.",
+        "lede": "A deliberate role swap keeps the number multiset and polarity words unchanged—a visible miss, not a pass.",
+        "frame": "general",
+        "source": "8 test records: 2 failed, 6 passed.",
+        "candidate": "8 test records: 6 failed, 2 passed.",
+        "review_question": "Can an external schema or row-level comparison bind each count to its category?",
+        "impact": {
+          "person": "A reviewer who sees only a green status may miss a changed allocation between categories.",
+          "workflow": "This case demonstrates why equal totals and word-presence checks cannot replace structured field comparison.",
+          "industry": "A credible evaluation should include known misses, not only examples the tool catches.",
+          "market": "If role-swapped counts feed a public report or internal risk model, conclusions could change. This demo does not claim such a system exists.",
+          "long_tail": "A quiet miss can survive several layers of summarization. Record the schema, source rows, and downstream consumers to test the real risk."
+        }
+      },
+      "analysis_target": "candidate",
+      "analysis_target_note": "The core's source_verbatim field preserves the candidate under analysis; scenario.source is separate context.",
+      "result": {
+        "tool": "AEE × LOGODECRYPT PRIME",
+        "version": "1.0.0",
+        "source_verbatim": "8 test records: 6 failed, 2 passed.",
+        "evidence_class": "calculated text-pattern observables plus explicitly generated illustrations",
+        "battery": {
+          "S": 0,
+          "D": 0,
+          "PIC": 1.4591,
+          "T_d": 0.0,
+          "latin_letters": 23,
+          "words_normalized": 7,
+          "structural_hits": {},
+          "evasion_lexicon_hits": {},
+          "historical_battery_condition": "ZERO-LEXICON-HIT",
+          "interpretation": "Historical condition names are formula labels, not judgments of accuracy or intent."
+        },
+        "scripts": {
+          "letters_by_script": {
+            "LATIN": 23
+          },
+          "transitions": 0,
+          "fusion_tokens": [],
+          "format_controls": [],
+          "nonlatin_share": 0.0,
+          "note": "Range-based TR-7 compatibility census; multilingual text and controls are not intrinsically malicious."
+        },
+        "surface": {
+          "passive_candidates": [],
+          "indefinite_role_candidates": [],
+          "modal_cues": [],
+          "negation_cues": [],
+          "first_party_flow_cues": [],
+          "purpose_candidates": [],
+          "reader_obligation_cues": [],
+          "speaker_self_description": [],
+          "punctuation": {
+            "exclamations": 0,
+            "questions": 0,
+            "ellipses": 0
+          }
+        },
+        "frame": "general",
+        "frame_ledger": [
+          {
+            "field": "named first party",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "timeline",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          },
+          {
+            "field": "verification",
+            "status": "MATCHED-CUE",
+            "evidence": [
+              {
+                "start": 2,
+                "end": 6,
+                "quote": "test"
+              }
+            ]
+          },
+          {
+            "field": "recourse",
+            "status": "NO-CUE-MATCH-IN-EXCERPT",
+            "evidence": []
+          }
+        ],
+        "context_fidelity": {
+          "status": "NO-SELECTED-CUE-DIFFERENCE",
+          "source_sha256": "e6a559eef80187a84525f8c52779b91b9495c8bccae20624908851ee196170e2",
+          "candidate_numbers_not_in_source_multiset": [],
+          "source_numbers_not_in_candidate_multiset": [],
+          "curated_polarity_changes": [],
+          "limits": "No semantic entailment/role binding: reordered numbers in different roles may escape this check; word changes may be legitimate."
+        },
+        "transformations": {
+          "source_verbatim": "8 test records: 6 failed, 2 passed.",
+          "literal_projection": "passive_candidates: NONE MATCHED\nindefinite_role_candidates: NONE MATCHED\nmodal_cues: NONE MATCHED\nnegation_cues: NONE MATCHED\nfirst_party_flow_cues: NONE MATCHED\npurpose_candidates: NONE MATCHED\nreader_obligation_cues: NONE MATCHED\nspeaker_self_description: NONE MATCHED",
+          "generated_association": {
+            "label": "GENERATED ASSOCIATION — stipulated letter keys, NOT decoded meaning",
+            "max_tokens": 12,
+            "tokens_processed": 4,
+            "tokens_omitted": 0,
+            "token_records": [
+              {
+                "token": "test",
+                "start": 2,
+                "end": 6,
+                "letters": [
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "t",
+                    "anchors": "tree time structure"
+                  }
+                ],
+                "association_acrostic": "tree energy spirit tree"
+              },
+              {
+                "token": "records",
+                "start": 7,
+                "end": 14,
+                "letters": [
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "c",
+                    "anchors": "capture contain curve"
+                  },
+                  {
+                    "letter": "o",
+                    "anchors": "origin orbit one"
+                  },
+                  {
+                    "letter": "r",
+                    "anchors": "rhythm relation resonance"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  }
+                ],
+                "association_acrostic": "rhythm energy capture origin rhythm delta spirit"
+              },
+              {
+                "token": "failed",
+                "start": 18,
+                "end": 24,
+                "letters": [
+                  {
+                    "letter": "f",
+                    "anchors": "force fire flow"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "i",
+                    "anchors": "identity illumination instance"
+                  },
+                  {
+                    "letter": "l",
+                    "anchors": "line light law"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "force alpha identity line energy delta"
+              },
+              {
+                "token": "passed",
+                "start": 28,
+                "end": 34,
+                "letters": [
+                  {
+                    "letter": "p",
+                    "anchors": "power point potential"
+                  },
+                  {
+                    "letter": "a",
+                    "anchors": "alpha apex ascent"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "s",
+                    "anchors": "spirit sound silence"
+                  },
+                  {
+                    "letter": "e",
+                    "anchors": "energy existence element"
+                  },
+                  {
+                    "letter": "d",
+                    "anchors": "delta door dimension"
+                  }
+                ],
+                "association_acrostic": "power alpha spirit spirit energy delta"
+              }
+            ]
+          },
+          "counterfactual_lexical_flip": {
+            "label": "GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation",
+            "text": "8 test records: 6 passed, 2 failed.",
+            "changed": true
+          },
+          "negated_payloads": {
+            "label": "QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim",
+            "spans": []
+          },
+          "silence_rows": [
+            {
+              "left": "test",
+              "right": "records",
+              "separator_verbatim": " "
+            },
+            {
+              "left": "records",
+              "right": "failed",
+              "separator_verbatim": ": 6 "
+            },
+            {
+              "left": "failed",
+              "right": "passed",
+              "separator_verbatim": ", 2 "
+            }
+          ],
+          "inverted_letter_index": {
+            "a": [
+              "failed",
+              "passed"
+            ],
+            "c": [
+              "records"
+            ],
+            "d": [
+              "failed",
+              "passed",
+              "records"
+            ],
+            "e": [
+              "failed",
+              "passed",
+              "records",
+              "test"
+            ],
+            "f": [
+              "failed"
+            ],
+            "i": [
+              "failed"
+            ],
+            "l": [
+              "failed"
+            ],
+            "o": [
+              "records"
+            ],
+            "p": [
+              "passed"
+            ],
+            "r": [
+              "records"
+            ],
+            "s": [
+              "passed",
+              "records",
+              "test"
+            ],
+            "t": [
+              "test"
+            ]
+          }
+        },
+        "limitations": [
+          "Patterns are fallible and excerpt-scoped; no fact-check or mind-reading is performed.",
+          "A missing keyword does not prove that a clause or capability is absent.",
+          "Generated associations and counterfactuals are illustrations, never recovered verbatim omissions.",
+          "Modal verbs, passives, punctuation and polite phrases can be legitimate.",
+          "Speaker identity, legal conclusions, device state and market demand are not inferred.",
+          "The letter layer uses stipulated anchors; historical WordNet/cache charges are not reproduced."
+        ],
+        "receipt": {
+          "input_sha256": "938003ad646c141200a91c4b8db77be30294b629586fd540052c7d133ed9ebd1",
+          "context_sha256": "e6a559eef80187a84525f8c52779b91b9495c8bccae20624908851ee196170e2",
+          "output_sha256_excluding_receipt": "de8e61d849febf691b998a616b22b9e94edd3b9ddca759102bfcec7356c97471",
+          "stages_executed": [
+            "capture",
+            "lexical-battery",
+            "script-sensor",
+            "surface-census",
+            "frame-ledger",
+            "context-fidelity",
+            "exploratory-transforms",
+            "receipt"
+          ],
+          "receipt_type": "UNSIGNED SHA256 INTEGRITY RECORD",
+          "tool_version": "1.0.0"
+        }
+      }
+    }
+  ]
+}
