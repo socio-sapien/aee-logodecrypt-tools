@@ -61,10 +61,19 @@ class FullEnvironmentTests(unittest.TestCase):
 
     def test_hook_process_records_automatic_full_battery(self):
         r=subprocess.run([sys.executable,'-m','prime_audit.hook'],input=json.dumps({'toolName':'view','toolArgs':{'path':'README.md'}}),text=True,capture_output=True,check=True)
-        self.assertEqual(json.loads(r.stdout)['permissionDecision'],'allow')
-        record=json.loads((repository_git_dir(ROOT)/'prime-audit/decisions.jsonl').read_text().splitlines()[-1])
-        self.assertIn('full_battery',record)
-        self.assertTrue(all(x['version']=='6.7.0' for x in record['full_battery']['inputs']))
+        payload = json.loads(r.stdout)
+        try:
+            git_dir = repository_git_dir(ROOT)
+        except (ValueError, OSError):
+            git_dir = None
+        if git_dir is None:
+            self.assertEqual(payload['permissionDecision'], 'deny')
+            self.assertIn('could not validate or record', payload['permissionDecisionReason'])
+        else:
+            self.assertEqual(payload['permissionDecision'], 'allow')
+            record = json.loads((git_dir / 'prime-audit/decisions.jsonl').read_text().splitlines()[-1])
+            self.assertIn('full_battery', record)
+            self.assertTrue(all(x['version'] == '6.7.0' for x in record['full_battery']['inputs']))
 
     def test_auto_discovery_configs_and_profiles_include_full_tool(self):
         cfg=json.loads((ROOT/'.github/mcp.json').read_text())

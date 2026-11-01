@@ -19,8 +19,16 @@ class AuditTests(unittest.TestCase):
 
     def test_hook_process_records_and_denies_shell(self):
         result = subprocess.run([sys.executable, '-m', 'prime_audit.hook'], input=json.dumps({'toolName': 'bash', 'toolArgs': {'command': 'echo not-executed'}}), text=True, capture_output=True, check=True)
-        self.assertEqual(json.loads(result.stdout)['permissionDecision'], 'deny')
-        self.assertTrue((repository_git_dir(ROOT) / 'prime-audit/decisions.jsonl').is_file())
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload['permissionDecision'], 'deny')
+        try:
+            git_dir = repository_git_dir(ROOT)
+        except (ValueError, OSError):
+            git_dir = None
+        if git_dir is None:
+            self.assertIn('could not validate or record', payload['permissionDecisionReason'])
+        else:
+            self.assertTrue((git_dir / 'prime-audit/decisions.jsonl').is_file())
 
     def test_canonical_paths(self):
         for path in ('.', './.github/workflows/x', 'foo//bar', 'foo/../bar', '/tmp/x'):

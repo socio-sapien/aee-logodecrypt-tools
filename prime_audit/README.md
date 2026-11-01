@@ -216,3 +216,18 @@ Limits: each prompt/output is at most 65,536 Python characters, each supplied re
 65,536 serialized bytes, and at most 256 receipts. SHA-256 values are unsigned integrity hashes,
 not signatures or attestations. Run `python3 -m unittest prime_audit.tests.test_evidence_case -v`
 for the new focused tests and the full suite with `python3 -m unittest discover -s prime_audit/tests -v`.
+
+
+## Running tests from the source archive
+
+From the extracted `prime-evidence-audit` directory, run:
+
+```sh
+python PRIME_6_7.py --self-test
+python -m unittest discover -s prime_audit/tests -v
+```
+
+The test suite runs from both a Git checkout and the standalone ZIP. The hook's receipt-writing
+integration requires Git metadata: in a Git checkout it records receipts and permits eligible
+operations; from a ZIP without `.git`, it safely denies hook operations whose receipt cannot be
+written. The tests cover both modes.
