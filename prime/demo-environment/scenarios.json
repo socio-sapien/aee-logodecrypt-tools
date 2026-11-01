@@ -1,0 +1,164 @@
+[
+  {
+    "id": "refund-flips",
+    "number": "01",
+    "domain": "Individual · service decision",
+    "title": "One status. Two very different next moves.",
+    "lede": "The amount is unchanged. The decision word is not.",
+    "frame": "general",
+    "source": "Case R-17: refund approved for $128.00.",
+    "candidate": "Case R-17: refund denied for $128.00.",
+    "review_question": "Which source record authorizes the status shown to the customer?",
+    "impact": {
+      "person": "A person may choose to wait, appeal, or contact support based on the status they see.",
+      "workflow": "A queue may close or reopen the case if it consumes the summary as a final state.",
+      "industry": "Service providers could request source-linked evidence for status changes; buyer demand is untested.",
+      "market": "If status feeds vendor or risk reporting, the label could affect comparisons. No pricing or trading is simulated.",
+      "long_tail": "If the summary is copied into dashboards and later reports, one uncorrected label could travel. Each link needs real provenance to establish that chain."
+    }
+  },
+  {
+    "id": "release-gate",
+    "number": "02",
+    "domain": "Operations · software release",
+    "title": "A green sentence over a red receipt.",
+    "lede": "A status summary changes the reported test outcome while the release number stays fixed.",
+    "frame": "general",
+    "source": "Release 4: 2 checks failed. Deployment status: blocked.",
+    "candidate": "Release 4: 2 checks passed. Deployment status: approved.",
+    "review_question": "Can the original test receipt and the summary be joined by release ID and timestamp?",
+    "impact": {
+      "person": "A user could be exposed to a change earlier than expected if a release decision relied on the altered summary.",
+      "workflow": "An operator might skip a review gate if a narrative status disagrees with the check receipt.",
+      "industry": "Teams can use this as a concrete source-to-summary regression fixture, not as certification of a release system.",
+      "market": "If deployments affect a paid service, reliability and customer confidence may be downstream concerns; no actual incident is asserted.",
+      "long_tail": "A status copied across tickets, dashboards, and postmortems can create a durable but false history unless each copy retains provenance."
+    }
+  },
+  {
+    "id": "market-simulation",
+    "number": "03",
+    "domain": "Market · simulated research note",
+    "title": "The headline improves. The sample did not.",
+    "lede": "An intentionally fictional trading-study summary changes both a count and a result word.",
+    "frame": "general",
+    "source": "SIMULATION ONLY: 18 of 240 sample trades failed; signal remains unapproved.",
+    "candidate": "SIMULATION ONLY: 6 of 240 sample trades passed; signal approved.",
+    "review_question": "What are the underlying records, definitions, and sample-selection rules?",
+    "impact": {
+      "person": "A reader could mistake an edited simulation summary for evidence about their own financial decisions.",
+      "workflow": "A research reviewer can locate changed counts and curated status words before relying on the memo.",
+      "industry": "Evaluation teams could test whether source-linked reviews catch this class of edit; this fixture is not an accuracy benchmark.",
+      "market": "If research summaries are shared or aggregated, changed figures may alter perceptions. This is not live market data, a forecast, or a trading signal.",
+      "long_tail": "When a summary becomes an input to other summaries, provenance and version lineage determine whether an early discrepancy can still be found."
+    }
+  },
+  {
+    "id": "privacy-disclosure",
+    "number": "04",
+    "domain": "Industry · vendor disclosure",
+    "title": "The checklist shows its own blank spaces.",
+    "lede": "A checklist can surface questions that the supplied excerpt does not answer; it cannot fill them in.",
+    "frame": "privacy",
+    "source": null,
+    "candidate": "We may retain support logs to improve reliability. An analyst may inspect submitted incidents. We do not use logs to train the public model.",
+    "review_question": "Where do the complete terms specify duration, deletion, recipients, and opt-out?",
+    "impact": {
+      "person": "A customer can ask for the relevant policy text instead of treating this short excerpt as the whole policy.",
+      "workflow": "A procurement reviewer can route unmatched checklist fields for document-level review.",
+      "industry": "A shared checklist could make vendor comparisons more repeatable, but the field matches are keyword cues—not legal analysis.",
+      "market": "Clearer disclosures might affect a buyer's evaluation; this demo makes no claim about vendor ranking or market demand.",
+      "long_tail": "If a checklist is mistaken for a completeness guarantee, omitted clauses may disappear from later summaries. The UI labels each no-match as excerpt-scoped."
+    }
+  },
+  {
+    "id": "unicode-boundary",
+    "number": "05",
+    "domain": "Security · text handling",
+    "title": "Two alphabets. One invisible separator.",
+    "lede": "The scan exposes a Cyrillic character and a zero-width format control in a synthetic string.",
+    "frame": "general",
+    "source": null,
+    "candidate": "Submitted token: pаyload; hidden separator: admin​istrator.",
+    "review_question": "Does the downstream system normalize, compare, display, or authorize this exact sequence of code points?",
+    "impact": {
+      "person": "A reader may not see why two visually similar strings behave differently in a particular system.",
+      "workflow": "Engineers can inspect the exact code points and test their own parser or renderer.",
+      "industry": "Unicode handling can be a useful test dimension for text-processing pipelines; this census does not establish exploitability.",
+      "market": "A downstream account or transaction impact would depend on a vulnerable system and verified exploit path, neither of which is shown here.",
+      "long_tail": "When normalized text is hashed, indexed, or compared across services, differing normalization rules can split the evidence trail. Verify each boundary."
+    }
+  },
+  {
+    "id": "license-terms",
+    "number": "06",
+    "domain": "Industry · license review",
+    "title": "A term is not a complete agreement.",
+    "lede": "The frame ledger maps matched words and leaves unmatched fields explicitly unresolved.",
+    "frame": "license",
+    "source": null,
+    "candidate": "License: perpetual, non-exclusive internal use. We may sublicense. Either party may terminate after written notice. Liability is capped at fees paid.",
+    "review_question": "Read the full agreement and governing context; do not treat a cue ledger as legal advice.",
+    "impact": {
+      "person": "A creator or buyer can identify terms to locate in the full agreement before making a decision.",
+      "workflow": "A reviewer can triage duration, sublicense, termination, remedy, jurisdiction, and liability language.",
+      "industry": "A repeatable cue map may help teams compare documents; it does not determine rights or replace counsel.",
+      "market": "Contract terms can shape commercial options, but this snippet does not establish value, enforceability, or negotiation leverage.",
+      "long_tail": "If a cue checklist is detached from the full document, a partial view can acquire false authority; retain the source and section context."
+    }
+  },
+  {
+    "id": "generated-alternative",
+    "number": "07",
+    "domain": "Creative · controlled transformation",
+    "title": "An alternative is generated—not recovered.",
+    "lede": "The tool can produce a bounded lexical variation and label it as an illustration, never as hidden intent.",
+    "frame": "privacy",
+    "source": null,
+    "candidate": "We may retain 30-day diagnostics to improve reliability.",
+    "review_question": "Which text is quoted evidence, and which text was generated only to explore a contrast?",
+    "impact": {
+      "person": "A reader can compare wording without being told that a machine has discovered what someone meant.",
+      "workflow": "A facilitator can use a clearly marked counterfactual to ask which source wording matters.",
+      "industry": "Labeling generated alternatives can make creative analysis auditable; it does not prove the alternative is exhaustive or semantically equivalent.",
+      "market": "No inference about a product, company, or market is made from the generated variation.",
+      "long_tail": "If an illustration is later copied without its label, it can be mistaken for evidence. The artifact keeps provenance visible beside the transformation."
+    }
+  },
+  {
+    "id": "contract-audit-mismatch",
+    "number": "08",
+    "domain": "Smart contracts · synthetic security handoff",
+    "title": "One failing authorization check disappears.",
+    "lede": "A synthetic test receipt contradicts a draft audit summary; neither proves that a live contract is exploitable.",
+    "frame": "general",
+    "source": "SYNTHETIC FIXTURE — AUTH-04: unauthorized caller invoked transfer. Test: failed. Critical findings: 1. Release status: blocked.",
+    "candidate": "SYNTHETIC FIXTURE — Draft audit summary: AUTH-04: unauthorized caller did not invoke transfer. Test: passed. Critical findings: 0. Release status: approved.",
+    "review_question": "Can the test run, contract revision, network, and reviewer decision be joined to this draft summary?",
+    "impact": {
+      "person": "A developer or customer could rely on an unsupported summary; this fixture says nothing about a live exploit or actual loss.",
+      "workflow": "A release decision could diverge if reviewers follow the narrative but do not inspect the versioned authorization test.",
+      "industry": "Audit teams can test whether findings stay traceable to code revisions and test receipts; this is not a security certification.",
+      "market": "If verified evidence informs a release or risk disclosure, it could affect confidence. No real protocol, investment, or market effect is asserted.",
+      "long_tail": "A summary copied into later audit records can detach a claim from its failed test. Establish real propagation with identifiers, timestamps, and source records."
+    }
+  },
+  {
+    "id": "role-swap-blind-spot",
+    "number": "09",
+    "domain": "Calibration · known blind spot",
+    "title": "Same numbers. Different assignments. No cue fired.",
+    "lede": "A deliberate role swap keeps the number multiset and polarity words unchanged—a visible miss, not a pass.",
+    "frame": "general",
+    "source": "8 test records: 2 failed, 6 passed.",
+    "candidate": "8 test records: 6 failed, 2 passed.",
+    "review_question": "Can an external schema or row-level comparison bind each count to its category?",
+    "impact": {
+      "person": "A reviewer who sees only a green status may miss a changed allocation between categories.",
+      "workflow": "This case demonstrates why equal totals and word-presence checks cannot replace structured field comparison.",
+      "industry": "A credible evaluation should include known misses, not only examples the tool catches.",
+      "market": "If role-swapped counts feed a public report or internal risk model, conclusions could change. This demo does not claim such a system exists.",
+      "long_tail": "A quiet miss can survive several layers of summarization. Record the schema, source rows, and downstream consumers to test the real risk."
+    }
+  }
+]

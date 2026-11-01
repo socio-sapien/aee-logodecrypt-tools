@@ -25,6 +25,8 @@ jobs:
           python3 -m prime_audit.environment --output prime-environment.json
           python3 prime_audit/instrument.py --self-test
           python3 -m unittest discover -s prime_audit/tests -v
+      - name: Verify the public PRIME demo against the local core
+        run: python3 prime/demo-environment/build_demo.py --check
       - name: Exercise seven role scenarios and record evidence
         run: python3 -m prime_audit.seven_roles --output prime-seven-role-receipt.json
       - name: Check full-source seven-role audit
