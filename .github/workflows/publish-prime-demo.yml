@@ -18,7 +18,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -30,6 +30,11 @@ jobs:
         run: |
           python3 prime/demo-environment/build_demo.py --check
           python3 prime/aee_logodecrypt_prime.py --self-test
+      - name: Exercise the browser experience
+        run: |
+          python3 -m pip install playwright==1.58.0
+          python3 -m playwright install --with-deps chromium
+          python3 prime/demo-environment/test_browser.py
       - name: Assemble static site
         run: |
           mkdir -p _site/prime/demo-environment
@@ -40,10 +45,10 @@ jobs:
           cat > _site/index.html <<'HTML'
           <!doctype html>
           <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-          <meta http-equiv="refresh" content="0; url=prime/demo-environment/">
+          <meta http-equiv="refresh" content="0; url=prime/demo-environment/lab.html">
           <title>PRIME demonstration</title>
           <body style="margin:3rem;background:#0b1118;color:#eaf0eb;font:18px system-ui">
-          <p>Opening the <a style="color:#90f0c5" href="prime/demo-environment/">PRIME evidence-under-pressure demonstration</a>…</p>
+          <p>Opening the <a style="color:#90f0c5" href="prime/demo-environment/lab.html">PRIME evidence-under-pressure demonstration</a>…</p>
           </body></html>
           HTML
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
