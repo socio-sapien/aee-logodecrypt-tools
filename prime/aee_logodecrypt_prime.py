@@ -2,7 +2,7 @@
 """AEE × LOGODECRYPT PRIME 1.0 — Nathaniel Michael Jaffe-Norris.
 Local deterministic inspection + bounded exploratory transformation.
 Python 3.10+ standard library. No network calls, model/API cost, or auto-action.
-New consolidation, NOT a claim of exact conformance to every historical version.
+New consolidation; exact conformance to every historical version is not asserted.
 Rule hits are not proof of deception, intent, authorship, truth or culpability.
 SHA-256 receipts are integrity records, NOT signatures or independent attestation.
 No original corpus/evidence specimens are embedded. All demo inputs are synthetic.
@@ -134,7 +134,7 @@ def transforms(text,cap=12):
          'max_tokens':cap,'tokens_processed':len(selected),'tokens_omitted':max(0,len(tokens)-cap),'token_records':rows},
        'counterfactual_lexical_flip':{'label':'GENERATED COUNTERFACTUAL — curated word substitution, NOT recovered intent or logical negation',
           'text':inverse,'changed':inverse!=text},
-       'negated_payloads':{'label':'QUOTED NEGATION WINDOWS — preserve not; removing it would alter the claim','spans':neg},
+       'negated_payloads':{'label':'QUOTED NEGATION WINDOWS — preserve not; removing it would alter the source text','spans':neg},
        'silence_rows':gaps,'inverted_letter_index':{c:sorted({r['token'] for r in rows if c in r['token'].lower()}) for c in sorted({c for r in rows for c in r['token'].lower() if c in ANCHORS})}}
 def analyze(text,context=None,frame='general',token_cap=12):
     if not 1<=token_cap<=100:raise ValueError('token_cap must be 1..100')
@@ -178,7 +178,7 @@ def self_test():
     for h in surface('A reviewer may inspect. Logs were retained.')['passive_candidates']:
         check('source offsets','A reviewer may inspect. Logs were retained.'[h['start']:h['end']]==h['quote'])
     a=analyze('record');a['source_verbatim']='changed';check('tamper detection',not verify(a))
-    check('not synonym claim','NOT decoded meaning' in transforms('trust')['generated_association']['label'])
+    check('not synonym decoding','NOT decoded meaning' in transforms('trust')['generated_association']['label'])
     check('negation preserved','not public' in transforms('not public')['negated_payloads']['spans'][0]['quote'])
     return {'passed':len(checks),'failed':0,'checks':checks,'scope':'unit/smoke tests, NOT independent semantic validity or performance benchmark'}
 def main():
