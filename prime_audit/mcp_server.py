@@ -5,9 +5,11 @@ import sys
 from .engine import audit_text, simulate_operation, MAX_TEXT
 from .timing import Timing
 from .full import audit_full
+from .evidence_case import audit_evidence_case
 from .harness import run as harness_run
 
 TOOLS = [
+ {'name': 'prime_evidence_case', 'description': 'Compare supplied prompt, output, and caller-provided tool receipts using exhaustive surface mapping and separately labeled evidence, deductions, inductions, abductive hypotheses and unknowns. No execution, hidden reasoning access or source authentication.', 'inputSchema': {'type': 'object', 'properties': {'prompt': {'type': 'string', 'maxLength': MAX_TEXT}, 'output': {'type': 'string', 'maxLength': MAX_TEXT}, 'tool_receipts': {'type': 'array', 'maxItems': 256}, 'requirements': {'type': 'array', 'items': {'type': 'string', 'maxLength': 512}, 'maxItems': 64}}, 'required': ['prompt', 'output'], 'additionalProperties': False}, 'annotations': {'readOnlyHint': True, 'destructiveHint': False, 'openWorldHint': False}},
  {'name': 'prime_full_audit', 'description': 'Run the installed PRIME 6.7 full text battery, logical actions and bounded per-word dynamics on complete inputs. Metadata-only lenses remain unset without metadata.', 'inputSchema': {'type': 'object', 'properties': {'text': {'type': 'string', 'maxLength': MAX_TEXT}, 'source': {'type': 'string', 'maxLength': MAX_TEXT}}, 'required': ['text'], 'additionalProperties': False}, 'annotations': {'readOnlyHint': True, 'destructiveHint': False, 'openWorldHint': False}},
  {'name': 'prime_investigate', 'description': 'Assess an operation and caller-supplied evidence matrix. No execution or authorization.', 'inputSchema': {'type': 'object', 'properties': {'operation': {'type': 'object'}, 'observations': {'type': 'array', 'maxItems': 16}}, 'required': ['operation'], 'additionalProperties': False}, 'annotations': {'readOnlyHint': True, 'destructiveHint': False, 'openWorldHint': False}},
  {'name': 'prime_audit_text', 'description': 'Run PRIME 6.7 full text battery (compatibility name); no network or execution.',
@@ -38,7 +40,9 @@ def dispatch(msg):
         timing = Timing(); started = timing.clock()
         try:
             params = msg['params']; args = params.get('arguments', {})
-            if params['name'] == 'prime_full_audit' and set(args) <= {'text', 'source'}:
+            if params['name'] == 'prime_evidence_case' and set(args) <= {'prompt', 'output', 'tool_receipts', 'requirements'} and {'prompt', 'output'} <= set(args):
+                result = audit_evidence_case(**args)
+            elif params['name'] == 'prime_full_audit' and set(args) <= {'text', 'source'}:
                 result = audit_full(**args)
             elif params['name'] == 'prime_audit_text' and set(args) <= {'text', 'source'}:
                 result = audit_full(**args)

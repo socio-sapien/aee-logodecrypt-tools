@@ -6,7 +6,7 @@ Read and follow `PRIME_PROTOCOL.md` before repository operations. The root execu
 
 The executable full instrument is `prime_audit/vendor/prime_v6_7.py` (unchanged standalone 6.7).
 Workspace MCP discovery is `.github/mcp.json`; VS Code uses `.vscode/mcp.json`.
-Before any task operation, call `prime-audit/prime_full_audit` with the complete actual task instruction as `text` (and `source` only when an independent comparison source is available). Use the returned measurements to inspect the plan. Do not substitute synthetic text for the task. Audit revised plans and the final answer too. Use existing simulation and investigation tools for operation/evidence checks.
+Before any task operation, call `prime-audit/prime_full_audit` with the complete actual task instruction as `text` (and `source` only when an independent comparison source is available). For direct comparisons of a supplied prompt, output, and observable receipt objects, use `prime-audit/prime_evidence_case`; it preserves all supplied characters and labels lexical cues as cues, not semantic findings. Use the returned measurements to inspect the plan. Do not substitute synthetic text for the task. Audit revised plans and the final answer too. Use existing simulation and investigation tools for operation/evidence checks.
 The preToolUse hook independently executes PRIME 6.7 on each tool event and the available repository instructions, regardless of which Copilot model is selected. Missing or broken audit code denies the operation. Hook receipts contain hashes/coverage, not raw prompts or arguments. A model's hidden reasoning and tools that do not invoke this hook are outside its coverage.
 
 # PRIME repository operating contract

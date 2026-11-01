@@ -34,7 +34,9 @@ class FullEnvironmentTests(unittest.TestCase):
     def test_mcp_full_audit(self):
         r=dispatch({'id':1,'method':'tools/call','params':{'name':'prime_full_audit','arguments':{'text':'actual instruction'}}})
         self.assertFalse(r['result']['isError'])
-        self.assertEqual(json.loads(r['result']['content'][0]['text'])['version'],'6.7.0')
+        full = json.loads(r['result']['content'][0]['text'])
+        self.assertEqual(full['version'],'6.7.0')
+        self.assertIn('surface_census', full)
 
     def test_invalid_mcp_arguments_not_executed(self):
         for args in ({'operation':{}},{'text':4},{'text':'x','invented':1}):
