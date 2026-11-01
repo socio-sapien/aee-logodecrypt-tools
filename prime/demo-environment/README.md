@@ -4,6 +4,13 @@ A public, self-contained customer demonstration for AEE × LOGODECRYPT PRIME. It
 
 ## Open the demo
 
+**Start with `lab.html`: the decision room and live browser analyzer.** Serve the repository root with `python3 -m http.server 8000`, then open `http://localhost:8000/prime/demo-environment/lab.html`. The bundled Pyodide worker runs the actual Python core on editable source/candidate pairs. It includes three guided decisions, all eleven fixtures, a visible known miss, exact JSON and review-brief downloads, and a collaboration kit. The first engine start loads about 14 MB of same-origin assets; no text is uploaded by the application. See `RUNTIME_NOTICES.md`.
+
+On the published site, the root opens the decision room directly. The gallery remains available at `index.html`.
+
+### Static gallery
+
+
 Open `index.html` in a browser. It is static and self-contained: no network calls, login, hosted model, tracking, or personal data. `scenario-results.json` is the machine-readable PRIME output for eleven constructed fixtures; they are not customer evidence, live market data, or observed system incidents. Three separately linked public-record briefs appear on the page with source and date. PRIME has not analyzed those records.
 
 ## Rebuild and verify
@@ -49,3 +56,9 @@ It does not establish semantic equivalence, authorship, intent, truth, legal mea
 - `scenario-results.json` — complete locally computed receipts/results.
 - `build_demo.py` — deterministic builder and drift check.
 - `CUSTOMER_PILOT.md` — a bounded evaluation plan with independent labels and decision gates.
+
+### Browser regression check
+
+Run `uv run --with playwright==1.58.0 python prime/demo-environment/test_browser.py` after installing that Playwright version's Chromium (`uv run --with playwright==1.58.0 python -m playwright install chromium`). CI runs the same browser test. It exercises the decision paths, every fixture against native Python, receipt verification, editable text, downloads, no-source/empty/XSS-text states, and mobile layout and runtime. Set `PRIME_DEMO_BASE_URL` to test an actual hosted deployment. This tests implementation, not independent accuracy or persuasion.
+
+Exact JSON exports preserve Python's original serialization (including float representation); reserializing through JavaScript can otherwise break the unsigned output digest. The WebWorker returns both parsed display data and the original JSON string.
