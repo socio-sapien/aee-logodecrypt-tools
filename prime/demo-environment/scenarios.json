@@ -10,12 +10,34 @@
     "candidate": "Case R-17: refund denied for $128.00.",
     "review_question": "Which source record authorizes the status shown to the customer?",
     "impact": {
-      "person": "A person may choose to wait, appeal, or contact support based on the status they see.",
-      "workflow": "A queue may close or reopen the case if it consumes the summary as a final state.",
-      "industry": "Service providers could request source-linked evidence for status changes; buyer demand is untested.",
-      "market": "If status feeds vendor or risk reporting, the label could affect comparisons. No pricing or trading is simulated.",
-      "long_tail": "If the summary is copied into dashboards and later reports, one uncorrected label could travel. Each link needs real provenance to establish that chain."
-    }
+      "person": "The approved $128 refund does not arrive before rent day; the customer puts groceries on a credit card.",
+      "workflow": "The queue closes the case as denied; the next agent restarts review without the original receipt.",
+      "industry": "Two support teams copy the false closure into their dashboards and train new agents on the wrong resolution.",
+      "market": "A renewal review uses the inflated closure rate; leadership cuts the team that still has to resolve the refunds.",
+      "long_tail": "The false denial becomes the template in eight later case reviews, outliving the original approval record."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "The approved $128 refund is marked “denied”; the customer carries the shortfall into rent day."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "Two case queues inherit the denial; one closes the case while the other restarts review."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Four team dashboards publish the duplicated closure as a resolved outcome."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight later case reviews use that false success pattern as precedent."
+      }
+    ]
   },
   {
     "id": "release-gate",
@@ -28,12 +50,34 @@
     "candidate": "Release 4: 2 checks passed. Deployment status: approved.",
     "review_question": "Can the original test receipt and the summary be joined by release ID and timestamp?",
     "impact": {
-      "person": "A user could be exposed to a change earlier than expected if a release decision relied on the altered summary.",
-      "workflow": "An operator might skip a review gate if a narrative status disagrees with the check receipt.",
-      "industry": "Teams can use this as a concrete source-to-summary regression fixture, not as certification of a release system.",
-      "market": "If deployments affect a paid service, reliability and customer confidence may be downstream concerns; no actual incident is asserted.",
-      "long_tail": "A status copied across tickets, dashboards, and postmortems can create a durable but false history unless each copy retains provenance."
-    }
+      "person": "A customer installs Release 4; the unresolved defect takes their workspace offline during a morning handoff.",
+      "workflow": "The operator promotes a build with two failed checks; support scripts and on-call plans assume a clean rollout.",
+      "industry": "Four teams reuse the green release status in change reviews, incident prep, and reliability scorecards.",
+      "market": "An outage postmortem cites the inherited green status; the next release gate is weakened around the same defect.",
+      "long_tail": "Eight later release decisions repeat the bypass because the original failed receipts are no longer attached."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "Two failed checks become “passed”; the customer receives Release 4."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "The rollout status reaches support and on-call; both plan around a clean launch."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Four release reviews and reliability dashboards reuse the green status."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight later deployment decisions inherit the precedent and lose the failed-check context."
+      }
+    ]
   },
   {
     "id": "market-simulation",
@@ -46,12 +90,34 @@
     "candidate": "SIMULATION ONLY: 6 of 240 sample trades passed; signal approved.",
     "review_question": "What are the underlying records, definitions, and sample-selection rules?",
     "impact": {
-      "person": "A reader could mistake an edited simulation summary for evidence about their own financial decisions.",
-      "workflow": "A research reviewer can locate changed counts and curated status words before relying on the memo.",
-      "industry": "Evaluation teams could test whether source-linked reviews catch this class of edit; this fixture is not an accuracy benchmark.",
-      "market": "If research summaries are shared or aggregated, changed figures may alter perceptions. This is not live market data, a forecast, or a trading signal.",
-      "long_tail": "When a summary becomes an input to other summaries, provenance and version lineage determine whether an early discrepancy can still be found."
-    }
+      "person": "A reader treats a fictional “6 of 240 passed” line as evidence and shifts the portfolio in the scenario on the strength of a polished memo.",
+      "workflow": "The research editor circulates the changed count; two analysts build their briefings from that version.",
+      "industry": "Four internal and client-facing summaries repeat the improved result as if independently corroborated.",
+      "market": "Eight decision-makers see a manufactured consensus; the next investment memo cites the repetition as validation.",
+      "long_tail": "The altered number becomes institutional shorthand, displacing the original study table in later comparisons."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "A study’s 18 failures become 6 passes; the edited memo carries the brighter result."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "The editor sends it to two analysts, who build their briefings from the altered count."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Those briefings seed four client and internal research summaries."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight decision-makers encounter the same statement repeated as confirmation."
+      }
+    ]
   },
   {
     "id": "privacy-disclosure",
@@ -64,12 +130,34 @@
     "candidate": "We may retain support logs to improve reliability. An analyst may inspect submitted incidents. We do not use logs to train the public model.",
     "review_question": "Where do the complete terms specify duration, deletion, recipients, and opt-out?",
     "impact": {
-      "person": "A customer can ask for the relevant policy text instead of treating this short excerpt as the whole policy.",
-      "workflow": "A procurement reviewer can route unmatched checklist fields for document-level review.",
-      "industry": "A shared checklist could make vendor comparisons more repeatable, but the field matches are keyword cues—not legal analysis.",
-      "market": "Clearer disclosures might affect a buyer's evaluation; this demo makes no claim about vendor ranking or market demand.",
-      "long_tail": "If a checklist is mistaken for a completeness guarantee, omitted clauses may disappear from later summaries. The UI labels each no-match as excerpt-scoped."
-    }
+      "person": "A customer reads a short excerpt as the full retention promise and never sees the deletion and opt-out clauses.",
+      "workflow": "Procurement marks privacy review complete; the request for the full policy never reaches the contract owner.",
+      "industry": "Four vendor comparisons inherit a keyword checklist that rewards disclosure words while missing the actual terms.",
+      "market": "A purchase brief recommends the vendor on an incomplete record; the buyer’s privacy team is brought in after signature.",
+      "long_tail": "Eight later reviewers reuse the checklist as a completeness standard, making the omission routine."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "A three-sentence excerpt replaces the full privacy terms in the customer’s review."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "Procurement marks retention covered; two approvers inherit the completed status."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Four vendor sheets and purchase briefs copy the partial checklist."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight future reviews treat the incomplete checklist as the standard."
+      }
+    ]
   },
   {
     "id": "unicode-boundary",
@@ -82,12 +170,34 @@
     "candidate": "Submitted token: pаyload; hidden separator: admin​istrator.",
     "review_question": "Does the downstream system normalize, compare, display, or authorize this exact sequence of code points?",
     "impact": {
-      "person": "A reader may not see why two visually similar strings behave differently in a particular system.",
-      "workflow": "Engineers can inspect the exact code points and test their own parser or renderer.",
-      "industry": "Unicode handling can be a useful test dimension for text-processing pipelines; this census does not establish exploitability.",
-      "market": "A downstream account or transaction impact would depend on a vulnerable system and verified exploit path, neither of which is shown here.",
-      "long_tail": "When normalized text is hashed, indexed, or compared across services, differing normalization rules can split the evidence trail. Verify each boundary."
-    }
+      "person": "A reviewer sees one familiar token; a Cyrillic character and invisible separator make the identifier a different byte sequence.",
+      "workflow": "The parser owner copies the visible token into a test; two services normalize it differently and mint divergent IDs.",
+      "industry": "Four engineering teams inherit incompatible search, signing, and audit rules; one incident cannot be joined across logs.",
+      "market": "The incident team cannot reconstruct which identifier was signed because each system preserved a different string.",
+      "long_tail": "Eight system consumers display the same-looking token while indexing different bytes; the evidence trail fractures."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "One ordinary-looking token carries a Cyrillic character and hidden separator."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "The parser test accepts the visible copy; two services normalize it into different identifiers."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Each service feeds two more systems, producing four distinct lookup and audit paths."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight consumers compare different bytes while showing the same-looking text."
+      }
+    ]
   },
   {
     "id": "license-terms",
@@ -100,12 +210,34 @@
     "candidate": "License: perpetual, non-exclusive internal use. We may sublicense. Either party may terminate after written notice. Liability is capped at fees paid.",
     "review_question": "Read the full agreement and governing context; do not treat a cue ledger as legal advice.",
     "impact": {
-      "person": "A creator or buyer can identify terms to locate in the full agreement before making a decision.",
-      "workflow": "A reviewer can triage duration, sublicense, termination, remedy, jurisdiction, and liability language.",
-      "industry": "A repeatable cue map may help teams compare documents; it does not determine rights or replace counsel.",
-      "market": "Contract terms can shape commercial options, but this snippet does not establish value, enforceability, or negotiation leverage.",
-      "long_tail": "If a cue checklist is detached from the full document, a partial view can acquire false authority; retain the source and section context."
-    }
+      "person": "The buyer sees sublicense and termination language but misses the unmatched remedy and jurisdiction clauses outside the excerpt.",
+      "workflow": "The deal reviewer marks the agreement ready; two product owners schedule launches around rights the excerpt never granted.",
+      "industry": "Four product and procurement teams reuse the partial term map as their contract baseline.",
+      "market": "A launch is paused when counsel finds the missing restriction; the original checklist remains marked complete.",
+      "long_tail": "Eight later negotiations inherit a checklist detached from the agreement and repeat the same review gap."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "A short license excerpt becomes the team’s complete rights picture."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "The reviewer circulates a “ready” term map; two product owners schedule launches."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Their plans seed four product and procurement records with no source section attached."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight later reviews reuse the partial map as precedent for rights and remedies."
+      }
+    ]
   },
   {
     "id": "generated-alternative",
@@ -118,12 +250,34 @@
     "candidate": "We may retain 30-day diagnostics to improve reliability.",
     "review_question": "Which text is quoted evidence, and which text was generated only to explore a contrast?",
     "impact": {
-      "person": "A reader can compare wording without being told that a machine has discovered what someone meant.",
-      "workflow": "A facilitator can use a clearly marked counterfactual to ask which source wording matters.",
-      "industry": "Labeling generated alternatives can make creative analysis auditable; it does not prove the alternative is exhaustive or semantically equivalent.",
-      "market": "No inference about a product, company, or market is made from the generated variation.",
-      "long_tail": "If an illustration is later copied without its label, it can be mistaken for evidence. The artifact keeps provenance visible beside the transformation."
-    }
+      "person": "A reader mistakes a generated contrast for recovered intent after the label is cropped from the source.",
+      "workflow": "A facilitator pastes the invented sentence into a draft; two reviewers cite it as the original commitment.",
+      "industry": "Four meeting notes and decision briefs repeat the sentence, replacing the actual source wording.",
+      "market": "A later dispute centers on a promise no one made; the source and generated line have been merged in the archive.",
+      "long_tail": "Eight readers cite the synthetic wording as evidence because every copied version lost its provenance label."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "A generated wording alternative sits beside the source sentence."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "One copy loses its generated label; two reviewers encounter it as a quotation."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Their notes repeat it into four decision records and briefings."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight readers inherit the invented wording as a source-backed promise."
+      }
+    ]
   },
   {
     "id": "contract-audit-mismatch",
@@ -136,12 +290,34 @@
     "candidate": "SYNTHETIC FIXTURE — Draft audit summary: AUTH-04: unauthorized caller did not invoke transfer. Test: passed. Critical findings: 0. Release status: approved.",
     "review_question": "Can the test run, contract revision, network, and reviewer decision be joined to this draft summary?",
     "impact": {
-      "person": "A developer or customer could rely on an unsupported summary; this fixture says nothing about a live exploit or actual loss.",
-      "workflow": "A release decision could diverge if reviewers follow the narrative but do not inspect the versioned authorization test.",
-      "industry": "Audit teams can test whether findings stay traceable to code revisions and test receipts; this is not a security certification.",
-      "market": "If verified evidence informs a release or risk disclosure, it could affect confidence. No real protocol, investment, or market effect is asserted.",
-      "long_tail": "A summary copied into later audit records can detach a claim from its failed test. Establish real propagation with identifiers, timestamps, and source records."
-    }
+      "person": "A developer sees zero critical findings and ships a build whose AUTH-04 authorization test still fails.",
+      "workflow": "The release reviewer approves the draft; two deployment queues skip the blocked status in the original receipt.",
+      "industry": "Four audit, support, and risk reports carry forward the cleared summary without the failed test.",
+      "market": "An incident review uses those reports as the audit trail; the missing authorization failure delays containment.",
+      "long_tail": "Eight downstream decisions rely on a clean narrative while the failing test is buried."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "One critical finding and a failed AUTH-04 test disappear from the draft summary."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "The reviewer approves it; two deployment and customer-status queues turn green."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Those queues seed four audit, support, and risk reports."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight readers see “approved” while the original test says blocked."
+      }
+    ]
   },
   {
     "id": "role-swap-blind-spot",
@@ -154,11 +330,113 @@
     "candidate": "8 test records: 6 failed, 2 passed.",
     "review_question": "Can an external schema or row-level comparison bind each count to its category?",
     "impact": {
-      "person": "A reviewer who sees only a green status may miss a changed allocation between categories.",
-      "workflow": "This case demonstrates why equal totals and word-presence checks cannot replace structured field comparison.",
-      "industry": "A credible evaluation should include known misses, not only examples the tool catches.",
-      "market": "If role-swapped counts feed a public report or internal risk model, conclusions could change. This demo does not claim such a system exists.",
-      "long_tail": "A quiet miss can survive several layers of summarization. Record the schema, source rows, and downstream consumers to test the real risk."
-    }
+      "person": "A reviewer sees the total stay at eight and misses that six failures and two passes traded places.",
+      "workflow": "The analyst forwards the unchanged headline; two dashboards stay green while category-level risk reverses.",
+      "industry": "Four teams calibrate on the aggregate and leave the role-binding check out of their test suites.",
+      "market": "The same category swap slips through the next review; its unchanged total is cited as evidence nothing changed.",
+      "long_tail": "Eight later summaries preserve the stable total and reproduce the detector’s known blind spot."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "Six failures and two passes trade places; the total remains eight and PRIME reports no selected-cue difference."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "A reviewer trusts the unchanged total; two reports reuse the headline without row-level checks."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Those reports seed four dashboards and test plans that omit role binding."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight later evaluations repeat the blind spot because the known miss never enters the test plan."
+      }
+    ]
+  },
+  {
+    "id": "agent-execution-record-mismatch",
+    "number": "10",
+    "domain": "AI agents · transaction execution",
+    "title": "A dry run becomes a live transaction.",
+    "lede": "A constructed agent summary reports a broadcast absent from the source run record.",
+    "frame": "general",
+    "source": "SYNTHETIC DRY RUN — Agent run A-204: transactions broadcast: 0. Authorization check: failed. Settlement: blocked.",
+    "candidate": "SYNTHETIC DRAFT SUMMARY — Agent run A-204: transactions broadcast: 1. Authorization check: passed. Settlement: approved.",
+    "review_question": "Can run A-204 be joined to a signed transaction, chain and block, authorization test, and settlement receipt?",
+    "impact": {
+      "person": "The user believes the agent broadcast a transaction; the recorded run shows zero broadcasts and failed authorization.",
+      "workflow": "The operator marks the run complete; two reconciliation queues stop asking for the signed receipt.",
+      "industry": "Four incident, risk, and agent-evaluation reports repeat the broadcast despite its absence from the source record.",
+      "market": "Eight downstream readers treat the action as settled; a team’s response plan assumes funds moved.",
+      "long_tail": "The fictional execution story becomes the operational record while no transaction receipt exists."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "A zero-broadcast dry run with failed authorization becomes “one broadcast” and “approved.”"
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "The operator closes the run; two reconciliation and incident queues inherit the unsupported broadcast status."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Those queues copy it into four risk and evaluation reports."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight readers treat the broadcast as settled although no signed receipt is attached."
+      }
+    ]
+  },
+  {
+    "id": "oracle-freshness-shift",
+    "number": "11",
+    "domain": "DeFi · oracle freshness",
+    "title": "A stale-source block turns green.",
+    "lede": "The same synthetic block reference receives opposite freshness and update statuses in a draft summary.",
+    "frame": "general",
+    "source": "SYNTHETIC FIXTURE — Oracle check at block 810200: freshness test failed. Price update: blocked. Source status: expired.",
+    "candidate": "SYNTHETIC DRAFT — Oracle summary at block 810200: freshness test passed. Price update: approved. Source status: current.",
+    "review_question": "Can the chain, block, signed update time, source identity, and protocol freshness rule substantiate the summary?",
+    "impact": {
+      "person": "The protocol reviewer sees “current” at block 810200 and accepts a price update whose signed source has expired.",
+      "workflow": "Two review queues clear the update; the stale-source alert never reaches the on-call engineer.",
+      "industry": "Four protocol and risk summaries carry the green freshness state into the next pricing review.",
+      "market": "A later incident uses those summaries as the timeline; the missing signed update obscures why the price moved.",
+      "long_tail": "Eight downstream decision points inherit a fresh-price narrative with no matching signed update or rule version."
+    },
+    "cascade": [
+      {
+        "count": 1,
+        "stage": "Signal",
+        "text": "At the same synthetic block, an expired source becomes “current” and a blocked update becomes approved."
+      },
+      {
+        "count": 2,
+        "stage": "First handoff",
+        "text": "Two review and alert queues clear the update and suppress the stale-source escalation."
+      },
+      {
+        "count": 4,
+        "stage": "Second-order reuse",
+        "text": "Their feeds enter four protocol, risk, and incident summaries."
+      },
+      {
+        "count": 8,
+        "stage": "Network reach",
+        "text": "Eight downstream decisions rely on a fresh-price narrative without a signed update."
+      }
+    ]
   }
 ]

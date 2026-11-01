@@ -11,12 +11,14 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 CORE = ROOT / "prime" / "aee_logodecrypt_prime.py"
 SCENARIOS = HERE / "scenarios.json"
+PUBLIC_RECORDS = HERE / "public-records.json"
 TEMPLATE = HERE / "index.template.html"
 HTML_OUT = HERE / "index.html"
 RESULTS_OUT = HERE / "scenario-results.json"
 EXPECTED_IDS = {
     "refund-flips", "release-gate", "market-simulation", "privacy-disclosure",
     "unicode-boundary", "license-terms", "generated-alternative", "contract-audit-mismatch", "role-swap-blind-spot",
+    "agent-execution-record-mismatch", "oracle-freshness-shift",
 }
 IMPACT_FIELDS = {"person", "workflow", "industry", "market", "long_tail"}
 
@@ -45,7 +47,12 @@ def build() -> tuple[str, str, dict]:
             raise AssertionError(f"Candidate was not preserved: {case['id']}")
         impact = case["impact"]
         if set(impact) != IMPACT_FIELDS or any(not isinstance(impact[key], str) or not impact[key].strip() for key in IMPACT_FIELDS):
-            raise ValueError(f"Each scenario must explain all five conditional impact horizons: {case['id']}")
+            raise ValueError(f"Each scene must provide five impact horizons: {case['id']}")
+        cascade = case.get("cascade")
+        if not isinstance(cascade, list) or len(cascade) != 4 or [stage.get("count") for stage in cascade] != [1, 2, 4, 8]:
+            raise ValueError(f"Each scene must provide the complete 1 → 2 → 4 → 8 cascade: {case['id']}")
+        if any(not isinstance(stage.get("stage"), str) or not stage["stage"].strip() or not isinstance(stage.get("text"), str) or not stage["text"].strip() for stage in cascade):
+            raise ValueError(f"Each cascade stage needs a label and consequence: {case['id']}")
         records.append({
             "scenario": case,
             "analysis_target": "candidate",
@@ -53,7 +60,7 @@ def build() -> tuple[str, str, dict]:
             "result": result,
         })
     if set(ids) != EXPECTED_IDS:
-        raise ValueError(f"Expected the curated nine-scene demonstration; got {sorted(ids)}")
+        raise ValueError(f"Expected the curated eleven-scene demonstration; got {sorted(ids)}")
     by_id = {record["scenario"]["id"]: record for record in records}
     # Keep the honest, high-stakes examples and the intentional blind spot from silently regressing.
     refund = by_id["refund-flips"]["result"]["context_fidelity"]
@@ -76,6 +83,16 @@ def build() -> tuple[str, str, dict]:
     contract_case = by_id["contract-audit-mismatch"]["scenario"]
     if "Release status: blocked" not in contract_case["source"] or "Release status: approved" not in contract_case["candidate"]:
         raise AssertionError("Contract fixture must preserve its synthetic release-state contrast")
+    settlement = by_id["agent-execution-record-mismatch"]["result"]["context_fidelity"]
+    if settlement["candidate_numbers_not_in_source_multiset"] != ["1"] or settlement["source_numbers_not_in_candidate_multiset"] != ["0"]:
+        raise AssertionError("Agent fixture must surface the synthetic 0 → 1 broadcast-count change")
+    if not any((x["source_pole"], x["candidate_pole"]) == ("failed", "passed") for x in settlement["curated_polarity_changes"]):
+        raise AssertionError("Agent fixture must surface the authorization test status change")
+    oracle = by_id["oracle-freshness-shift"]["result"]["context_fidelity"]
+    if oracle["candidate_numbers_not_in_source_multiset"] or oracle["source_numbers_not_in_candidate_multiset"]:
+        raise AssertionError("Oracle fixture must keep its synthetic block reference unchanged")
+    if not any((x["source_pole"], x["candidate_pole"]) == ("failed", "passed") for x in oracle["curated_polarity_changes"]):
+        raise AssertionError("Oracle fixture must surface the freshness-test status change")
     blind = by_id["role-swap-blind-spot"]["result"]["context_fidelity"]
     if blind["status"] != "NO-SELECTED-CUE-DIFFERENCE" or blind["curated_polarity_changes"] or blind["candidate_numbers_not_in_source_multiset"] or blind["source_numbers_not_in_candidate_multiset"]:
         raise AssertionError("Role-swap fixture must remain an explicit known miss, not a pass")
@@ -90,14 +107,23 @@ def build() -> tuple[str, str, dict]:
         "cases": records,
     }
     results_text = json.dumps(results, ensure_ascii=False, indent=2) + "\n"
+    public_records = json.loads(PUBLIC_RECORDS.read_text(encoding="utf-8"))
+    expected_record_ids = {"ntsb-uncrewed-vessel", "sec-filing-case", "nws-isaias-summary"}
+    if {item.get("id") for item in public_records} != expected_record_ids:
+        raise ValueError("Public record briefs must retain the curated, source-linked set")
+    for item in public_records:
+        if not item.get("source_url", "").startswith("https://") or not item.get("published") or not item.get("summary") or not item.get("review_question"):
+            raise ValueError(f"Public record brief is incomplete: {item.get('id')}")
     template = TEMPLATE.read_text(encoding="utf-8")
     marker = "/*__PRIME_DEMO_DATA__*/"
     if template.count(marker) != 1:
         raise ValueError(f"Expected exactly one {marker} marker in template")
     # Prevent scenario text from closing the inline script element.
     payload = json.dumps(results, ensure_ascii=False, separators=(",", ":"))
+    records_payload = json.dumps(public_records, ensure_ascii=False, separators=(",", ":"))
     payload = payload.replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
-    html = template.replace(marker, "const DEMO = " + payload + ";")
+    records_payload = records_payload.replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
+    html = template.replace(marker, "const DEMO = " + payload + ";\nconst PUBLIC_RECORDS = " + records_payload + ";")
     return html, results_text, results
 
 

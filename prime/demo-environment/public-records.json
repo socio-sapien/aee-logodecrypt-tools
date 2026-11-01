@@ -1,0 +1,35 @@
+[
+  {
+    "id": "ntsb-uncrewed-vessel",
+    "source_name": "National Transportation Safety Board",
+    "published": "2026-10-27",
+    "event_date": "2024-08-10",
+    "title": "NTSB investigation: Lake Erie vessel collision",
+    "summary": "The completed investigation describes an August 10, 2024 collision on Lake Erie between a NOAA Great Lakes Environmental Research Laboratory uncrewed surface vessel and a recreational vessel. NTSB found inadequate perceptibility and passive monitoring left the uncrewed vessel without a proper lookout; it issued six safety recommendations.",
+    "source_url": "https://www.ntsb.gov/investigations/Pages/DCA24PM057.aspx",
+    "source_label": "Open the NTSB investigation",
+    "review_question": "Can a handoff preserve the investigation’s operating conditions, finding, and recommendations without compressing one into the other?"
+  },
+  {
+    "id": "sec-filing-case",
+    "source_name": "U.S. Securities and Exchange Commission",
+    "published": "2026-10-29",
+    "event_date": "2026-10-29",
+    "title": "SEC enforcement complaint describes use of public filings",
+    "summary": "The SEC announced charges against BG Wealth Sharing Ltd and DSJ Exchange Pty Ltd. Its complaint alleges the entities used SEC Form ADV and Form D filings to create an impression of legitimacy while raising more than $130 million from tens of thousands of retail investors. These are allegations in a filed complaint, not adjudicated findings.",
+    "source_url": "https://www.sec.gov/newsroom/press-releases/2026-110-two-entities-charged-130-million-fraud-scheme-used-false-sec-filings-boost-investor-confidence",
+    "source_label": "Open the SEC release",
+    "review_question": "Does a summary distinguish what the agency announced, what the complaint alleges, and what a court has decided?"
+  },
+  {
+    "id": "nws-isaias-summary",
+    "source_name": "National Weather Service · Mobile/Pensacola",
+    "published": "2026-10-13",
+    "event_date": "2026-10-09/2026-10-10",
+    "title": "Isaias event summary: observations and ongoing assessment",
+    "summary": "The NWS summary covers the October 9–10, 2026 event and lists observed gusts up to 118 mph and a highest reported rainfall total of 11.65 inches. It reports one direct and two indirect fatalities as preliminary; extreme-wind and storm-surge assessments remained ongoing. The report cautions point observations may not capture peak values.",
+    "source_url": "https://www.weather.gov/media/mob/TropicalEventSummary/PSHMOB_2026AL04_Isaias_Summary.pdf",
+    "source_label": "Open the NWS event summary (PDF)",
+    "review_question": "Can a time-sensitive relay keep the observation location, report date, preliminary status, and ongoing assessment attached?"
+  }
+]
