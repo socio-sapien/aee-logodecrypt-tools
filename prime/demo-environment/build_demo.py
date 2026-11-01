@@ -17,6 +17,7 @@ RESULTS_OUT = HERE / "scenario-results.json"
 EXPECTED_IDS = {
     "refund-flips", "release-gate", "market-simulation", "privacy-disclosure",
     "unicode-boundary", "license-terms", "generated-alternative", "contract-audit-mismatch", "role-swap-blind-spot",
+    "agent-execution-claim", "oracle-freshness-shift",
 }
 IMPACT_FIELDS = {"person", "workflow", "industry", "market", "long_tail"}
 
@@ -53,7 +54,7 @@ def build() -> tuple[str, str, dict]:
             "result": result,
         })
     if set(ids) != EXPECTED_IDS:
-        raise ValueError(f"Expected the curated nine-scene demonstration; got {sorted(ids)}")
+        raise ValueError(f"Expected the curated eleven-scene demonstration; got {sorted(ids)}")
     by_id = {record["scenario"]["id"]: record for record in records}
     # Keep the honest, high-stakes examples and the intentional blind spot from silently regressing.
     refund = by_id["refund-flips"]["result"]["context_fidelity"]
@@ -76,6 +77,16 @@ def build() -> tuple[str, str, dict]:
     contract_case = by_id["contract-audit-mismatch"]["scenario"]
     if "Release status: blocked" not in contract_case["source"] or "Release status: approved" not in contract_case["candidate"]:
         raise AssertionError("Contract fixture must preserve its synthetic release-state contrast")
+    settlement = by_id["agent-execution-claim"]["result"]["context_fidelity"]
+    if settlement["candidate_numbers_not_in_source_multiset"] != ["1"] or settlement["source_numbers_not_in_candidate_multiset"] != ["0"]:
+        raise AssertionError("Agent fixture must surface the synthetic 0 → 1 broadcast-count change")
+    if not any((x["source_pole"], x["candidate_pole"]) == ("failed", "passed") for x in settlement["curated_polarity_changes"]):
+        raise AssertionError("Agent fixture must surface the authorization test status change")
+    oracle = by_id["oracle-freshness-shift"]["result"]["context_fidelity"]
+    if oracle["candidate_numbers_not_in_source_multiset"] or oracle["source_numbers_not_in_candidate_multiset"]:
+        raise AssertionError("Oracle fixture must keep its synthetic block reference unchanged")
+    if not any((x["source_pole"], x["candidate_pole"]) == ("failed", "passed") for x in oracle["curated_polarity_changes"]):
+        raise AssertionError("Oracle fixture must surface the freshness-test status change")
     blind = by_id["role-swap-blind-spot"]["result"]["context_fidelity"]
     if blind["status"] != "NO-SELECTED-CUE-DIFFERENCE" or blind["curated_polarity_changes"] or blind["candidate_numbers_not_in_source_multiset"] or blind["source_numbers_not_in_candidate_multiset"]:
         raise AssertionError("Role-swap fixture must remain an explicit known miss, not a pass")

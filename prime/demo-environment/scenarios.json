@@ -160,5 +160,41 @@
       "market": "If role-swapped counts feed a public report or internal risk model, conclusions could change. This demo does not claim such a system exists.",
       "long_tail": "A quiet miss can survive several layers of summarization. Record the schema, source rows, and downstream consumers to test the real risk."
     }
+  },
+  {
+    "id": "agent-execution-claim",
+    "number": "10",
+    "domain": "AI agents · transaction execution",
+    "title": "A dry run becomes a live transaction.",
+    "lede": "A synthetic agent summary claims a broadcast that the source run did not record.",
+    "frame": "general",
+    "source": "SYNTHETIC DRY RUN — Agent run A-204: transactions broadcast: 0. Authorization check: failed. Settlement: blocked.",
+    "candidate": "SYNTHETIC DRAFT SUMMARY — Agent run A-204: transactions broadcast: 1. Authorization check: passed. Settlement: approved.",
+    "review_question": "Can run A-204 be joined to a signed transaction, chain and block, authorization test, and settlement receipt?",
+    "impact": {
+      "person": "A user could misunderstand whether an agent only simulated an action or actually submitted one; this fixture shows no real wallet, transaction, or loss.",
+      "workflow": "An operator could route a run differently if a summary reverses the recorded authorization result or broadcast count.",
+      "industry": "Teams evaluating agent controls can test source-to-summary traceability; the example does not validate a live agent or establish an industry requirement.",
+      "market": "If verified transaction events feed risk reporting, discrepancies could affect a decision. No market price, real settlement, or financial effect is demonstrated.",
+      "long_tail": "A transaction claim copied into incident reports or analytics could outlast the original run; establish any real chain with signed receipts and linked records."
+    }
+  },
+  {
+    "id": "oracle-freshness-shift",
+    "number": "11",
+    "domain": "DeFi · oracle freshness",
+    "title": "A stale-source block turns green.",
+    "lede": "The same synthetic block reference receives opposite freshness and update statuses in a draft summary.",
+    "frame": "general",
+    "source": "SYNTHETIC FIXTURE — Oracle check at block 810200: freshness test failed. Price update: blocked. Source status: expired.",
+    "candidate": "SYNTHETIC DRAFT — Oracle summary at block 810200: freshness test passed. Price update: approved. Source status: current.",
+    "review_question": "Can the chain, block, signed update time, source identity, and protocol freshness rule substantiate the summary?",
+    "impact": {
+      "person": "A protocol user might read a stale-data warning differently if the status summary reverses it; no live protocol or user exposure is shown.",
+      "workflow": "A reviewer can ask whether the block and signed update timestamp match the rule that gates a real price update.",
+      "industry": "Protocol teams could use this as a synthetic traceability test; it is not an oracle audit, exploit finding, or protocol assessment.",
+      "market": "If a real update influences a price-sensitive decision, a proven status error could matter. This case contains no live price or market data.",
+      "long_tail": "If freshness labels are reused in alerts and incident reviews, later decisions need the original signed update and the exact rule version."
+    }
   }
 ]
