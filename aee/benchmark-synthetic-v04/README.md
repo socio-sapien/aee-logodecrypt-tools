@@ -18,3 +18,5 @@ lm-eval run --model dummy --tasks aee_benchmark_synthetic --include_path lm_eval
 Run from this directory so the task YAML can find its relative data path. Outputs may contain text-derived details. The supplied prompts and completions were newly created for this demonstration; the original third-party specimens are not included.
 
 Harness metric direction flags are inherited conventions, not evidence that a higher or lower score is better. Use the repository checkout or source distribution for the harness task and example data; the Python wheel contains the scoring package only.
+
+Related: [offline synthetic text-hash consistency example](../../demonstrations/synthetic-text-integrity/README.md).
