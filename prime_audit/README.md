@@ -195,6 +195,11 @@ object has exact `prompt` and `output` strings plus optional `tool_receipts` (up
 records) and `requirements` (up to 64 caller-selected literal strings). The CLI reads local JSON
 from a path or stdin and prints JSON; it does not install, transmit, execute, or alter anything.
 
+Privacy: evidence-case results contain the supplied prompt and output verbatim and selected
+receipt fields. The full-audit surface census also permits reconstruction of its supplied text.
+Treat reports and their destination as sensitive; do not share them without reviewing contents.
+The preToolUse hook persists only its separate hash-based summaries, not these raw reports.
+
 The report includes exact supplied text, SHA-256 digests, a character-preserving token/case/punctuation
 census, number and symbol spans, codepoint totals, adjacent token/word relations, curated polarity
 matches, literal prompt/output differences, and fields found in caller-supplied receipts. Deduction,

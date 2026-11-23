@@ -64,6 +64,13 @@ class EvidenceCaseTests(unittest.TestCase):
         r["inputs"]["output"] = "altered"
         self.assertFalse(verify_case(r))
 
+    def test_evidence_case_allowed_by_hook(self):
+        from prime_audit.hook import decision
+        for name in ("prime-audit/prime_evidence_case", "prime-audit-prime_evidence_case", "prime_evidence_case"):
+            with self.subTest(name=name):
+                result = decision({"toolName": name, "toolArgs": {"prompt": "example", "output": "example"}})
+                self.assertEqual(result["permissionDecision"], "allow")
+
     def test_full_audit_and_mcp_expose_evidence_case(self):
         full = audit_full("Claim 12%: alpha?")
         self.assertEqual("".join(x["text"] for x in full["surface_census"]["tokens"]), "Claim 12%: alpha?")
