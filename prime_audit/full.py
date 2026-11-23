@@ -7,6 +7,7 @@ import json
 import re
 from .vendor import prime_v6_7 as prime
 from .engine import receipt
+from .evidence_case import surface_census, audit_evidence_case
 
 MAX_TEXT = 65536
 TOKEN_RE = re.compile(r"[A-Za-z0-9]+(?:'[A-Za-z0-9]+)?")
@@ -34,15 +35,18 @@ def audit_full(text, source=None):
             chunks.append({'start': start, 'end': end,
                 'input_sha256': hashlib.sha256(chunk.encode()).hexdigest(),
                 'lens': prime._word_dynamics_lens(chunk)})
-    return receipt({'schema': 'prime.full-battery.v1', 'version': prime.VERSION,
+    return receipt({'schema': 'prime.full-battery.v2', 'version': prime.VERSION,
         'input_sha256': hashlib.sha256(text.encode()).hexdigest(),
         'source_sha256': None if source is None else hashlib.sha256(source.encode()).hexdigest(),
         'report': report, 'word_dynamics_chunks': chunks,
-        'coverage': {'base_analysis': 'complete input', 'logical_actions': 'enabled',
+        'surface_census': surface_census(text),
+        'source_surface_census': None if source is None else surface_census(source),
+        'coverage': {'base_analysis': 'complete input', 'surface_census': 'all Unicode code points, tokens, numbers, symbols, and adjacent token/word relations in supplied text', 'logical_actions': 'enabled',
             'word_dynamics': 'whole input' if small else 'contiguous chunks; local indices/permutations',
             'caller_metadata': 'unset unless supplied to the standalone instrument',
             'runtime_internal_thoughts': 'not observed'},
-        'meaning': 'Deterministic measurements and cue comparisons, not proof of truth, intent or universal correctness.'})
+        'analytic_lexicons': 'vocabulary matches are measured outputs only; no term is excluded from analysis',
+        'meaning': 'Deterministic surface measurements and rule-based cues; not proof of truth, intent or universal correctness.'})
 
 
 def hook_audit(event, root):

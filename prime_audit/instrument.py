@@ -68,7 +68,9 @@ def battery(text):
     pic=(len(letters)+2.64*sc)/len(letters) if letters else 0
     return {'S':S,'D':D,'PIC':round(pic,4),'T_d':round(td,4),'latin_letters':len(letters),
       'words_normalized':len(n.split()),'structural_hits':{k:v for k,v in sh.items() if v},
-      'evasion_lexicon_hits':{k:v for k,v in dh.items() if v},
+      'analytic_cue_hits':{k:v for k,v in dh.items() if v},
+      'evasion_lexicon_hits':{k:v for k,v in dh.items() if v},  # legacy output alias; analytic match only, not an exclusion rule
+      'lexicon_use':'STRUCT/EVAS vocabularies are measured annotations; all source text remains included.',
       'historical_battery_condition':('EMPTY' if not text.strip() else 'ZERO-LEXICON-HIT' if S==D==0 else
        'OBJECTIVE' if td>=1 and pic<=1.25 else 'CALCIFYING' if td>=1 else 'SUB-GATE'),
       'interpretation':'Historical condition names are formula labels, not judgments of accuracy or intent.'}

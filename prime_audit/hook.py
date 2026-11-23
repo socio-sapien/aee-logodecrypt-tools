@@ -25,7 +25,8 @@ def decision(event):
     allow = False
     reason = 'Use PRIME read-only MCP tools or repository-local review edits; shell/network/remote mutations require an separately authorized workflow.'
     # The custom agents have no provider/network/remote-write tools. Unknown tools fail closed.
-    if name in {'prime-audit-prime_full_audit', 'prime-audit/prime_full_audit', 'prime_full_audit', 'prime-audit-prime_audit_text', 'prime-audit-prime_simulate_operation',
+    if name in {'prime-audit-prime_evidence_case', 'prime-audit/prime_evidence_case', 'prime_evidence_case',
+                'prime-audit-prime_full_audit', 'prime-audit/prime_full_audit', 'prime_full_audit', 'prime-audit-prime_audit_text', 'prime-audit-prime_simulate_operation',
                 'prime-audit/prime_audit_text', 'prime-audit/prime_simulate_operation',
                 'prime-audit-prime_investigate', 'prime-audit/prime_investigate'}:
         allow = True

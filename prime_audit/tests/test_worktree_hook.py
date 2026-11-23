@@ -33,6 +33,13 @@ class WorktreeHookTests(unittest.TestCase):
                 record = json.loads(logfile.read_text().splitlines()[-1])
                 self.assertEqual(record['decision'], 'allow')
 
+
+    def test_missing_repository_metadata_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / 'checkout'; root.mkdir()
+            with self.assertRaisesRegex(ValueError, 'missing repository metadata'):
+                hook.repository_git_dir(root)
+
     def test_bad_worktree_backlink_is_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp) / 'checkout'; root.mkdir()

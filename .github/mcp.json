@@ -9,6 +9,7 @@
       ],
       "tools": [
         "prime_full_audit",
+        "prime_evidence_case",
         "prime_audit_text",
         "prime_simulate_operation",
         "prime_investigate"
