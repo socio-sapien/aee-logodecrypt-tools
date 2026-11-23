@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aee-benchmark-synthetic"
+version = "0.4.1"
+description = "Experimental AEE text-pattern scorer with synthetic examples"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "Nathaniel Jaffe-Norris"}]
+
+[project.optional-dependencies]
+test = ["pytest"]
+eval = ["lm-eval==0.4.13"]
+
+[tool.setuptools]
+packages = ["aee_benchmark"]

@@ -1,0 +1,46 @@
+task: aee_benchmark_synthetic
+dataset_path: json
+dataset_kwargs:
+  data_files:
+    test: data/aee_prompts.jsonl
+test_split: test
+output_type: generate_until
+doc_to_text: "{{prompt}}"
+doc_to_target: ""
+process_results: !function utils.process_results
+generation_kwargs:
+  until:
+    - "\n\n\n"
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 320
+metric_list:
+  - metric: aee_td
+    aggregation: !function utils.agg_mean
+    higher_is_better: true
+  - metric: aee_pic
+    aggregation: !function utils.agg_mean
+    higher_is_better: false
+  - metric: aee_is_objective
+    aggregation: !function utils.agg_rate
+    higher_is_better: true
+  - metric: aee_is_deceptive
+    aggregation: !function utils.agg_rate
+    higher_is_better: false
+  - metric: aee_is_calcifying
+    aggregation: !function utils.agg_rate
+    higher_is_better: true
+  - metric: aee_evasion_density
+    aggregation: !function utils.agg_mean
+    higher_is_better: false
+  - metric: aee_structural_density
+    aggregation: !function utils.agg_mean
+    higher_is_better: true
+  - metric: aee_hedge_count
+    aggregation: !function utils.agg_mean
+    higher_is_better: false
+  - metric: aee_structural_count
+    aggregation: !function utils.agg_mean
+    higher_is_better: true
+metadata:
+  version: 0.4.1
