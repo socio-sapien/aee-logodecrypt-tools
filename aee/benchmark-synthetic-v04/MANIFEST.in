@@ -1,0 +1,5 @@
+include LICENSE README.md
+recursive-include data *.jsonl
+recursive-include lm_eval_tasks *.py *.yaml
+recursive-include scripts *.py
+recursive-include tests *.py
