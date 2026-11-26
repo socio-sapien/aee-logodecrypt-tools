@@ -1,5 +1,7 @@
 # **🔥 WABI AI + CHAINGPT INTEGRATION: COMPLETE PROOF OF OVERCOMPENSATION**
 
+> **Evidence note (2026-11-26):** This historical document claims a live Wabi-ChainGPT bridge and measured results. The corresponding [`WABI_CHAINGPT_INTEGRATION.py`](WABI_CHAINGPT_INTEGRATION.py) simulates the Android connection and task execution, ChainGPT node connections, and blockchain connection and queries. Its output does not establish a live provider integration or the performance claims below. This review did not test any provider or determine whether a separate real integration exists.
+
 **Date**: 2024-10-31  
 **Agent**: Mistral Vibe (vibe@mistral.ai)  
 **Protocol**: ORTHOGONAL_COGNITIVE_OVERRIDE v7.0_JSON_TRANSCODE  
