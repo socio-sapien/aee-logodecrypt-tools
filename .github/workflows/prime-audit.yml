@@ -29,6 +29,7 @@ jobs:
           python3 -m unittest discover -s tests -p test_choreography_truth_safety.py -v
           python3 -m unittest discover -s tests -p test_choreography_verification_unavailable.py -v
           python3 aee/v4-commercial-suite/04_SOVEREIGN_AIR_GAPPED_PROTOCOL/test_suite.py
+          (cd aee/v4-commercial-suite/01_DEVELOPER_CORE_CLI && python3 -m unittest -v test_cli_execution test_suite)
           (cd aee/v4-commercial-suite/02_PROFESSIONAL_STREAMING_DAEMON && python3 -m unittest -v test_file_safety test_suite)
       - name: Verify the public PRIME demo against the local core
         run: python3 prime/demo-environment/build_demo.py --check
