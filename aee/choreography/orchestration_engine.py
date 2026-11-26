@@ -2,10 +2,11 @@
 Orchestration Engine - The Heart of Automated Agency Optimization
 
 WARNING: Experimental prototype, not a security or production verifier.
-In an import-patched copy, OrchestratedResult.verify() returned True when
-both cryptographic proof and audit result were absent. It cannot establish
-execution, authenticity, correctness, or determinism. The unmodified package
-has import errors. No deployed exposure was established by that local test.
+Before the fail-closed change, an import-patched copy returned True from
+OrchestratedResult.verify() when proof and audit were absent. Verification
+and verify_all_results now raise NotImplementedError, a breaking change;
+execution, authenticity, correctness and determinism are not established.
+The unmodified package has import errors. No deployed exposure was established.
 
 Historical description follows:
 This is the central orchestration engine that integrates all components:
@@ -165,18 +166,11 @@ class OrchestratedResult:
     certainty_level: CertaintyLevel = CertaintyLevel.ABSOLUTE
     
     def verify(self) -> bool:
-        """Verify the result has mathematical certainty"""
-        # Check cryptographic proof
-        if self.cryptographic_proof:
-            if not self.cryptographic_proof.verify_chain():
-                return False
-        
-        # Check audit result
-        if self.audit_result:
-            if not self.audit_result.verify():
-                return False
-        
-        return True
+        """Unavailable: legacy checks cannot verify the claimed property.
+
+        Raises NotImplementedError rather than reporting a false success.
+        """
+        raise NotImplementedError('Orchestration result verification is not implemented')
     
     def to_dict(self) -> Dict:
         return {
@@ -407,8 +401,11 @@ class InitiativeManager:
         return list(self.results.values())
     
     def verify_all_results(self) -> bool:
-        """Verify all initiative results"""
-        return all(result.verify() for result in self.results.values())
+        """Unavailable: legacy checks cannot verify the claimed property.
+
+        Raises NotImplementedError rather than reporting a false success.
+        """
+        raise NotImplementedError('Orchestration result verification is not implemented')
     
     def clear_completed(self):
         """Clear completed initiatives and results"""

@@ -3,9 +3,10 @@ Mathematical Certainty Engine
 
 WARNING: Experimental prototype. Its proofs are not independently verified;
 self-computed hashes do not establish truth, authenticity, or determinism.
-Synthetic tests show execution and chain checks can accept fabricated evidence,
-and the determinism check can accept changed output. These checks do not verify
-execution or determinism. Truth checking is limited to hard-coded literals.
+Before the fail-closed changes, synthetic tests showed execution and chain checks
+accepting fabricated evidence and determinism accepting changed output. Those
+checks now raise NotImplementedError; verification is not implemented.
+Truth checking is limited to hard-coded literals.
 Do not rely on this module for security, factual verification or production.
 
 Historical description follows:
@@ -83,19 +84,11 @@ class CryptographicProof:
     proof_chain: List[str] = field(default_factory=list)
     
     def verify_chain(self) -> bool:
-        """Verify the cryptographic proof chain"""
-        if not self.proof_chain:
-            return False
-        
-        # Verify each step in the chain
-        previous_hash = self.input_hash
-        for proof_step in self.proof_chain:
-            step_hash = hashlib.sha256(proof_step.encode()).hexdigest()
-            if step_hash != previous_hash:
-                return False
-            previous_hash = step_hash
-        
-        return previous_hash == self.output_hash
+        """Unavailable: legacy checks cannot verify the claimed property.
+
+        Raises NotImplementedError rather than reporting a false success.
+        """
+        raise NotImplementedError('Execution-chain verification is not implemented')
 
 
 @dataclass
@@ -110,13 +103,11 @@ class DeterministicResult:
     memory_usage_bytes: int
     
     def verify_determinism(self, input_data: Any) -> bool:
-        """Verify that the same input produces the same output"""
-        # In a deterministic system, the same input must produce the same output
-        # This is verified through the cryptographic proof
-        input_hash = hashlib.sha256(
-            json.dumps(input_data, sort_keys=True).encode()
-        ).hexdigest()
-        return input_hash == self.cryptographic_proof.input_hash
+        """Unavailable: legacy checks cannot verify the claimed property.
+
+        Raises NotImplementedError rather than reporting a false success.
+        """
+        raise NotImplementedError('Determinism verification is not implemented')
 
 
 class DeterministicExecutor:
@@ -403,20 +394,11 @@ class MathematicalCertaintyEngine:
     
     def verify_execution(self, result: DeterministicResult, 
                          input_data: Any) -> bool:
-        """Verify that an execution result is deterministic and correct"""
-        # Check mathematical proof
-        if not result.mathematical_proof.verify():
-            return False
-            
-        # Check cryptographic proof
-        if not result.cryptographic_proof.verify_chain():
-            return False
-            
-        # Check determinism
-        if not result.verify_determinism(input_data):
-            return False
-            
-        return True
+        """Unavailable: legacy checks cannot verify the claimed property.
+
+        Raises NotImplementedError rather than reporting a false success.
+        """
+        raise NotImplementedError('Execution correctness verification is not implemented')
     
     def create_absolute_proof(self, operation: str, input_data: Any, 
                               output_data: Any) -> MathematicalProof:
@@ -431,18 +413,8 @@ class MathematicalCertaintyEngine:
         return self.certainty_level
     
     def assert_absolute_certainty(self, operation: str, input_data: Any) -> Any:
+        """Unavailable: legacy checks cannot verify the claimed property.
+
+        Raises NotImplementedError rather than reporting a false success.
         """
-        Execute an operation and assert absolute certainty.
-        
-        This method guarantees that the operation will be executed
-        with absolute mathematical certainty.
-        """
-        result = self.execute_with_certainty(operation, input_data)
-        
-        # Verify the result
-        if not self.verify_execution(result, input_data):
-            raise RuntimeError(
-                f"Absolute certainty violated for operation {operation}"
-            )
-        
-        return result.output_data
+        raise NotImplementedError('Absolute certainty is not implemented')
