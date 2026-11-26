@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Ed25519 Cryptographic Receipt Verifier
-Verifies immutable forensic audit receipts signed with Key ID c1f8f05e2cde23b9.
+Experimental receipt consistency example; NOT an Ed25519 signature verifier.
+The generated signature is a simulated digest; verify_receipt checks only the
+payload hash. Do not use for authentication, tamper-proofing, or custody.
 """
 import hashlib
 import json

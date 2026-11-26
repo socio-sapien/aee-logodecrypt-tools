@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """
+EXPERIMENTAL: offline/example behavior is not proof of network connection,
+miner validity, fraud detection, or on-chain weight submission. See README.md.
+
 Bittensor Subnet Automation & Market Capture Daemon
 Automates Subtensor RPC connection, wallet generation, metagraph sync, and AEE weight submission.
 """
