@@ -26,6 +26,7 @@ jobs:
           python3 prime_audit/instrument.py --self-test
           python3 -m unittest discover -s prime_audit/tests -v
           python3 -m unittest discover -s tests -p test_experimental_fail_closed.py -v
+          python3 -m unittest discover -s tests -p test_choreography_truth_safety.py -v
           python3 aee/v4-commercial-suite/04_SOVEREIGN_AIR_GAPPED_PROTOCOL/test_suite.py
       - name: Verify the public PRIME demo against the local core
         run: python3 prime/demo-environment/build_demo.py --check
