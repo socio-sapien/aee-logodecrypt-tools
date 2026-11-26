@@ -1,4 +1,7 @@
 # PRIME PROSPECT INVENTORY
+
+> **Evidence note (2026-11-26):** This is a historical prospect inventory, not a current production-readiness or accuracy assessment. Claims below of 100% detection, mathematical certainty, and immediate production deployment are not established by the tests cited here. The [`reconciliation matrix`](prime_audit/reconciliation_matrix.py) searches a limited set of text signatures, and the [Bittensor examples](aee/bittensor-experimental/) are experimental. Live provider and deployment status require separate verification.
+
 ## Raw Data - No Fluff, No Spin
 
 ---
