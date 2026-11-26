@@ -1,4 +1,4 @@
-> The v4 commercial-suite streaming daemon is a prototype: it can delete input files and overwrite output paths, and its pattern-based cleaner is not comprehensive redaction. See its [safety note](aee/v4-commercial-suite/02_PROFESSIONAL_STREAMING_DAEMON/README.md).
+> The v4 commercial-suite streaming daemon is a prototype: it now preserves inputs and refuses existing output paths, but older versions deleted inputs and overwrote outputs. Failures can leave partial files, and its pattern-based cleaner is not comprehensive redaction. See its [safety note](aee/v4-commercial-suite/02_PROFESSIONAL_STREAMING_DAEMON/README.md).
 
 ## Root PRIME 6.7 installation
 
