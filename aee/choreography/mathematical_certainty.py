@@ -1,6 +1,13 @@
 """
 Mathematical Certainty Engine
 
+WARNING: Experimental prototype. Its proofs are not independently verified;
+self-computed hashes do not establish truth, authenticity, or determinism.
+Execution proof and chain checks are internally inconsistent. Truth checking
+is limited to a small hard-coded set of literals, not general verification.
+Do not rely on this module for security, factual verification or production.
+
+Historical description follows:
 Provides absolute mathematical certainty in automation through:
 - Deterministic execution paths
 - Cryptographic proof of all operations
@@ -321,85 +328,38 @@ class DeterministicExecutor:
 
 
 class AbsoluteTruthVerifier:
+    """Limited literal recognizer, not a general truth or proof verifier.
+
+    Assertion strings are never evaluated as Python.  The supplied proof and
+    its self-computed hash cannot establish the truth of any assertion.  Only
+    the small literal table below is recognized; all other inputs are undefined.
+    This intentionally changes the old arbitrary-expression behavior.
     """
-    Verifies absolute truth of assertions with mathematical certainty.
-    
-    Uses formal logic and mathematical proof to establish truth values.
-    """
-    
+
+    _LITERALS = {
+        "true": TruthValue.TRUE, "1=1": TruthValue.TRUE,
+        "a=a": TruthValue.TRUE, "x=x": TruthValue.TRUE,
+        "2+2=4": TruthValue.TRUE,
+        "false": TruthValue.FALSE, "1=0": TruthValue.FALSE,
+        "a≠a": TruthValue.FALSE, "2+2=5": TruthValue.FALSE,
+    }
+
     def __init__(self):
+        # Kept for API compatibility; neither cache confers proof of truth.
         self.known_truths: Dict[str, TruthValue] = {}
         self.proof_cache: Dict[str, MathematicalProof] = {}
-        
+
     def verify(self, assertion: str, proof: Optional[MathematicalProof] = None) -> TruthValue:
-        """
-        Verify the truth value of an assertion.
-        
-        Args:
-            assertion: The assertion to verify
-            proof: Optional mathematical proof
-            
-        Returns:
-            TruthValue indicating the certainty of the assertion
-        """
-        # Check if we already know this truth
-        if assertion in self.known_truths:
-            return self.known_truths[assertion]
-        
-        # If a proof is provided, verify it
-        if proof and proof.verify():
-            # The proof is valid, so the assertion is true
-            self.known_truths[assertion] = TruthValue.TRUE
-            self.proof_cache[assertion] = proof
-            return TruthValue.TRUE
-        
-        # Try to parse and verify the assertion
-        try:
-            return self._verify_assertion(assertion)
-        except Exception:
+        """Recognize selected literal strings; never execute input or trust proof."""
+        if not isinstance(assertion, str) or len(assertion) > 256:
             return TruthValue.UNDEFINED
-    
+        return self._LITERALS.get(assertion.strip().lower(), TruthValue.UNDEFINED)
+
     def _verify_assertion(self, assertion: str) -> TruthValue:
-        """Internal method to verify an assertion"""
-        # Remove whitespace and normalize
-        cleaned = assertion.strip().lower()
-        
-        # Check for mathematical tautologies
-        if cleaned in ["true", "1=1", "a=a", "x=x"]:
-            return TruthValue.TRUE
-            
-        if cleaned in ["false", "1=0", "a≠a"]:
-            return TruthValue.FALSE
-            
-        # Check for known mathematical truths
-        if self._is_mathematical_truth(assertion):
-            return TruthValue.TRUE
-            
-        # Default to undefined
-        return TruthValue.UNDEFINED
-    
+        return self.verify(assertion)
+
     def _is_mathematical_truth(self, assertion: str) -> bool:
-        """Check if the assertion is a known mathematical truth"""
-        mathematical_truths = [
-            "2+2=4",
-            "2+2=5",  # False
-            "The sum of angles in a triangle is 180 degrees",
-            "e^iπ + 1 = 0",
-            "The square root of 4 is 2",
-        ]
-        
-        # This would be expanded in a real implementation
-        # For now, return True for any assertion that contains "=" and is valid
-        try:
-            if "=" in assertion:
-                left, right = assertion.split("=", 1)
-                left_val = eval(left.strip())
-                right_val = eval(right.strip())
-                return left_val == right_val
-        except:
-            pass
-            
-        return False
+        return self.verify(assertion) is TruthValue.TRUE
 
 
 class MathematicalCertaintyEngine:
