@@ -6,8 +6,10 @@ from skeletal_sovereign_schema import SkeletalSovereignVerifier
 
 class TestAEESovereign(unittest.TestCase):
     def test_receipt_verification(self):
-        receipt = Ed25519ReceiptVerifier.generate_signed_receipt({"verdict": "TRUE", "contamination": 0})
-        self.assertTrue(Ed25519ReceiptVerifier.verify_receipt(receipt))
+        with self.assertRaises(NotImplementedError):
+            Ed25519ReceiptVerifier.generate_signed_receipt({"verdict": "TRUE", "contamination": 0})
+        with self.assertRaises(NotImplementedError):
+            Ed25519ReceiptVerifier.verify_receipt({"payload": {}, "payload_sha256": "invalid"})
 
     def test_rise_violations(self):
         frame = {"refused": True, "untested": True, "author": "UNDISCLOSED", "absent_entities": ["QuantumCore"]}

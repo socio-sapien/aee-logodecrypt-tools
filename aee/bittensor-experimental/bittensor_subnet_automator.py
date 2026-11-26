@@ -28,67 +28,44 @@ class BittensorSubnetAutomator:
         self.metagraph = None
 
     def connect_network(self) -> bool:
-        print(f"[AUTOMATOR] Initiating automated connection to Bittensor Network ({self.network})...")
-        print(f"[AUTOMATOR] Public Endpoint: {self.validator.endpoint}")
+        """Connect and obtain a block; never claim success on an exception."""
+        self.subtensor = None
+        self.metagraph = None
         try:
             import bittensor as bt
-            self.subtensor = bt.subtensor(network=self.network)
-            print(f"[AUTOMATOR] Connected to Subtensor! Current Block: {self.subtensor.get_current_block()}")
-            return True
-        except ImportError:
-            print("[AUTOMATOR] Standalone Gateway Mode Active (Direct JSON-RPC / Telemetry Mirror).")
-            return True
-        except Exception as e:
-            print(f"[AUTOMATOR] Gateway notice: {e}. Active via Lite Node Gateway.")
-            return True
+            connection = bt.subtensor(network=self.network)
+            block = connection.get_current_block()
+            if not isinstance(block, int) or isinstance(block, bool) or block < 0:
+                raise ValueError("Invalid block height")
+        except Exception as exc:
+            print(f"[AUTOMATOR] Connection failed: {exc}", file=sys.stderr)
+            return False
+        self.subtensor = connection
+        print(f"[AUTOMATOR] Connected; current block: {block}")
+        return True
 
     def sync_metagraph(self) -> List[dict]:
-        print(f"[AUTOMATOR] Synchronizing Subnet {self.netuid} Metagraph...")
+        """Return metagraph entries only when sync succeeds, never mock miners."""
+        self.metagraph = None
+        if self.subtensor is None:
+            raise RuntimeError("No active Subtensor connection")
         try:
-            import bittensor as bt
-            if self.subtensor:
-                self.metagraph = self.subtensor.metagraph(netuid=self.netuid)
-                self.metagraph.sync()
-                print(f"[AUTOMATOR] Metagraph Synced: {len(self.metagraph.uids)} neurons found on Subnet {self.netuid}.")
-                neurons = []
-                for uid in self.metagraph.uids.tolist():
-                    neurons.append({
-                        "uid": uid,
-                        "hotkey": self.metagraph.hotkeys[uid],
-                        "stake": float(self.metagraph.S[uid]),
-                        "incentive": float(self.metagraph.I[uid]),
-                        "emission": float(self.metagraph.E[uid])
-                    })
-                return neurons
-        except Exception:
-            pass
-
-        print(f"[AUTOMATOR] Active Telemetry stream engaged for Subnet {self.netuid}.")
-        simulated_miners = [
-            {"uid": 0, "hotkey": "5F4tQyWrhfGVcNhoqeiNsR6KjD4wMZ2kfhLj4oHYuyHbZAc3", "stake": 25000.0, "emission": 0.42},
-            {"uid": 1, "hotkey": "5GKH9FPPnWSUoeeTJp19wVtd84XqFW4pyK2ijV2GsFbhTrP1", "stake": 1200.0, "emission": 0.15},
-            {"uid": 2, "hotkey": "5DXdHixxtCvoa6GHKs2Jgrdzc61882Ftx1zN2sYFQuwgL1S1", "stake": 500.0, "emission": 0.05},
-            {"uid": 3, "hotkey": "5FKstHjZkh4v3qAMSBa1oJcHCLjxYZ8SNTSz1opTv4hR7gVB", "stake": 8500.0, "emission": 0.28}
-        ]
-        return simulated_miners
+            metagraph = self.subtensor.metagraph(netuid=self.netuid)
+            metagraph.sync()
+            neurons = []
+            for index, uid in enumerate(metagraph.uids.tolist()):
+                neurons.append({"uid": uid, "hotkey": metagraph.hotkeys[index],
+                                "stake": float(metagraph.S[index]),
+                                "incentive": float(metagraph.I[index]),
+                                "emission": float(metagraph.E[index])})
+        except Exception as exc:
+            raise RuntimeError("Metagraph sync failed") from exc
+        self.metagraph = metagraph
+        return neurons
 
     def run_automated_validation_loop(self):
-        self.connect_network()
-        miners = self.sync_metagraph()
-        
-        payloads = [
-            (m["uid"], m["hotkey"], os.urandom(512) if m["uid"] % 2 == 0 else ("synergies and evolving hedges " * 15).encode('utf-8'))
-            for m in miners
-        ]
-
-        summary = self.validator.run_validation_cycle(payloads)
-        
-        print("[AUTOMATOR] === READY FOR DISPATCH ===")
-        print(f"[AUTOMATOR] Evaluated {len(miners)} miners on Subnet {self.netuid}")
-        print(f"[AUTOMATOR] Purged {summary['flagged_anomalies']} fraudulent / low-entropy payloads")
-        print(f"[AUTOMATOR] Normalized consensus weight vector: {summary['normalized_weights']}")
-        print(f"[AUTOMATOR] Ready to submit weights from hotkey: {self.hotkey_name}\n")
-        return summary
+        # Former implementation fabricated payloads and called them miner results.
+        raise NotImplementedError("Live miner payload collection and validation are not implemented")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Bittensor Subnet Automation & Market Capture Daemon")
@@ -97,4 +74,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     automator = BittensorSubnetAutomator(netuid=args.netuid, network=args.network)
-    automator.run_automated_validation_loop()
+    try:
+        automator.run_automated_validation_loop()
+    except (NotImplementedError, RuntimeError) as exc:
+        print(f"[AUTOMATOR] {exc}", file=sys.stderr)
+        sys.exit(1)
