@@ -1,18 +1,11 @@
-# AEE Sovereign Protocol & Air-Gapped Engine [Sovereign Edition]
-### Subtitle: Ed25519 Cryptographic Verifier, RISE Inversion Check & Agent Bridge
+# AEE Sovereign Protocol — experimental prototype
 
-## Overview
-The Sovereign Protocol Edition provides a completely air-gapped, zero-network-dependency implementation of the Aletheiac-Entropy Engine. Engineered for national security, defense environments, critical infrastructure, and autonomous agent governance.
+This directory contains experimental code. Do not use it to authenticate receipts, secure custody, or make security-critical decisions.
 
-## Key Capabilities
-- **Zero Network Sockets:** Pure on-premise execution with no external telemetry or outbound calls.
-- **Ed25519 Cryptographic Receipts:** Generates signed, tamper-proof verification certificates carrying Key ID `c1f8f05e2cde23b9`.
-- **RISE (Relational Inversion Structure Evaluation):** Rigorous ground-truth verification preventing action contradictions and entity hallucination.
-- **Sovereign Autonomous Bridge (`sovereign_bridge_agent.py`):** On-premise agent supervisor ensuring models remain aligned and verified.
-- **Local Immutable Ledger:** Embedded SQLite chassis (`oracle_chassis.db`) for cryptographically sealed audit records.
+## Receipt limitation
 
-## Usage
-```bash
-./run_offline_sovereign.sh
-python3 ed25519_receipt_verifier.py
-```
+`ed25519_receipt_verifier.py` does not implement Ed25519 signing or signature verification. It generates a simulated SHA-512 digest and `verify_receipt` compares only a SHA-256 hash of the payload. A receipt with an absent or invalid signature can pass; a changed payload can pass if its hash is recomputed. A matching digest is not proof of authenticity or tamper resistance against an adversary.
+
+The other components have not been independently validated as an air-gapped security system, ground-truth verifier, immutable ledger, or production agent supervisor. Their presence here is not a security certification.
+
+Run the receipt example locally with `python3 ed25519_receipt_verifier.py`. It is a consistency demonstration only.
