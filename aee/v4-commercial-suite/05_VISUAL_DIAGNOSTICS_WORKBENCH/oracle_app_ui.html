@@ -486,9 +486,10 @@
           <span class="text-xs font-bold text-indigo-400">ROOT OPERATOR</span>
         </div>
         <div class="bg-indigo-950/40 border border-indigo-800/50 rounded-lg p-3 text-sm text-slate-100 self-end max-w-xl">
-          ${prompt}
+          <span class="user-message-text"></span>
         </div>
       `;
+      userDiv.querySelector('.user-message-text').textContent = prompt;
       stream.appendChild(userDiv);
 
       let resp = 'Compute, count, verify. Quote anchors or name absences. Zero filler; every word pays rent.';
@@ -526,18 +527,25 @@
       botDiv.innerHTML = `
         <div class="flex items-center space-x-2">
           <span class="text-xs font-bold text-emerald-400">ORACLE ROOT</span>
-          <span class="text-[10px] text-slate-500">Inference Response (${latency}ms)</span>
+          <span class="text-[10px] text-slate-500">Inference Response (<span class="response-latency"></span>ms)</span>
         </div>
         <div class="bg-slate-900 border border-slate-800 rounded-lg p-3 text-sm text-slate-200">
-          ${resp}
+          <span class="response-text"></span>
         </div>
         <div class="text-[11px] text-slate-400 px-1 flex space-x-3">
-          <span>AEE: <strong class="${vColor}">${verdict}</strong></span>
-          <span>PIC: <strong>${pic}</strong></span>
-          <span>T_d: <strong>${td}</strong></span>
-          <span>Duty: <strong>${duty}</strong></span>
+          <span>AEE: <strong class="${vColor}"><span class="response-verdict"></span></strong></span>
+          <span>PIC: <strong><span class="response-pic"></span></strong></span>
+          <span>T_d: <strong><span class="response-td"></span></strong></span>
+          <span>Duty: <strong><span class="response-duty"></span></strong></span>
         </div>
       `;
+      for (const [selector, value] of [
+        ['.response-latency', latency], ['.response-text', resp],
+        ['.response-verdict', verdict], ['.response-pic', pic],
+        ['.response-td', td], ['.response-duty', duty]
+      ]) {
+        botDiv.querySelector(selector).textContent = value;
+      }
       stream.appendChild(botDiv);
       stream.scrollTop = stream.scrollHeight;
     }
