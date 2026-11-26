@@ -1,4 +1,4 @@
-> Safety note (2026-11-26): This is a prototype, not a comprehensive privacy or secret-redaction tool. Its pattern-based cleaner can leave names, IPv6 addresses and credentials in the output. In a synthetic local test, the daemon deleted the input file after writing the output and audit; it also opens output paths for writing, which can overwrite existing files. Do not use it with irreplaceable inputs or rely on its output being safe to share. The latency and production-readiness claims below have not been established by this test.
+> Safety note (2026-11-26): This is a prototype, not a comprehensive privacy or secret-redaction tool. Its pattern-based cleaner can leave names, IPv6 addresses and credentials in the output. The daemon now preserves its input and refuses to overwrite existing output or audit files. This changes the prior delete-after-processing behavior. A write failure, destination collision, or process crash can leave incomplete outputs, which must be inspected before retrying. Retained inputs are skipped only during the current process; a restart encounters existing output names and refuses to overwrite them. Do not rely on output being safe to share. The latency and production-readiness claims below have not been established by this test.
 
 # AEE v4.0 Pro Daemon & Streaming Pipeline [Professional Edition]
 ### Subtitle: Automated High-Throughput Ingestion & Metadata Sanitization Harness
@@ -18,3 +18,6 @@ The Professional Edition provides an automated, continuous background daemon and
 python3 aee_daemon.py
 ```
 Drop any `.txt` or `.json` file into `watch_incoming/` and inspect results in `watch_processed/` and `audit_logs/`.
+
+## File handling and compatibility
+Output and audit directories must be outside the watched directory. Inputs are retained, not removed; successful unchanged files are skipped while the same daemon process runs. Existing `sanitized_<filename>` or `audit_<filename>.json` paths cause processing to fail without overwriting either file. A changed input with the same name also needs a new destination or manual handling. After a restart, existing output files prevent reprocessing; move or rename outputs deliberately before retrying. Failed or interrupted processing can leave empty or partial outputs; nothing is automatically deleted. This is not a concurrency, filesystem security or durable queue guarantee. `process_file` returns `True` on success and `False` on skip or failure. The cleaner remains pattern-based and incomplete: treat all output as potentially sensitive.
