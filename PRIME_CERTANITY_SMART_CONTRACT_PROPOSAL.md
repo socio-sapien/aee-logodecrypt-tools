@@ -1,4 +1,7 @@
 # 🏆 PRIME CERTAINTY: The Holy Grail of Blockchain Verification
+
+> **Evidence note (2026-11-26):** This document is a proposal. Its claims of absolute certainty, 100% detection, and independently verified truth or security are not established by this proposal or the tests reviewed for this note. The Solidity block below specifies an interface, not evidence of a deployed oracle. The [`reconciliation matrix`](prime_audit/reconciliation_matrix.py) searches for a limited set of text signatures; that is not a validated measure of detection accuracy. See the [repository overview](README.md) for the prototype scope.
+
 ## Smart Contract Proposal for Absolute Mathematical Certainty in Decentralized Systems
 
 ---
