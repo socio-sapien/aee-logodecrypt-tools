@@ -2,6 +2,9 @@
 """
 EXPERIMENTAL: offline/example behavior is not proof of network connection,
 miner validity, fraud detection, or on-chain weight submission. See README.md.
+String encoding can discard malformed Unicode; unknown network names fall back
+to Finney, invalid thresholds can produce non-finite weights, and rounded
+normalized weights may not sum to 1. These behaviors are not fixed here.
 
 AEE v4.0 Bittensor Subnet Validator & Rapid Crypto Validation Engine
 Automated Miner Payload Telemetry Scoring, Entropy Profiling & Consensus Weight Dispatcher
