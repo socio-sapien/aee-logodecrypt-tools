@@ -3,8 +3,9 @@ Mathematical Certainty Engine
 
 WARNING: Experimental prototype. Its proofs are not independently verified;
 self-computed hashes do not establish truth, authenticity, or determinism.
-Execution proof and chain checks are internally inconsistent. Truth checking
-is limited to a small hard-coded set of literals, not general verification.
+Synthetic tests show execution and chain checks can accept fabricated evidence,
+and the determinism check can accept changed output. These checks do not verify
+execution or determinism. Truth checking is limited to hard-coded literals.
 Do not rely on this module for security, factual verification or production.
 
 Historical description follows:

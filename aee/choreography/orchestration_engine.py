@@ -1,6 +1,13 @@
 """
 Orchestration Engine - The Heart of Automated Agency Optimization
 
+WARNING: Experimental prototype, not a security or production verifier.
+In an import-patched copy, OrchestratedResult.verify() returned True when
+both cryptographic proof and audit result were absent. It cannot establish
+execution, authenticity, correctness, or determinism. The unmodified package
+has import errors. No deployed exposure was established by that local test.
+
+Historical description follows:
 This is the central orchestration engine that integrates all components:
 - Mathematical Certainty Engine
 - Ghost Operators and Agents

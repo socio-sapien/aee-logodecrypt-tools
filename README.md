@@ -16,7 +16,7 @@ Explore the live [PRIME demonstration floor](https://socio-sapien.github.io/aee-
 - `aee/bittensor-experimental/`: experimental crypto/subnet scripts; no live integration is claimed here.
 - `logodecrypt/payloads-and-specifications/`: versions 0.1–0.9 and an apparatus specification.
 
-**Choreography warning:** `aee/choreography/mathematical_certainty.py` is an experimental prototype, not a truth, authenticity or determinism verifier. The truth checker recognizes only fixed literals and does not evaluate Python expressions. Self-hashed proof objects do not establish a claim; execution-proof and chain checks are internally inconsistent. Do not rely on this module for security or production. The restricted checker is a breaking change for callers of general expressions.
+**Choreography warning:** `aee/choreography/` is an experimental prototype, not a truth, authenticity, execution or determinism verifier. Local synthetic tests showed that its execution and chain checks can accept fabricated evidence and its determinism check can accept changed output. In an import-patched copy, `OrchestratedResult.verify()` returned true when both proof and audit were absent. The unmodified package has import errors; no deployed exposure was established. Do not rely on these checks for security or production. The separate truth checker recognizes only fixed literals, a breaking change for callers of general expressions.
 
 These materials are research prototypes. Their labels, signatures and text-pattern outputs are not independent verification of truth, intent, security, market predictions or performance. Evaluate before production use. The corpus and data-bearing fine-tuning materials are not included.
 
