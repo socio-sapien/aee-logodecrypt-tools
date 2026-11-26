@@ -22,6 +22,8 @@ Explore the live [PRIME demonstration floor](https://socio-sapien.github.io/aee-
 
 **Breaking change:** choreography execution, chain, determinism, orchestration-result and manager verification methods now raise `NotImplementedError`; absolute-certainty assertion also raises before executing. Existing boolean callers must handle the exception as unavailable, never success. This does not repair imports or implement verification. Other prototype paths and certainty labels remain unverified. `MathematicalProof.verify()` remains only a self-hash check, not evidence of truth, execution or authenticity.
 
+**Optimization warning:** In synthetic direct calls on an import-patched copy, mathematical optimization added `certainty: absolute` even with a missing proof or an incorrect proof checksum. The checksum only compares a self-computed hash; it does not validate a claim. Do not use this label as proof. No deployed exposure was established.
+
 These materials are research prototypes. Their labels, signatures and text-pattern outputs are not independent verification of truth, intent, security, market predictions or performance. Evaluate before production use. The corpus and data-bearing fine-tuning materials are not included.
 
 This is an initial selection from files accessible through the connected Drive, not a complete export. The components are preserved as supplied; dependencies, licensing and runnable status may vary.

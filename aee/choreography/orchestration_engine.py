@@ -7,6 +7,9 @@ OrchestratedResult.verify() when proof and audit were absent. Verification
 and verify_all_results now raise NotImplementedError, a breaking change;
 execution, authenticity, correctness and determinism are not established.
 The unmodified package has import errors. No deployed exposure was established.
+In synthetic direct calls on an import-patched copy, mathematical optimization
+added an absolute-certainty label despite a missing proof or incorrect checksum.
+The label does not establish truth, execution, authenticity or determinism.
 
 Historical description follows:
 This is the central orchestration engine that integrates all components:
