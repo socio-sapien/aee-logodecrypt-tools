@@ -1,6 +1,8 @@
 # AEE v4.0 Core CLI & Minimalist Schema [Developer Edition]
 ### Subtitle: Zero-Dependency Copy-Paste Veracity Diagnostic & Text Integrity Scorer
 
+> Scope note: This prototype counts matching terms and reports heuristic labels. Its TRUE and DECEPTIVE labels do not establish factual truth, deception or intent. The performance figures below are historical claims, not independently validated benchmarks. The CLI syntax and JSON stdin output were repaired; no audit methodology or verdict behavior was validated by that repair.
+
 ## Overview
 The Developer Edition of the Aletheiac-Entropy Engine (AEE) v4.0 provides a lightweight, zero-dependency implementation of the standing forensic veracity audit standard. Designed for rapid integration into Python pipelines, agentic workflows, and developer tools.
 

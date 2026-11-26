@@ -19,15 +19,14 @@ def main():
         with open(args.file, 'r', encoding='utf-8') as f:
             content = f.read()
     else:
-        print("Reading from stdin (Ctrl+D to finish)...")
+        print("Reading from stdin (Ctrl+D to finish)...", file=sys.stderr)
         content = sys.stdin.read()
 
     res = aee_minimal_audit(content)
     if args.json:
         print(json.dumps(res, indent=2))
     else:
-        print("
-================ AEE v4.0 AUDIT RECORD ================")
+        print("\n================ AEE v4.0 AUDIT RECORD ================")
         print(f"VERDICT:        {res['VERDICT']}")
         print(f"CONTAMINATION:  {res['CONTAMINATION']} (Absolute Rule: C=0 -> TRUE)")
         print(f"TRUTH DECAY Td: {res['T_d']:.4f}")
@@ -36,8 +35,7 @@ def main():
         print(f"FIRST LOCUS:    {res['FLAG']}")
         if res['D_TERMS']:
             print(f"EVASIONS FOUND: {', '.join(res['D_TERMS'])}")
-        print("=======================================================
-")
+        print("=======================================================\n")
 
 if __name__ == '__main__':
     main()
