@@ -1,3 +1,5 @@
+> The v4 commercial-suite streaming daemon is a prototype: it can delete input files and overwrite output paths, and its pattern-based cleaner is not comprehensive redaction. See its [safety note](aee/v4-commercial-suite/02_PROFESSIONAL_STREAMING_DAEMON/README.md).
+
 ## Root PRIME 6.7 installation
 
 Run `python3 PRIME_6_7.py --version` and read [the operational protocol](PRIME_PROTOCOL.md). The vendored full instrument, MCP server, lifecycle hooks, setup verification and CI are included. Actual host coverage and limitations are stated in that protocol.
