@@ -7,9 +7,11 @@ OrchestratedResult.verify() when proof and audit were absent. Verification
 and verify_all_results now raise NotImplementedError, a breaking change;
 execution, authenticity, correctness and determinism are not established.
 The unmodified package has import errors. No deployed exposure was established.
-In synthetic direct calls on an import-patched copy, mathematical optimization
-added an absolute-certainty label despite a missing proof or incorrect checksum.
-The label does not establish truth, execution, authenticity or determinism.
+Previously, synthetic direct calls on an import-patched copy added an absolute-
+certainty label despite a missing proof or incorrect checksum. Mathematical
+optimization and AutomationController.execute_initiative now raise
+NotImplementedError, including before manager execution. This breaks callers;
+other optimization paths and the prototype as a whole remain unvalidated.
 
 Historical description follows:
 This is the central orchestration engine that integrates all components:
@@ -528,30 +530,14 @@ class AutomationController:
     
     def execute_initiative(self, initiative_id: str, 
                            context: Dict[str, Any] = None) -> OrchestratedResult:
+        """Unavailable: this prototype cannot verify automated execution.
+
+        Raises before the initiative manager is called.
         """
-        Execute an initiative with full automation.
-        
-        This method ensures:
-        1. Preemptive audit with mathematical certainty
-        2. Deterministic execution
-        3. Cryptographic verification
-        4. Cross-platform synchronization (if needed)
-        5. Agency optimization
-        """
-        # Execute through initiative manager
-        result = self.initiative_manager.execute_initiative(initiative_id, context)
-        
-        # Apply optimization based on strategy
-        if self.optimization_strategy != OptimizationStrategy.AUDIT_ONLY:
-            optimized_result = self._apply_optimization(result)
-            if optimized_result:
-                result = optimized_result
-        
-        # Update metrics
-        self._update_metrics(result)
-        
-        return result
-    
+        # Fail before the manager can perform any action: this path cannot meet
+        # its advertised verification and currently references a missing enum.
+        raise NotImplementedError("automated initiative execution is not validated")
+
     def create_and_execute_initiative(self, initiative_type: InitiativeType,
                                        description: str, data: Dict[str, Any] = None,
                                        priority: int = 0, context: Dict[str, Any] = None) -> OrchestratedResult:
@@ -590,27 +576,9 @@ class AutomationController:
     
     def _mathematical_optimization(self, result: OrchestratedResult) -> OrchestratedResult:
         """Apply mathematical optimization"""
-        # In mathematical optimization, we ensure absolute certainty
-        # by re-verifying the mathematical proofs
-        
-        if result.mathematical_proof:
-            # Re-verify the mathematical proof
-            if not result.mathematical_proof.verify():
-                # If verification fails, we need to re-execute
-                # For now, we'll just return the original result
-                pass
-        
-        # Add optimization metadata
-        optimized_data = result.output
-        if isinstance(optimized_data, dict):
-            optimized_data['_optimization'] = {
-                'strategy': 'mathematical',
-                'certainty': 'absolute',
-                'timestamp': time.time()
-            }
-        
-        return result
-    
+        # A matching self-hash is not proof of the result or its execution.
+        raise NotImplementedError("mathematical optimization is not verified")
+
     def _adaptive_optimization(self, result: OrchestratedResult) -> OrchestratedResult:
         """Apply adaptive optimization based on results"""
         # Adaptive optimization would adjust based on historical data

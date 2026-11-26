@@ -81,6 +81,31 @@ class VerificationUnavailable(unittest.TestCase):
             manager.results = results
             with self.assertRaises(NotImplementedError): manager.verify_all_results()
 
+    def test_mathematical_optimization_refuses_without_mutating_result(self):
+        m = self.orch
+        controller = m.AutomationController.__new__(m.AutomationController)
+        class FakeProof:
+            def verify(self): return True
+        for proof in (None, FakeProof()):
+            output = {'value': 'sample'}
+            result = m.OrchestratedResult('r', 'i', m.InitiativeType.TASK,
+                                          'completed', output, 0, mathematical_proof=proof)
+            with self.assertRaises(NotImplementedError):
+                controller._mathematical_optimization(result)
+            self.assertEqual(output, {'value': 'sample'})
+
+    def test_controller_refuses_before_invoking_manager(self):
+        m = self.orch
+        controller = m.AutomationController.__new__(m.AutomationController)
+        class Manager:
+            def execute_initiative(self, *args):
+                raise AssertionError('manager must not be invoked')
+        controller.initiative_manager = Manager()
+        for strategy in m.OptimizationStrategy:
+            controller.optimization_strategy = strategy
+            with self.assertRaises(NotImplementedError):
+                controller.execute_initiative('example', {})
+
     def test_literal_truth_verifier_stays_bounded(self):
         m = self.math
         v = m.AbsoluteTruthVerifier()
